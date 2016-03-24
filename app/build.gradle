@@ -1,0 +1,65 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        applicationId "com.group9.eda397"
+        minSdkVersion 19
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    /** Android Support Libraries **/
+    compile 'com.android.support:appcompat-v7:23.2.1'
+    compile 'com.android.support:design:23.2.1'
+    compile 'com.android.support:support-v13:23.2.1'
+    compile 'com.android.support:recyclerview-v7:23.2.1'
+    compile 'com.android.support:cardview-v7:23.2.1'
+
+    /** Retrofit HTTP Framework and Utilities **/
+    compile 'com.squareup.retrofit2:retrofit:2.0.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.0.1'
+
+    /** Picasso Image Loader and OK HTTP (used by Retrofit and Picasso) **/
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.0.1'
+
+    /** Butterknife - View Injection Library **/
+    compile 'com.jakewharton:butterknife:7.0.1'
+
+    /** RxJava and RxAndroid **/
+    /** library for composing asynchronous and event-based programs by using observable sequences. **/
+    compile 'io.reactivex:rxjava:1.1.0'
+    compile 'io.reactivex:rxandroid:1.1.0'
+
+    /** Rx Capable Shared Preferences **/
+    compile 'com.f2prateek.rx.preferences:rx-preferences:1.0.1'
+
+    /** Icepick Instance State handling **/
+    compile 'frankiesardo:icepick:3.1.0'
+    provided 'frankiesardo:icepick-processor:3.1.0'
+
+    /** Logging **/
+    compile 'com.jakewharton.timber:timber:4.0.1'
+
+    /** Test Dependencies **/
+    testCompile 'junit:junit:4.12'
+}
