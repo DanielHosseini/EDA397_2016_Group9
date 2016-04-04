@@ -32,6 +32,5 @@ public class Iso8601UtilsTest {
         assertThat(c.get(Calendar.HOUR_OF_DAY), is(13));
         assertThat(c.get(Calendar.MINUTE), is(39));
         assertThat(c.get(Calendar.SECOND), is(43));
-
     }
 }
