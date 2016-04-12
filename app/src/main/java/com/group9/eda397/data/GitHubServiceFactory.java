@@ -21,6 +21,7 @@ public class GitHubServiceFactory {
     private static String API_URL = "https://api.github.com";
 
     public static GitHubService getService(final Application app) {
+
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Date.class, new Rfc339DateJsonAdapter())
                 .create();

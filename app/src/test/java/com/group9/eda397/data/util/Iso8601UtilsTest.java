@@ -17,7 +17,7 @@ public class Iso8601UtilsTest {
 
     @Test
     public void testFormat() throws Exception {
-        assertThat(Iso8601Utils.format(new Date(1458826783000L)), is("2016-03-24T13:39:43Z"));
+        assertThat(Iso8601Utils.format(new Date(1458826783000L)), is("2016-03-24T13:39:43.000Z"));
     }
 
     @Test
