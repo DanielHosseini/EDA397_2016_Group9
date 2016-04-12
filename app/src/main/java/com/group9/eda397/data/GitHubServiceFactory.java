@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.group9.eda397.data.github.GitHubService2;
+import com.group9.eda397.data.github.GitHubService;
 import com.group9.eda397.data.util.HttpUtil;
 import com.group9.eda397.data.util.Rfc339DateJsonAdapter;
 
@@ -20,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class GitHubServiceFactory {
     private static String API_URL = "https://api.github.com";
 
-    public static GitHubService2 getService(final Application app) {
+    public static GitHubService getService(final Application app) {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Date.class, new Rfc339DateJsonAdapter())
                 .create();
@@ -29,6 +29,6 @@ public class GitHubServiceFactory {
                 .client(HttpUtil.createApiClient(app).build()) // todo add interceptors if needed, access token for instance
                 .baseUrl(API_URL)
                 .build()
-                .create(GitHubService2.class);
+                .create(GitHubService.class);
     }
 }

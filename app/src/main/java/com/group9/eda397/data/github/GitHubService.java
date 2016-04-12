@@ -14,7 +14,7 @@ import retrofit2.http.Path;
  * @author palmithor
  * @since 24/03/16.
  */
-public interface GitHubService2 {
+public interface GitHubService {
 
     String PATH_PARAM_OWNER = "owner";
     String PATH_PARAM_REPO = "repo";

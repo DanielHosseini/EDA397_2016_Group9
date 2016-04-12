@@ -27,7 +27,7 @@ import static org.junit.Assert.assertThat;
  * @author palmithor
  * @since 24/03/16.
  */
-public class GitHubService2Test extends InstrumentationTestCase {
+public class GitHubServiceTest extends InstrumentationTestCase {
     public static final int RESPONSE_TIME_MILLISECONDS = 60;
     private MockRetrofit mockRetrofit;
     private Retrofit retrofit;
@@ -50,21 +50,21 @@ public class GitHubService2Test extends InstrumentationTestCase {
 
     @Test
     public void testGetGitHubCommits() throws Exception {
-        BehaviorDelegate<GitHubService2> delegate = mockRetrofit.create(GitHubService2.class);
-        GitHubService2Mock gitHubServiceMock = new GitHubService2Mock(delegate);
+        BehaviorDelegate<GitHubService> delegate = mockRetrofit.create(GitHubService.class);
+        GitHubServiceMock gitHubServiceMock = new GitHubServiceMock(delegate);
         Call<List<GitHubCommitItem>> gitHubCommitsCall = gitHubServiceMock.getGitHubCommits("", "");
         List<GitHubCommitItem> response = gitHubCommitsCall.execute().body();
         assertThat(response.size(), is(0));
     }
 
     /**
-     * A mock implementation of the {@link GitHubService2} API interface.
+     * A mock implementation of the {@link GitHubService} API interface.
      */
-    static final class GitHubService2Mock implements GitHubService2 {
-        private final BehaviorDelegate<GitHubService2> delegate;
+    static final class GitHubServiceMock implements GitHubService {
+        private final BehaviorDelegate<GitHubService> delegate;
         private final Map<String, Map<String, List<GitHubCommitItem>>> gitHubCommits;
 
-        public GitHubService2Mock(BehaviorDelegate<GitHubService2> delegate) {
+        public GitHubServiceMock(BehaviorDelegate<GitHubService> delegate) {
             this.delegate = delegate;
             gitHubCommits = new LinkedHashMap<>();
 
