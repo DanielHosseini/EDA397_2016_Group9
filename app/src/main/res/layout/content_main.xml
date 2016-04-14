@@ -13,8 +13,8 @@
     tools:context="com.group9.eda397.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <TextView
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"/>
+        android:layout_height="wrap_content"/>
 </RelativeLayout>
