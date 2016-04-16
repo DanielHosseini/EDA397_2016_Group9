@@ -35,7 +35,7 @@ public class GitHubServiceTest extends InstrumentationTestCase {
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        retrofit = new Retrofit.Builder().baseUrl("http://test.com")
+        retrofit = new Retrofit.Builder().baseUrl(GitHubService.BASE_URL)
                 .client(new OkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -52,7 +52,7 @@ public class GitHubServiceTest extends InstrumentationTestCase {
     public void testGetGitHubCommits() throws Exception {
         BehaviorDelegate<GitHubService> delegate = mockRetrofit.create(GitHubService.class);
         GitHubServiceMock gitHubServiceMock = new GitHubServiceMock(delegate);
-        Call<List<GitHubCommitItem>> gitHubCommitsCall = gitHubServiceMock.getGitHubCommits("", "");
+        Call<List<GitHubCommitItem>> gitHubCommitsCall = gitHubServiceMock.getCommits("", "");
         List<GitHubCommitItem> response = gitHubCommitsCall.execute().body();
         assertThat(response.size(), is(0));
     }
@@ -73,9 +73,9 @@ public class GitHubServiceTest extends InstrumentationTestCase {
         }
 
         @Override
-        public Call<List<GitHubCommitItem>> getGitHubCommits(final String owner, final String repository) {
+        public Call<List<GitHubCommitItem>> getCommits(final String owner, final String repository) {
             List<GitHubCommitItem> response = Collections.emptyList();
-            return delegate.returningResponse(response).getGitHubCommits(owner, repository);
+            return delegate.returningResponse(response).getCommits(owner, repository);
         }
     }
 

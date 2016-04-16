@@ -9,17 +9,18 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 /**
- * Retrofit interface for GitHub restful APi
+ * Retrofit interface for GitHub REST API
  *
  * @author palmithor
  * @since 24/03/16.
  */
 public interface GitHubService {
+    String BASE_URL = "https://api.github.com";
 
     String PATH_PARAM_OWNER = "owner";
     String PATH_PARAM_REPO = "repo";
 
     @GET("/repos/{" + PATH_PARAM_OWNER + "}/{" + PATH_PARAM_REPO + "}/commits")
-    Call<List<GitHubCommitItem>> getGitHubCommits(@Path(PATH_PARAM_OWNER) final String owner,
-                                                  @Path(PATH_PARAM_REPO) final String repository);
+    Call<List<GitHubCommitItem>> getCommits(@Path(PATH_PARAM_OWNER) final String owner,
+                                            @Path(PATH_PARAM_REPO) final String repository);
 }
