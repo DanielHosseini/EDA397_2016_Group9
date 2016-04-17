@@ -9,7 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ProgressBar;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -41,7 +41,7 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
     public static final String REPOSITORY = "EDA397_2016_Group9";
     @Bind(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.recycler_view) RecyclerView recyclerView;
-    @Bind(R.id.progress_bar) ProgressBar progressBar;
+    @Bind(R.id.fl_loading) FrameLayout loadingFrameLayout;
     @Bind(R.id.tv_no_results) TextView noResultsTextView;
     @Bind(R.id.rl_error) RelativeLayout errorView;
 
@@ -123,7 +123,7 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
 
     private void showErrorView() {
         swipeRefreshLayout.setRefreshing(false);
-        progressBar.setVisibility(View.GONE);
+        loadingFrameLayout.setVisibility(View.GONE);
         noResultsTextView.setVisibility(View.GONE);
         errorView.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.VISIBLE);
@@ -132,7 +132,7 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
 
     private void showList() {
         swipeRefreshLayout.setRefreshing(false);
-        progressBar.setVisibility(View.GONE);
+        loadingFrameLayout.setVisibility(View.GONE);
         noResultsTextView.setVisibility(View.GONE);
         errorView.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
@@ -142,14 +142,14 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
     private void showEmptyView() {
         swipeRefreshLayout.setRefreshing(false);
         noResultsTextView.setVisibility(View.VISIBLE);
-        progressBar.setVisibility(View.GONE);
+        loadingFrameLayout.setVisibility(View.GONE);
         errorView.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
         swipeRefreshLayout.setVisibility(View.VISIBLE);
     }
 
     private void showLoading() {
-        progressBar.setVisibility(View.VISIBLE);
+        loadingFrameLayout.setVisibility(View.VISIBLE);
         noResultsTextView.setVisibility(View.GONE);
         errorView.setVisibility(View.GONE);
         recyclerView.setVisibility(View.GONE);

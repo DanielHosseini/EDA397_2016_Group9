@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
 
     <include layout="@layout/merge_empty_view"/>
 
     <include layout="@layout/merge_error_view"/>
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"/>
-
     <!-- TODO add app bar with edit texts for setting owner and repository -->
     <include layout="@layout/merge_list_pull_to_refresh"/>
 
-</FrameLayout>
+</RelativeLayout>
