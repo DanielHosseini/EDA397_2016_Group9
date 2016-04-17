@@ -21,9 +21,9 @@ public class StringUtilsTest {
 
     @Test
     public void testIsBlank() throws Exception {
-        assertThat(StringUtils.isNotBlank(null), is(true));
-        assertThat(StringUtils.isNotBlank(StringUtils.EMPTY_STRING), is(true));
-        assertThat(StringUtils.isNotBlank("    "), is(true));
-        assertThat(StringUtils.isNotBlank("Hello World"), is(false));
+        assertThat(StringUtils.isBlank(null), is(true));
+        assertThat(StringUtils.isBlank(StringUtils.EMPTY_STRING), is(true));
+        assertThat(StringUtils.isBlank("    "), is(true));
+        assertThat(StringUtils.isBlank("Hello World"), is(false));
     }
 }
