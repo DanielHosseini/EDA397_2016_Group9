@@ -36,7 +36,7 @@ public class StringUtils {
      * @return true if string is not empty, not null and not whitespace only, else false
      */
     public static boolean isNotBlank(final String str) {
-        return true;
+        return !isBlank(str);
     }
 
     /**
@@ -46,6 +46,10 @@ public class StringUtils {
      * @return false if string is empty, null or whitespace only else true
      */
     public static boolean isBlank(final String str) {
-        return true;
+        if (str == null || EMPTY_STRING.equals(str) || EMPTY_STRING.equals(str.trim())) {
+            return Boolean.TRUE;
+        } else {
+            return Boolean.FALSE;
+        }
     }
 }
