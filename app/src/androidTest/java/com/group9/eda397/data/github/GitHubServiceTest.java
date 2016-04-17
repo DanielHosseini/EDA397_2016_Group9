@@ -2,6 +2,7 @@ package com.group9.eda397.data.github;
 
 import android.test.InstrumentationTestCase;
 
+import com.group9.eda397.data.GitHubServiceFactory;
 import com.group9.eda397.model.GitHubCommitItem;
 
 import org.junit.Test;
@@ -35,7 +36,7 @@ public class GitHubServiceTest extends InstrumentationTestCase {
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        retrofit = new Retrofit.Builder().baseUrl(GitHubService.BASE_URL)
+        retrofit = new Retrofit.Builder().baseUrl(GitHubServiceFactory.BASE_URL)
                 .client(new OkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

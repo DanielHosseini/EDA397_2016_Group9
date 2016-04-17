@@ -15,7 +15,6 @@ import retrofit2.http.Path;
  * @since 24/03/16.
  */
 public interface GitHubService {
-    String BASE_URL = "https://api.github.com";
 
     String PATH_PARAM_OWNER = "owner";
     String PATH_PARAM_REPO = "repo";

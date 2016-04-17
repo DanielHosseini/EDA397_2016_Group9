@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.group9.eda397.ui.fragments.TravisBuildsFragment;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -97,8 +99,8 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_manage) {
-
+        } else if (id == R.id.nav_travis) {
+            fragment = TravisBuildsFragment.newInstance();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {

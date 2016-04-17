@@ -5,6 +5,7 @@ import android.test.InstrumentationTestCase;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.group9.eda397.data.TravisServiceFactory;
 import com.group9.eda397.data.github.GitHubService;
 import com.group9.eda397.data.github.TravisService;
 import com.group9.eda397.data.util.Rfc339DateJsonAdapter;
@@ -46,7 +47,7 @@ public class TravisServiceTest extends InstrumentationTestCase {
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        retrofit = new Retrofit.Builder().baseUrl(TravisService.BASE_URL)
+        retrofit = new Retrofit.Builder().baseUrl(TravisServiceFactory.BASE_URL)
                 .client(new OkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

@@ -5,4 +5,19 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+
+    <!-- Titles: prefix title_ -->
+    <string name="title_travis_builds">Travis CI Builds</string>
+    <string name="title_in_progress">In Progress</string>
+    <string name="message_no_results">Sorry, no results!</string>
+
+    <!-- Actions: prefix action_ -->
+
+
+    <!-- Messages: prefix message_ -->
+
+
+    <!-- Error Messages: prefix error_ -->
+    <string name="error_unknown_error">Oops, something went wrong</string>
 </resources>

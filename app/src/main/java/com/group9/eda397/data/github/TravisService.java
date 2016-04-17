@@ -16,7 +16,6 @@ import retrofit2.http.Path;
  */
 public interface TravisService {
 
-    String BASE_URL = "https://api.travis-ci.org";
     String PATH_PARAM_OWNER = "owner";
     String PATH_PARAM_REPO = "repo";
 

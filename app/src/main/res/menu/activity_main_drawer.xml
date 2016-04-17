@@ -15,9 +15,9 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Slideshow"/>
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools"/>
+            android:id="@+id/nav_travis"
+            android:icon="@drawable/ic_loop_black_36dp"
+            android:title="@string/title_travis_builds"/>
     </group>
 
     <item android:title="Communicate">

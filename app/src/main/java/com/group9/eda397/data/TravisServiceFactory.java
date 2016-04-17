@@ -21,6 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class TravisServiceFactory {
 
+    public static String BASE_URL = "https://api.travis-ci.org";
 
     public static TravisService getService(final Application app) {
 
@@ -30,7 +31,7 @@ public class TravisServiceFactory {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(HttpUtil.createApiClient(app).build())
-                .baseUrl(TravisService.BASE_URL)
+                .baseUrl(BASE_URL)
                 .build()
                 .create(TravisService.class);
     }

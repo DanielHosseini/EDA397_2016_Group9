@@ -21,6 +21,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class GitHubServiceFactory {
 
+    public static String BASE_URL = "https://api.github.com";
+
     public static GitHubService getService(final Application app) {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Date.class, new Rfc339DateJsonAdapter())
@@ -28,7 +30,7 @@ public class GitHubServiceFactory {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(HttpUtil.createApiClient(app).build()) // todo add interceptors if needed, access token for instance
-                .baseUrl(GitHubService.BASE_URL)
+                .baseUrl(BASE_URL)
                 .build()
                 .create(GitHubService.class);
     }
