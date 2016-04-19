@@ -2,7 +2,6 @@ package com.group9.eda397.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -17,6 +16,7 @@ import com.group9.eda397.R;
 import com.group9.eda397.data.TravisServiceFactory;
 import com.group9.eda397.data.github.TravisService;
 import com.group9.eda397.model.TravisBuild;
+import com.group9.eda397.ui.activities.TravisBuildDetailsActivity;
 import com.group9.eda397.ui.adapters.TravisBuildsAdapter;
 import com.squareup.picasso.Picasso;
 
@@ -82,7 +82,7 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
 
     @Override
     public void onClickItem(final View view, final int position, final TravisBuild item) {
-        Snackbar.make(getView(), "Not yet implemented, should show details view", Snackbar.LENGTH_SHORT).show();
+        startActivity(TravisBuildDetailsActivity.getStartingIntent(getActivity(), item.getId()));
     }
 
     @Override
