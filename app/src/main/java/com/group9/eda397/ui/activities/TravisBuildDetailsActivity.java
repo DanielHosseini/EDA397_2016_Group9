@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.group9.eda397.R;
@@ -38,6 +41,8 @@ public class TravisBuildDetailsActivity extends ToolbarActivity {
     @State protected TravisBuildDetails travisBuildDetails;
     @Bind(R.id.tv_author_name) TextView authorTextView;
     @Bind(R.id.tv_author_email) TextView authorEmailTextView;
+    @Bind(R.id.travis_build_details) LinearLayout linearLayout;
+    @Bind(R.id.fl_loading) FrameLayout loadingFrameLayout;
     private TravisService travisService;
 
     public static Intent getStartingIntent(final Activity startingActivity, final String owner, final String repository, final Long buildId, final String buildNumber) {
@@ -108,6 +113,8 @@ public class TravisBuildDetailsActivity extends ToolbarActivity {
 
     private void showLoadingView() {
         // TODO show loading view, hide error view and main view
+        linearLayout.setVisibility(View.GONE);
+        loadingFrameLayout.setVisibility(View.VISIBLE);
     }
 
     private void showErrorView() {
@@ -116,6 +123,9 @@ public class TravisBuildDetailsActivity extends ToolbarActivity {
 
     private void setupViews() {
         // TODO show details view, hide loading and error view
+        linearLayout.setVisibility(View.VISIBLE);
+        loadingFrameLayout.setVisibility(View.GONE);
+
         authorTextView.setText(travisBuildDetails.getAuthorName());
         authorEmailTextView.setText(travisBuildDetails.getAuthorEmail());
     }
