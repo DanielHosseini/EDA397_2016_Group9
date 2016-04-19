@@ -19,7 +19,7 @@ import icepick.Icepick;
  * <p/>
  * It also introduces a method for extracting parameters from the bundle.
  * <p/>
- * Finally it resotres and stores the instance state using Icepick
+ * Finally it restores and stores the instance state using Icepick
  *
  * @author palmithor
  * @since 17/04/16.

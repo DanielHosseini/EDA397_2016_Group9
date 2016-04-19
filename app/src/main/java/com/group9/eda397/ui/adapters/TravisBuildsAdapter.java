@@ -83,7 +83,7 @@ public class TravisBuildsAdapter extends BaseRecyclerAdapter<TravisBuild> {
                 finishedAtTextView.setText(R.string.title_in_progress);
                 stateImageView.setImageResource(R.drawable.ic_loop_black_36dp);
             } else {
-                finishedAtTextView.setText(String.format("%s at %s",
+                finishedAtTextView.setText(String.format("Finished: %s at %s",
                         DateUtils.formatDateTime(context, build.getFinishedAt().getTime(), DateUtils.FORMAT_ABBREV_MONTH),
                         DateUtils.formatDateTime(context, build.getFinishedAt().getTime(), DateUtils.FORMAT_SHOW_TIME)));
                 stateImageView.setImageResource(build.getResult() != 0 ? R.drawable.ic_thumb_down_black_24dp : R.drawable.ic_thumb_up_black_24dp);

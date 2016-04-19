@@ -23,6 +23,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import butterknife.Bind;
+import icepick.State;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,14 +38,15 @@ import timber.log.Timber;
  */
 public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
-    public static final String OWNER = "DanielHosseini";
-    public static final String REPOSITORY = "EDA397_2016_Group9";
+    public static final String DEFAULT_OWNER = "DanielHosseini";
+    public static final String DEFAULT_REPOSITORY = "EDA397_2016_Group9";
+    @State protected String owner;
+    @State protected String repository;
     @Bind(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.recycler_view) RecyclerView recyclerView;
     @Bind(R.id.fl_loading) FrameLayout loadingFrameLayout;
     @Bind(R.id.tv_no_results) TextView noResultsTextView;
     @Bind(R.id.rl_error) RelativeLayout errorView;
-
     private TravisBuildsAdapter adapter;
     private LinearLayoutManager layoutManager;
     private TravisService travisService;
@@ -56,6 +58,10 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
     @Override
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState == null) {
+            this.owner = DEFAULT_OWNER;
+            this.repository = DEFAULT_REPOSITORY;
+        }
         travisService = TravisServiceFactory.getService(getActivity().getApplication());
     }
 
@@ -88,7 +94,7 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
         if (!pullToRefresh) {
             showLoading();
         }
-        Call<List<TravisBuild>> call = travisService.getBuilds(OWNER, REPOSITORY);
+        Call<List<TravisBuild>> call = travisService.getBuilds(owner, repository);
         call.enqueue(new Callback<List<TravisBuild>>() {
             @Override
             public void onResponse(Call<List<TravisBuild>> call, Response<List<TravisBuild>> response) {
