@@ -2,6 +2,7 @@ package com.group9.eda397.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Date;
  * @author palmithor
  * @since 16/04/16.
  */
-public class TravisBuild {
+public class TravisBuild implements Serializable {
 
     @SerializedName("id") final Long id;
     @SerializedName("repository_id") final Long repositoryId;
