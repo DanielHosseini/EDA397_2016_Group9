@@ -10,12 +10,13 @@
     <!-- Titles: prefix title_ -->
     <string name="title_travis_builds">Travis CI Builds</string>
     <string name="title_in_progress">In Progress</string>
-    <string name="message_no_results">Sorry, no results!</string>
+    <string name="title_build">Build</string>
 
     <!-- Actions: prefix action_ -->
 
 
     <!-- Messages: prefix message_ -->
+    <string name="message_no_results">Sorry, no results!</string>
 
 
     <!-- Error Messages: prefix error_ -->

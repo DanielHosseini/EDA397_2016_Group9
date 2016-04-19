@@ -26,7 +26,8 @@
 
         <activity
             android:name="com.group9.eda397.ui.activities.TravisBuildDetailsActivity"
-            android:launchMode="standard"/>
+            android:launchMode="standard"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
