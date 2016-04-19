@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.group9.eda397.ui.activities.TravisBuildDetailsActivity">
+    tools:context="com.group9.eda397.ui.activities.TravisBuildDetailsActivity"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -24,16 +25,57 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:padding="@dimen/spacing_normal"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_author_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:elevation="100dp"
+            card_view:cardCornerRadius="8dp"
+            android:layout_margin="@dimen/spacing_normal"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/spacing_normal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_author_name"/>
+                <TextView
+                    android:id="@+id/tv_author_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/spacing_normal"/>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
 
-        <TextView
-            android:id="@+id/tv_author_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardview2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:elevation="100dp"
+            card_view:cardCornerRadius="8dp"
+            android:layout_margin="@dimen/spacing_normal"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/spacing_normal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_author_email"/>
+                <TextView
+                    android:id="@+id/tv_author_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/spacing_normal"/>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
