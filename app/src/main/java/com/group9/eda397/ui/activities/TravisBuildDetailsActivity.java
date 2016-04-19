@@ -28,9 +28,11 @@ import timber.log.Timber;
 public class TravisBuildDetailsActivity extends ToolbarActivity {
 
     private static final String EXTRA_BUILD_ID = "travis_build_id_extra";
+    private static final String EXTRA_BUILD_NUMBER = "travis_build_number_extra";
     private static final String EXTRA_REPOSITORY = "travis_build_owner_extra";
     private static final String EXTRA_OWNER = "travis_build_repository_extra";
     @State protected Long buildId;
+    @State protected String buildNumber;
     @State protected String repository;
     @State protected String owner;
     @State protected TravisBuildDetails travisBuildDetails;
@@ -38,11 +40,12 @@ public class TravisBuildDetailsActivity extends ToolbarActivity {
     @Bind(R.id.tv_author_email) TextView authorEmailTextView;
     private TravisService travisService;
 
-    public static Intent getStartingIntent(final Activity startingActivity, final String owner, final String repository, final Long buildId) {
+    public static Intent getStartingIntent(final Activity startingActivity, final String owner, final String repository, final Long buildId, final String buildNumber) {
         Intent intent = new Intent(startingActivity, TravisBuildDetailsActivity.class);
         intent.putExtra(EXTRA_BUILD_ID, buildId);
         intent.putExtra(EXTRA_OWNER, owner);
         intent.putExtra(EXTRA_REPOSITORY, repository);
+        intent.putExtra(EXTRA_BUILD_NUMBER, buildNumber);
         return intent;
     }
 
@@ -68,12 +71,13 @@ public class TravisBuildDetailsActivity extends ToolbarActivity {
         this.buildId = params.getLong(EXTRA_BUILD_ID);
         this.owner = params.getString(EXTRA_OWNER);
         this.repository = params.getString(EXTRA_REPOSITORY);
+        this.buildNumber = params.getString(EXTRA_BUILD_NUMBER);
     }
 
     @Override
     protected void setupToolbar() {
         super.setupToolbar();
-        String title = getResources().getString(R.string.title_build) + StringUtils.SPACE + StringUtils.HASHTAG + buildId;
+        String title = getResources().getString(R.string.title_build) + StringUtils.SPACE + StringUtils.HASHTAG + buildNumber;
         toolbar.setTitle(title);
     }
 

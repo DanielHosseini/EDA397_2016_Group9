@@ -82,7 +82,7 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
 
     @Override
     public void onClickItem(final View view, final int position, final TravisBuild item) {
-        startActivity(TravisBuildDetailsActivity.getStartingIntent(getActivity(), owner, repository, item.getId()));
+        startActivity(TravisBuildDetailsActivity.getStartingIntent(getActivity(), owner, repository, item.getId(), item.getBuildNumber()));
     }
 
     @Override
