@@ -98,7 +98,7 @@ public class TravisBuildDetailsActivity extends BaseActivity {
     }
 
     private void setupViews() {
-        authorTextView.setText(travisBuildDetails.getAuthorEmail());
+        authorTextView.setText(travisBuildDetails.getAuthorName());
         authorEmailTextView.setText(travisBuildDetails.getAuthorEmail());
     }
 }
