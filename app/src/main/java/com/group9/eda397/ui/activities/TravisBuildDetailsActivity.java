@@ -78,6 +78,7 @@ public class TravisBuildDetailsActivity extends ToolbarActivity {
     }
 
     private void fetchBuild() {
+        showLoadingView();
         Call<TravisBuildDetails> call = travisService.getBuildDetails(owner, repository, buildId);
         call.enqueue(new Callback<TravisBuildDetails>() {
                          @Override
@@ -101,11 +102,16 @@ public class TravisBuildDetailsActivity extends ToolbarActivity {
         );
     }
 
-    private void showErrorView() {
+    private void showLoadingView() {
+        // TODO show loading view, hide error view and main view
+    }
 
+    private void showErrorView() {
+        // TODO show error view, hide loading view and main view
     }
 
     private void setupViews() {
+        // TODO show details view, hide loading and error view
         authorTextView.setText(travisBuildDetails.getAuthorName());
         authorEmailTextView.setText(travisBuildDetails.getAuthorEmail());
     }
