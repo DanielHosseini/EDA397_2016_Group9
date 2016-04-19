@@ -1,14 +1,8 @@
 package com.group9.eda397.model;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.internal.bind.util.ISO8601Utils;
-import com.group9.eda397.data.util.Rfc339DateJsonAdapter;
 
-import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Date;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -17,7 +11,7 @@ import static org.junit.Assert.assertThat;
  * @author palmithor
  * @since 16/04/16.
  */
-public class TravisBuildTest {
+public class TravisBuildTest extends GsonSerializationTest {
 
     private static final String json = "{\n" +
             "id: 123058698,\n" +
@@ -33,14 +27,6 @@ public class TravisBuildTest {
             "message: \"Add code for replacing the main content with a fragment which will be used by every feature.\",\n" +
             "event_type: \"push\"\n" +
             "}";
-    private Gson gson;
-
-    @Before
-    public void setUp() throws Exception {
-        gson = new GsonBuilder()
-                .registerTypeAdapter(Date.class, new Rfc339DateJsonAdapter())
-                .create();
-    }
 
     @Test
     public void testDeserializeJson() {
