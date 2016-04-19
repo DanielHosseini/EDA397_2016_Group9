@@ -9,7 +9,6 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.group9.eda397.R;
 import com.group9.eda397.data.TravisServiceFactory;
-import com.group9.eda397.model.TravisBuild;
 import com.group9.eda397.ui.UIAssertions;
 
 import org.junit.After;
@@ -27,7 +26,8 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 /**
- * Created by doniramadhan on 19/04/16.
+ * @author doniramadhan
+ * @since 19/04/16
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -45,27 +45,15 @@ public class TravisBuildDetailsActivityTest {
     private static final String EXAMPLE_BUILD_NUMBER = "32";
 
     @Rule
-    public ActivityTestRule<TravisBuildDetailsActivity> travisBuildDetailsActivityRule =
-            new ActivityTestRule<TravisBuildDetailsActivity>(TravisBuildDetailsActivity.class){
-                @Override
-                protected Intent getActivityIntent() {
-                    Context targetContext = InstrumentationRegistry.getInstrumentation()
-                            .getTargetContext();
-                    Intent intent = new Intent(targetContext, TravisBuildDetailsActivity.class);
-                    intent.putExtra(EXTRA_BUILD_ID, EXAMPLE_BUILD_ID);
-                    intent.putExtra(EXTRA_OWNER, EXAMPLE_OWNER);
-                    intent.putExtra(EXTRA_REPOSITORY, EXAMPLE_REPOSITORY);
-                    intent.putExtra(EXTRA_BUILD_NUMBER, EXAMPLE_BUILD_NUMBER);
-                    return intent;
-                }
-            };
+    public ActivityTestRule<TravisBuildDetailsActivity> activityRule =
+            new ActivityTestRule<>(TravisBuildDetailsActivity.class, true, false);
+
     private MockWebServer server;
 
     @Before
-    public void goToTravisBuildDetailsActivity() throws IOException {
+    public void before() throws IOException {
         server = new MockWebServer();
         server.start();
-
         TravisServiceFactory.BASE_URL = server.url("/").toString();
     }
 
@@ -79,6 +67,7 @@ public class TravisBuildDetailsActivityTest {
         server.enqueue(new MockResponse()
                 .setResponseCode(400)
                 .setBody(EXAMPLE_EMPTY_RESPONSE));
+        startActivity();
         onView(withId(R.id.travis_build_details)).check(UIAssertions.isGone());
         onView(withId(R.id.fl_loading)).check(UIAssertions.isGone());
         onView(withId(R.id.rl_error)).check(UIAssertions.isVisible());
@@ -89,9 +78,20 @@ public class TravisBuildDetailsActivityTest {
         server.enqueue(new MockResponse()
                 .setResponseCode(200)
                 .setBody(EXAMPLE_RESPONSE));
+        startActivity();
         onView(withId(R.id.travis_build_details)).check(UIAssertions.isVisible());
         onView(withId(R.id.fl_loading)).check(UIAssertions.isGone());
         onView(withId(R.id.rl_error)).check(UIAssertions.isGone());
+    }
+
+    private void startActivity() {
+        final Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        final Intent intent = new Intent(targetContext, TravisBuildDetailsActivity.class);
+        intent.putExtra(EXTRA_BUILD_ID, EXAMPLE_BUILD_ID);
+        intent.putExtra(EXTRA_OWNER, EXAMPLE_OWNER);
+        intent.putExtra(EXTRA_REPOSITORY, EXAMPLE_REPOSITORY);
+        intent.putExtra(EXTRA_BUILD_NUMBER, EXAMPLE_BUILD_NUMBER);
+        activityRule.launchActivity(intent);
     }
 
 }
