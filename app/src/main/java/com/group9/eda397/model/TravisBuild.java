@@ -11,6 +11,7 @@ import java.util.Date;
  * @since 16/04/16.
  */
 public class TravisBuild {
+
     @SerializedName("id") final Long id;
     @SerializedName("repository_id") final Long repositoryId;
     @SerializedName("number") final String buildNumber;
