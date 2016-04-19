@@ -81,4 +81,5 @@
     </LinearLayout>
 
     <include layout="@layout/merge_loading"/>
+    <include layout="@layout/merge_error_view"/>
 </android.support.design.widget.CoordinatorLayout>
