@@ -55,6 +55,42 @@ public class TravisBuild {
         this.eventType = eventType;
     }
 
+    private TravisBuild(final Builder builder) {
+        id = builder.id;
+        repositoryId = builder.repositoryId;
+        buildNumber = builder.buildNumber;
+        state = builder.state;
+        result = builder.result;
+        startedAt = builder.startedAt;
+        finishedAt = builder.finishedAt;
+        duration = builder.duration;
+        commit = builder.commit;
+        branch = builder.branch;
+        message = builder.message;
+        eventType = builder.eventType;
+    }
+
+    public static Builder newBuilder() {
+        return new Builder();
+    }
+
+    public static Builder newBuilder(final TravisBuild copy) {
+        Builder builder = new Builder();
+        builder.id = copy.id;
+        builder.repositoryId = copy.repositoryId;
+        builder.buildNumber = copy.buildNumber;
+        builder.state = copy.state;
+        builder.result = copy.result;
+        builder.startedAt = copy.startedAt;
+        builder.finishedAt = copy.finishedAt;
+        builder.duration = copy.duration;
+        builder.commit = copy.commit;
+        builder.branch = copy.branch;
+        builder.message = copy.message;
+        builder.eventType = copy.eventType;
+        return builder;
+    }
+
     public Long getId() {
         return id;
     }
@@ -101,5 +137,92 @@ public class TravisBuild {
 
     public String getEventType() {
         return eventType;
+    }
+
+    public boolean isOngoing() {
+        return finishedAt == null;
+    }
+
+
+    public static final class Builder {
+        private Long id;
+        private Long repositoryId;
+        private String buildNumber;
+        private String state;
+        private Long result;
+        private Date startedAt;
+        private Date finishedAt;
+        private Long duration;
+        private String commit;
+        private String branch;
+        private String message;
+        private String eventType;
+
+        private Builder() {
+        }
+
+        public Builder id(final Long val) {
+            id = val;
+            return this;
+        }
+
+        public Builder repositoryId(final Long val) {
+            repositoryId = val;
+            return this;
+        }
+
+        public Builder buildNumber(final String val) {
+            buildNumber = val;
+            return this;
+        }
+
+        public Builder state(final String val) {
+            state = val;
+            return this;
+        }
+
+        public Builder result(final Long val) {
+            result = val;
+            return this;
+        }
+
+        public Builder startedAt(final Date val) {
+            startedAt = val;
+            return this;
+        }
+
+        public Builder finishedAt(final Date val) {
+            finishedAt = val;
+            return this;
+        }
+
+        public Builder duration(final Long val) {
+            duration = val;
+            return this;
+        }
+
+        public Builder commit(final String val) {
+            commit = val;
+            return this;
+        }
+
+        public Builder branch(final String val) {
+            branch = val;
+            return this;
+        }
+
+        public Builder message(final String val) {
+            message = val;
+            return this;
+        }
+
+        public Builder eventType(final String val) {
+            eventType = val;
+            return this;
+        }
+
+        public TravisBuild build() {
+            return new TravisBuild(this);
+        }
     }
 }

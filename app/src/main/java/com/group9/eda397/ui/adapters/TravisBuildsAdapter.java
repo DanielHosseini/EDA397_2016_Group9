@@ -79,7 +79,7 @@ public class TravisBuildsAdapter extends BaseRecyclerAdapter<TravisBuild> {
             TravisBuild build = getList().get(getAdapterPosition());
             buildTextView.setText(String.format("%s%s", StringUtils.HASHTAG, build.getBuildNumber()));
             branchTextView.setText(build.getBranch());
-            if (build.getFinishedAt() == null) {
+            if (build.isOngoing()) {
                 finishedAtTextView.setText(R.string.title_in_progress);
                 stateImageView.setImageResource(R.drawable.ic_loop_black_36dp);
             } else {

@@ -4,6 +4,8 @@ import com.google.gson.internal.bind.util.ISO8601Utils;
 
 import org.junit.Test;
 
+import java.util.Date;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -43,5 +45,13 @@ public class TravisBuildTest extends GsonSerializationTest {
         assertThat(travisBuild.getBranch(), is("develop"));
         assertThat(travisBuild.getMessage(), is("Add code for replacing the main content with a fragment which will be used by every feature."));
         assertThat(travisBuild.getEventType(), is("push"));
+    }
+
+    @Test
+    public void testOngoing() {
+        TravisBuild ongoingBuild = TravisBuild.newBuilder().build();
+        assertThat(ongoingBuild.isOngoing(), is(true));
+        TravisBuild finishedBuild = TravisBuild.newBuilder().finishedAt(new Date(new Date().getTime() - 10000)).build();
+        assertThat(finishedBuild.isOngoing(), is(false));
     }
 }
