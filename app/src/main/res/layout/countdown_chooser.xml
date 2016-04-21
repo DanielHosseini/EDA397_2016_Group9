@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/cardview_shadow_start_color"
     android:layout_height="match_parent">
 
-    <NumberPicker android:id="@+id/numberpicker"
+    <Button
+        android:id="@+id/startButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"  />
+        android:layout_height="wrap_content"
+        android:text="Start" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:inputType="number"
+        android:textSize="100dp"
+        android:maxLength="2"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
 
 </LinearLayout>
