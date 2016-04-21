@@ -2,6 +2,8 @@ package com.group9.eda397.ui;
 
 import com.group9.eda397.R;
 
+import org.hamcrest.Matchers;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.contrib.DrawerActions.open;
@@ -25,10 +27,10 @@ public class UITestUtils {
      * Helper method to open a specific fragment from the navigation drawer.
      * Uses a string to find the drawer item
      *
-     * @param stringResourceId the string resource id of the item
+     * @param drawerItemTitle the title of the drawer item
      */
-    public static void openDrawerFragment(final int stringResourceId) {
+    public static void openDrawerFragment(final String drawerItemTitle) {
         onView(withId(R.id.drawer_layout)).perform(open());
-        onView(withText(stringResourceId)).perform(click());
+        onView(withText(Matchers.containsString(drawerItemTitle))).perform(click());
     }
 }
