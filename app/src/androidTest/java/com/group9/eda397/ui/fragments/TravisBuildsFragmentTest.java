@@ -64,6 +64,7 @@ public class TravisBuildsFragmentTest {
         onView(withId(R.id.tv_no_results)).check(UIAssertions.isVisible());
         onView(withId(R.id.recycler_view)).check(UIAssertions.isVisible());
         onView(withId(R.id.rl_error)).check(UIAssertions.isGone());
+        onView(withId(R.id.fab)).check(UIAssertions.isGone());
     }
 
     @Test
@@ -76,6 +77,7 @@ public class TravisBuildsFragmentTest {
         onView(withId(R.id.recycler_view)).check(UIAssertions.isVisible());
         onView(withId(R.id.swipe_refresh_layout)).check(UIAssertions.isVisible());
         onView(withId(R.id.rl_error)).check(UIAssertions.isVisible());
+        onView(withId(R.id.fab)).check(UIAssertions.isGone());
     }
 
     @Test
@@ -88,5 +90,6 @@ public class TravisBuildsFragmentTest {
         onView(withId(R.id.recycler_view)).check(UIAssertions.isVisible());
         onView(withId(R.id.swipe_refresh_layout)).check(UIAssertions.isVisible());
         onView(withId(R.id.rl_error)).check(UIAssertions.isGone());
+        onView(withId(R.id.fab)).check(UIAssertions.isGone());
     }
 }
