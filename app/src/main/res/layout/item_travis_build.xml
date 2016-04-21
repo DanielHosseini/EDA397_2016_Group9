@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                                    xmlns:tools="http://schemas.android.com/tools"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    app:cardCornerRadius="2dp"
+                                    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bt_transparent_click"
+        android:orientation="horizontal"
+        android:padding="@dimen/spacing_small">
+
+        <TextView
+            android:id="@+id/tv_build_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/spacing_small"
+            android:textSize="@dimen/font_largest"
+            tools:text="#1"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_branch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_tiny"
+                android:textSize="@dimen/font_normal"
+                tools:text="branch"/>
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/font_small"
+                tools:text="31. december 2012 (200 ms)"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            tools:src="@drawable/ic_done_black_24dp"/>
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>
