@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.group9.eda397.ui.ChooseTimeFragment;
 import com.group9.eda397.ui.TimerFragment;
 
 import butterknife.Bind;
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity
             // Handle the camera action
             fragment = TimerFragment.newInstance("nav_camera");
         } else if (id == R.id.nav_gallery) {
-            fragment = TimerFragment.newInstance("nav_gallery");
+            fragment = ChooseTimeFragment.newInstance("nav_gallery");
         } else if (id == R.id.nav_slideshow) {
             fragment = TimerFragment.newInstance("nav_slideshow");
         } else if (id == R.id.nav_manage) {
