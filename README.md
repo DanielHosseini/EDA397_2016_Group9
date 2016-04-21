@@ -1,5 +1,7 @@
 # EDA397 - Agile Development Processes
-Group 9 - 2016
+Group 9 - 2016 
+
+Travis CI status: ![alt tag](https://travis-ci.org/DanielHosseini/EDA397_2016_Group9.svg?branch=develop)
 
 ## Git Model
 The team follows the Git Flow Model which is widely known and used a lot in practice. It allows the team to work on multiple features at the same using feature branches and when it comes to releasing it has support for hot fixes. See more information on the Git Flow Model at the [Atlassian Website](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
