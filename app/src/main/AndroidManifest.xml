@@ -23,6 +23,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.group9.eda397.ui.activities.TravisBuildDetailsActivity"
+            android:launchMode="standard"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
