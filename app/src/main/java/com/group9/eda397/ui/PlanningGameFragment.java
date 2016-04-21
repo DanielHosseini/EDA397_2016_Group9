@@ -1,22 +1,25 @@
 package com.group9.eda397.ui;
 
-        import android.os.Bundle;
-        import android.support.annotation.Nullable;
-        import android.support.v4.app.Fragment;
-        import android.support.v4.app.FragmentTransaction;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.TextView;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
-        import com.group9.eda397.R;
-        import com.group9.eda397.ui.fragments.BaseFragment;
+import com.group9.eda397.R;
+import com.group9.eda397.ui.fragments.BaseFragment;
 
-        import java.util.Timer;
-        import java.util.TimerTask;
+import java.util.Timer;
+import java.util.TimerTask;
 
-        import butterknife.Bind;
-        import butterknife.ButterKnife;
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 
 /**
@@ -42,10 +45,32 @@ public class PlanningGameFragment extends BaseFragment {
         ButterKnife.bind(this, view);
         //textView.setText(getArguments().getString(ARG_TEXT));
 
+        Button btn_fib = (Button) view.findViewById(R.id.button_fibonacci);
+        Button btn_powertwo = (Button) view.findViewById(R.id.button_power_of_two);
+        Button btn_standard = (Button) view.findViewById(R.id.button_standard);
+
+        btn_fib.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                System.out.println("Fib Button");
+                Intent intent = new Intent(getActivity(), CardPresenter.class  );
+                startActivity(intent);
+            }
+        });
+
+        btn_powertwo.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                System.out.println("Power Button");
+            }
+        });
+
+        btn_standard.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                System.out.println("Standard Button");
+            }
+        });
+
         return view;
     }
-
-
 
     protected int getLayout() {
         return R.layout.fragment_planning_game;
