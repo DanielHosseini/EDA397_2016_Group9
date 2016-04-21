@@ -25,7 +25,7 @@ public class PlanningGameTest {
             MainActivity.class);
 
     @Test
-    public void validateEditText() {
+    public void allowUserToChooseDeck() {
         onView(allOf(withId(R.id.button_fibonacci),
                 withId(R.id.button_power_of_two),
                 withId(R.id.button_standard))
