@@ -51,7 +51,7 @@ public class TravisBuildDetailsActivityTest {
     private MockWebServer server;
 
     @Before
-    public void before() throws IOException {
+    public void setUp() throws IOException {
         server = new MockWebServer();
         server.start();
         TravisServiceFactory.BASE_URL = server.url("/").toString();

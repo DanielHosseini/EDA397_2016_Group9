@@ -42,7 +42,7 @@ public class TravisBuildsFragmentTest {
     private MockWebServer server;
 
     @Before
-    public void goToTravisBuildsFragment() throws IOException {
+    public void setUp() throws IOException {
         server = new MockWebServer();
         server.start();
 
