@@ -39,8 +39,8 @@ public class TimerFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.countdown_timer, container, false);
         ButterKnife.bind(this, view);
         //textView.setText(getArguments().getString(ARG_TEXT));
-        count = 10;
-        textView.setText((count+1)+"");
+        count = Integer.parseInt(ARG_TEXT)+1;
+        textView.setText((count)+"");
         testTimer();
         return view;
     }

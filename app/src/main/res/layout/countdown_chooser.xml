@@ -5,18 +5,5 @@
     android:background="@color/cardview_shadow_start_color"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/startButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Start" />
-
-    <EditText
-        android:id="@+id/editText"
-        android:inputType="number"
-        android:textSize="100dp"
-        android:maxLength="2"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
 
 </LinearLayout>
