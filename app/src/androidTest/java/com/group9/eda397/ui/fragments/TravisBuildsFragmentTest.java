@@ -3,12 +3,12 @@ package com.group9.eda397.ui.fragments;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.v4.app.FragmentTransaction;
 
 import com.group9.eda397.MainActivity;
 import com.group9.eda397.R;
 import com.group9.eda397.data.TravisServiceFactory;
 import com.group9.eda397.ui.UIAssertions;
-import com.group9.eda397.ui.UITestUtils;
 
 import org.junit.After;
 import org.junit.Before;
@@ -21,7 +21,6 @@ import java.io.IOException;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 
-import static android.support.test.espresso.Espresso.closeSoftKeyboard;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
@@ -48,6 +47,13 @@ public class TravisBuildsFragmentTest {
         server.start();
 
         TravisServiceFactory.BASE_URL = server.url("/").toString();
+        replaceFragment();
+    }
+
+    private void replaceFragment() {
+        FragmentTransaction ft = mainActivityRule.getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, TravisBuildsFragment.newInstance());
+        ft.commit();
     }
 
     @After
@@ -60,7 +66,6 @@ public class TravisBuildsFragmentTest {
         server.enqueue(new MockResponse()
                 .setResponseCode(200)
                 .setBody(EXAMPLE_EMPTY_RESPONSE));
-        hideKeyboardAndOpenFragment();
         onView(withId(R.id.tv_no_results)).check(UIAssertions.isVisible());
         onView(withId(R.id.tv_no_results)).check(UIAssertions.isVisible());
         onView(withId(R.id.recycler_view)).check(UIAssertions.isVisible());
@@ -73,7 +78,6 @@ public class TravisBuildsFragmentTest {
         server.enqueue(new MockResponse()
                 .setResponseCode(400)
                 .setBody(EXAMPLE_EMPTY_RESPONSE));
-        hideKeyboardAndOpenFragment();
         onView(withId(R.id.tv_no_results)).check(UIAssertions.isGone());
         onView(withId(R.id.recycler_view)).check(UIAssertions.isVisible());
         onView(withId(R.id.swipe_refresh_layout)).check(UIAssertions.isVisible());
@@ -86,18 +90,10 @@ public class TravisBuildsFragmentTest {
         server.enqueue(new MockResponse()
                 .setResponseCode(200)
                 .setBody(EXAMPLE_RESPONSE));
-        hideKeyboardAndOpenFragment();
         onView(withId(R.id.tv_no_results)).check(UIAssertions.isGone());
         onView(withId(R.id.recycler_view)).check(UIAssertions.isVisible());
         onView(withId(R.id.swipe_refresh_layout)).check(UIAssertions.isVisible());
         onView(withId(R.id.rl_error)).check(UIAssertions.isGone());
         onView(withId(R.id.fab)).check(UIAssertions.isGone());
-    }
-
-
-    private void hideKeyboardAndOpenFragment() throws InterruptedException {
-        closeSoftKeyboard();
-        Thread.sleep(800);
-        UITestUtils.openDrawerFragment(mainActivityRule.getActivity().getResources().getString(R.string.title_travis_builds));
     }
 }
