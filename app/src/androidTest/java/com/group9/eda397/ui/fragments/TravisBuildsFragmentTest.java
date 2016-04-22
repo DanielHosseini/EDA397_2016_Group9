@@ -21,6 +21,7 @@ import java.io.IOException;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 
+import static android.support.test.espresso.Espresso.closeSoftKeyboard;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
@@ -55,11 +56,11 @@ public class TravisBuildsFragmentTest {
     }
 
     @Test
-    public void testDisplayEmptyList() {
+    public void testDisplayEmptyList() throws InterruptedException {
         server.enqueue(new MockResponse()
                 .setResponseCode(200)
                 .setBody(EXAMPLE_EMPTY_RESPONSE));
-        UITestUtils.openDrawerFragment(mainActivityRule.getActivity().getResources().getString(R.string.title_travis_builds));
+        hideKeyboardAndOpenFragment();
         onView(withId(R.id.tv_no_results)).check(UIAssertions.isVisible());
         onView(withId(R.id.tv_no_results)).check(UIAssertions.isVisible());
         onView(withId(R.id.recycler_view)).check(UIAssertions.isVisible());
@@ -68,11 +69,11 @@ public class TravisBuildsFragmentTest {
     }
 
     @Test
-    public void testDisplayError() {
+    public void testDisplayError() throws InterruptedException {
         server.enqueue(new MockResponse()
                 .setResponseCode(400)
                 .setBody(EXAMPLE_EMPTY_RESPONSE));
-        UITestUtils.openDrawerFragment(mainActivityRule.getActivity().getResources().getString(R.string.title_travis_builds));
+        hideKeyboardAndOpenFragment();
         onView(withId(R.id.tv_no_results)).check(UIAssertions.isGone());
         onView(withId(R.id.recycler_view)).check(UIAssertions.isVisible());
         onView(withId(R.id.swipe_refresh_layout)).check(UIAssertions.isVisible());
@@ -81,15 +82,22 @@ public class TravisBuildsFragmentTest {
     }
 
     @Test
-    public void testDisplayResults() {
+    public void testDisplayResults() throws InterruptedException {
         server.enqueue(new MockResponse()
                 .setResponseCode(200)
                 .setBody(EXAMPLE_RESPONSE));
-        UITestUtils.openDrawerFragment(mainActivityRule.getActivity().getResources().getString(R.string.title_travis_builds));
+        hideKeyboardAndOpenFragment();
         onView(withId(R.id.tv_no_results)).check(UIAssertions.isGone());
         onView(withId(R.id.recycler_view)).check(UIAssertions.isVisible());
         onView(withId(R.id.swipe_refresh_layout)).check(UIAssertions.isVisible());
         onView(withId(R.id.rl_error)).check(UIAssertions.isGone());
         onView(withId(R.id.fab)).check(UIAssertions.isGone());
+    }
+
+
+    private void hideKeyboardAndOpenFragment() throws InterruptedException {
+        closeSoftKeyboard();
+        Thread.sleep(800);
+        UITestUtils.openDrawerFragment(mainActivityRule.getActivity().getResources().getString(R.string.title_travis_builds));
     }
 }
