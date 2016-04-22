@@ -3,12 +3,12 @@ package com.group9.eda397.ui.fragments;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.v4.app.FragmentTransaction;
 
 import com.group9.eda397.MainActivity;
 import com.group9.eda397.R;
 import com.group9.eda397.data.TravisServiceFactory;
 import com.group9.eda397.ui.UIAssertions;
-import com.group9.eda397.ui.UITestUtils;
 
 import org.junit.After;
 import org.junit.Before;
@@ -47,6 +47,13 @@ public class TravisBuildsFragmentTest {
         server.start();
 
         TravisServiceFactory.BASE_URL = server.url("/").toString();
+        replaceFragment();
+    }
+
+    private void replaceFragment() {
+        FragmentTransaction ft = mainActivityRule.getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, TravisBuildsFragment.newInstance());
+        ft.commit();
     }
 
     @After
@@ -55,11 +62,10 @@ public class TravisBuildsFragmentTest {
     }
 
     @Test
-    public void testDisplayEmptyList() {
+    public void testDisplayEmptyList() throws InterruptedException {
         server.enqueue(new MockResponse()
                 .setResponseCode(200)
                 .setBody(EXAMPLE_EMPTY_RESPONSE));
-        UITestUtils.openDrawerFragment(R.string.title_travis_builds);
         onView(withId(R.id.tv_no_results)).check(UIAssertions.isVisible());
         onView(withId(R.id.tv_no_results)).check(UIAssertions.isVisible());
         onView(withId(R.id.recycler_view)).check(UIAssertions.isVisible());
@@ -68,11 +74,10 @@ public class TravisBuildsFragmentTest {
     }
 
     @Test
-    public void testDisplayError() {
+    public void testDisplayError() throws InterruptedException {
         server.enqueue(new MockResponse()
                 .setResponseCode(400)
                 .setBody(EXAMPLE_EMPTY_RESPONSE));
-        UITestUtils.openDrawerFragment(R.string.title_travis_builds);
         onView(withId(R.id.tv_no_results)).check(UIAssertions.isGone());
         onView(withId(R.id.recycler_view)).check(UIAssertions.isVisible());
         onView(withId(R.id.swipe_refresh_layout)).check(UIAssertions.isVisible());
@@ -81,11 +86,10 @@ public class TravisBuildsFragmentTest {
     }
 
     @Test
-    public void testDisplayResults() {
+    public void testDisplayResults() throws InterruptedException {
         server.enqueue(new MockResponse()
                 .setResponseCode(200)
                 .setBody(EXAMPLE_RESPONSE));
-        UITestUtils.openDrawerFragment(R.string.title_travis_builds);
         onView(withId(R.id.tv_no_results)).check(UIAssertions.isGone());
         onView(withId(R.id.recycler_view)).check(UIAssertions.isVisible());
         onView(withId(R.id.swipe_refresh_layout)).check(UIAssertions.isVisible());

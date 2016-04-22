@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.appcompat.BuildConfig;
+import android.view.WindowManager;
 
 import butterknife.ButterKnife;
 import icepick.Icepick;
@@ -31,13 +33,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (params != null) {
             onExtractParams(params);
         }
-
         super.onCreate(savedInstanceState);
 
         setContentView(getLayout());
 
         ButterKnife.bind(this);
         Icepick.restoreInstanceState(this, savedInstanceState);
+        if (BuildConfig.DEBUG) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        }
     }
 
 
