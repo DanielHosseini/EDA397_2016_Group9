@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'sonar-runner'
 
 
 android {
@@ -80,3 +81,17 @@ dependencies {
     androidTestCompile 'com.android.support.test.espresso:espresso-contrib:2.2.2'
     androidTestCompile 'com.squareup.spoon:spoon-client:1.2.0'
 }
+
+sonarRunner {
+    sonarProperties {
+        property "sonar.host.url", "http://chekov.skip.chalmers.se:9000/"
+        property "sonar.jdbc.driverClassName", "com.mysql.jdbc.Driver"
+        property "sonar.projectName", "Application"
+        property "sonar.projectKey", "app:Application"
+        property "sonar.sources", "src"
+        property "sonar.sources", "src"
+        property "sonar.projectVersion", "1.0"
+        property "sonar.scm.disabled","true"
+    }
+}
+
