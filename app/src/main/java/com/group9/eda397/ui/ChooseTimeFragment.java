@@ -30,7 +30,7 @@ public class ChooseTimeFragment extends BaseFragment {
     @Bind(R.id.editText) EditText editText;
     @Bind(R.id.text) TextView textView;
     @Bind(R.id.startButton) Button startButton;
-    @Bind(R.id.pauseButton) Button pauseButton;
+    @Bind(R.id.pauseButton) Button cancelButton;
 
 
     @Nullable
@@ -51,14 +51,14 @@ public class ChooseTimeFragment extends BaseFragment {
     public void onClickStart() {
         this.editText.setVisibility(View.GONE);
         this.textView.setVisibility(View.VISIBLE);
-        this.pauseButton.setVisibility(View.VISIBLE);
+        this.cancelButton.setVisibility(View.VISIBLE);
         String count = editText.getText().toString();
         textView.setText(count);
 
         //this.textView.start;
     }
 
-    @OnClick(R.id.pauseButton)
+    @OnClick(R.id.cancelButton)
     public void onClickPause() {
         this.editText.setVisibility(View.GONE);
         this.textView.setVisibility(View.VISIBLE);
