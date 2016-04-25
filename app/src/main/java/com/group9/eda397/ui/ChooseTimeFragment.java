@@ -1,21 +1,25 @@
 package com.group9.eda397.ui;
 
+import android.app.NotificationManager;
+import android.content.Context;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.group9.eda397.R;
 import com.group9.eda397.ui.fragments.BaseFragment;
 
-import org.w3c.dom.Text;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -30,6 +34,17 @@ public class ChooseTimeFragment extends BaseFragment {
     @Bind(R.id.editText) EditText editText;
     @Bind(R.id.text) TextView textView;
     @Bind(R.id.startButton) Button startButton;
+    @Bind(R.id.pauseButton) Button pauseButton;
+
+    private int timerVisibleCount = 0;
+    private long timerStartTime = 0;
+    private long timerCurrentTotalTime = 0;
+    private long timerPausedRemainingTime = 0;
+    private long timerTotalTime;
+    CountDownTimer timer = null;
+    private static final String PAUSE_BUTTON_TEXT = "Pause";
+    private static final String UNPAUSE_BUTTON_TEXT = "Resume";
+    private static final String RESTART_BUTTON_TEXT = "Restart";
 
     @Nullable
     @Override
@@ -49,11 +64,83 @@ public class ChooseTimeFragment extends BaseFragment {
     public void onClickStart() {
         this.editText.setVisibility(View.GONE);
         this.textView.setVisibility(View.VISIBLE);
-        String count = editText.getText().toString();
-        textView.setText(count);
-
-        //this.textView.start;
+        this.startButton.setVisibility(View.GONE);
+        this.pauseButton.setVisibility(View.VISIBLE);
+        int timeSeconds = Integer.parseInt(editText.getText().toString());
+        textView.setText(timeSeconds + "");
+        pauseButton.setText(PAUSE_BUTTON_TEXT);
+        timerTotalTime = timeSeconds;
+        startTimer(timeSeconds);
     }
+
+    @OnClick(R.id.pauseButton)
+    public void onClickPause() {
+        if (timer != null && pauseButton.getText().equals(PAUSE_BUTTON_TEXT)) {
+            pauseButton.setText(UNPAUSE_BUTTON_TEXT);
+            timer.cancel();
+            timerPausedRemainingTime = timerCurrentTotalTime - (System.currentTimeMillis() - timerStartTime);
+        } else if (timer != null && pauseButton.getText().equals(UNPAUSE_BUTTON_TEXT)) {
+            pauseButton.setText(PAUSE_BUTTON_TEXT);
+            long initialDelay = timerPausedRemainingTime % 1000;
+            Timer delay = new Timer();
+            delay.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            startTimer((int) (timerPausedRemainingTime/1000));
+                        }
+                    });
+                }
+            }, initialDelay);
+        }else if (timer != null && pauseButton.getText().equals(RESTART_BUTTON_TEXT)) {
+            pauseButton.setText(PAUSE_BUTTON_TEXT);
+            startTimer((int) timerTotalTime);
+        }
+    }
+
+    private void startTimer(int time){
+        timerStartTime = System.currentTimeMillis();
+        timerCurrentTotalTime = time*1000;
+        timerVisibleCount = time;
+        timer = new CountDownTimer(timerCurrentTotalTime, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        timerVisibleCount = timerVisibleCount - 1;
+                        textView.setText(timerVisibleCount + "");
+                    }
+                });
+
+            }
+            @Override
+            public void onFinish() {
+                pauseButton.setText(RESTART_BUTTON_TEXT);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        textView.setText("Done");
+
+                        NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity());
+                        builder.setContentTitle("Pair programming timer is finished");
+                        builder.setSmallIcon(R.drawable.ic_menu_gallery); // TODO fix icon
+
+                        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+                        builder.setSound(alarmSound);
+
+                        NotificationManager nm = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+                        nm.notify(0, builder.build());
+                    }
+                });
+
+            }
+        };
+        timer.start();
+    }
+
     public static ChooseTimeFragment newInstance(final String text) {
         ChooseTimeFragment fragment = new ChooseTimeFragment();
         Bundle bundle = new Bundle();
