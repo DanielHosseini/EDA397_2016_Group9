@@ -1,6 +1,5 @@
 package com.group9.eda397.ui.fragments;
 
-import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.rule.ActivityTestRule;
 
 import com.group9.eda397.MainActivity;
@@ -17,7 +16,6 @@ import static android.support.test.espresso.contrib.DrawerActions.open;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.allOf;
 
 public class PlanningGameTest {
     @Rule
@@ -26,11 +24,6 @@ public class PlanningGameTest {
 
     @Test
     public void allowUserToChooseDeck() {
-        onView(allOf(withId(R.id.button_fibonacci),
-                withId(R.id.button_power_of_two),
-                withId(R.id.button_standard))
-        ).check(ViewAssertions.doesNotExist());;
-
         onView(withId(R.id.drawer_layout)).perform(open());
         String FragmentName = mainActivityRule.getActivity().getResources().getString(R.string.title_planning_game);
         onView(withText(Matchers.containsString(FragmentName))).perform(click());

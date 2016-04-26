@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array
+        name="string_array_fibonacci_deck">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>5</item>
+        <item>8</item>
+        <item>13</item>
+        <item>21</item>
+        <item>34</item>
+        <item>55</item>
+        <item>89</item>
+    </string-array>
+
+    <string-array
+        name="string_array_power_of_two_deck">
+        <item>1</item>
+        <item>2</item>
+        <item>4</item>
+        <item>8</item>
+        <item>16</item>
+        <item>32</item>
+        <item>64</item>
+        <item>128</item>
+        <item>256</item>
+    </string-array>
+
+    <string-array
+        name="string_array_standard_deck">
+        <item>0</item>
+        <item>½</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>5</item>
+        <item>8</item>
+        <item>13</item>
+        <item>20</item>
+        <item>40</item>
+        <item>100</item>
+        <item>\?</item>
+    </string-array>
+</resources>
