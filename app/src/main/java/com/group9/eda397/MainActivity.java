@@ -95,17 +95,12 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = null;
         if (id == R.id.nav_camera) {
             // Handle the camera action
-            fragment = TimerFragment.newInstance("nav_camera");
         } else if (id == R.id.nav_gallery) {
             fragment = ChooseTimeFragment.newInstance("nav_gallery");
         } else if (id == R.id.nav_slideshow) {
-            fragment = TimerFragment.newInstance("nav_slideshow");
         } else if (id == R.id.nav_manage) {
-            fragment = TimerFragment.newInstance("nav_manage");
         } else if (id == R.id.nav_share) {
-            fragment = TimerFragment.newInstance("nav_share");
         } else if (id == R.id.nav_send) {
-            fragment = TimerFragment.newInstance("nav_send");
         }
 
         if (fragment != null) {
