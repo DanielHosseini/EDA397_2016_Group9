@@ -92,11 +92,9 @@ public class ChooseTimeFragment extends BaseFragment {
         this.cancelButton.setVisibility(View.VISIBLE);
         this.pauseButton.setVisibility(View.VISIBLE);
         this.clarifyingText.setVisibility(View.GONE);
-
-
-        int timeSeconds = Integer.parseInt(editText.getText().toString());
-        textView.setText(timeSeconds + "");
         pauseButton.setText(PAUSE_BUTTON_TEXT);
+
+        int timeSeconds = 60 * Integer.parseInt(editText.getText().toString());
         timerTotalTime = timeSeconds;
         View view = getActivity().getCurrentFocus();
         if (view != null) {
@@ -144,7 +142,6 @@ public class ChooseTimeFragment extends BaseFragment {
         }
     }
 
-
     private void startTimer(int time){
         timerStartTime = System.currentTimeMillis();
         timerCurrentTotalTime = time*1000;
@@ -156,7 +153,7 @@ public class ChooseTimeFragment extends BaseFragment {
                     @Override
                     public void run() {
                         timerVisibleCount = timerVisibleCount - 1;
-                        textView.setText(timerVisibleCount + "");
+                        textView.setText(getTimerString(timerVisibleCount));
                     }
                 });
 
@@ -167,7 +164,7 @@ public class ChooseTimeFragment extends BaseFragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //textView.setText("");
+                        textView.setText(getTimerString(0));
 
                         NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity());
                         builder.setContentTitle("Pair programming timer is finished");
@@ -186,7 +183,20 @@ public class ChooseTimeFragment extends BaseFragment {
         timer.start();
     }
 
-
+    private String getTimerString(int totalSeconds) {
+        int seconds = totalSeconds % 60;
+        String secondsString = "00";
+        if(seconds > 9) {
+            secondsString = "" + seconds;
+        } else if (seconds > 0) {
+            secondsString = "0" + seconds;
+        }
+        int minutes = totalSeconds / 60;
+        if(minutes == 0) {
+            return "0:" + secondsString;
+        }
+        return totalSeconds/60 + ":" + secondsString;
+    }
 
     public static ChooseTimeFragment newInstance(final String text) {
         ChooseTimeFragment fragment = new ChooseTimeFragment();
