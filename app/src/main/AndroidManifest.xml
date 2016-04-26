@@ -36,7 +36,7 @@
             android:launchMode="standard"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity android:name=".ui.CardPresenter"
+        <activity android:name=".ui.activities.CardPresenter"
             android:screenOrientation="portrait"
             android:label="@string/app_name">
         </activity>

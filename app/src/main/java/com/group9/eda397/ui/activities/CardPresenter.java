@@ -1,4 +1,4 @@
-package com.group9.eda397.ui;
+package com.group9.eda397.ui.activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -15,6 +15,5 @@ public class CardPresenter extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.card_presenter);
-        ActionBar ab = getActionBar();
     }
 }
