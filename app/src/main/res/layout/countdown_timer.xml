@@ -5,35 +5,13 @@ android:layout_height="match_parent"
 android:background="@color/cardview_shadow_start_color"
 android:orientation="vertical">
 
-
-<TextView
-    android:id="@+id/text"
-    android:textSize="100dp"
-    android:includeFontPadding="false"
-    android:visibility="gone"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"/>
-
-    <Button
-        android:id="@+id/startButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Start" />
-
-    <Button
-        android:id="@+id/pauseButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pause"
-        android:visibility="gone"/>
-
-    <Button
-        android:id="@+id/cancelButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cancel"
+    <TextView
+        android:id="@+id/text"
+        android:textSize="100dp"
+        android:includeFontPadding="false"
         android:visibility="gone"
-        />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <EditText
         android:id="@+id/editText"
@@ -43,5 +21,32 @@ android:orientation="vertical">
         android:layout_width="wrap_content"
         android:layout_height="match_parent" />
 
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start" />
 
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/pauseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pause"
+            android:visibility="gone"
+            android:layout_alignParentLeft="true"/>
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:visibility="gone"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
 </LinearLayout>
