@@ -21,12 +21,16 @@ import android.widget.TextView;
 import com.group9.eda397.R;
 import com.group9.eda397.ui.fragments.BaseFragment;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 /**
  * Created by Isabelle on 2016-04-21.
@@ -60,6 +64,7 @@ public class ChooseTimeFragment extends BaseFragment {
         return fragment;
     }
 
+
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
@@ -77,6 +82,18 @@ public class ChooseTimeFragment extends BaseFragment {
             }
         });
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
     }
 
     @OnClick(R.id.editText)
@@ -143,6 +160,12 @@ public class ChooseTimeFragment extends BaseFragment {
         }
     }
 
+    @Subscribe
+    public void onTickEvent(final TickEvent event) {
+        timerVisibleCount = timerVisibleCount - 1;
+        textView.setText(getTimerString(timerVisibleCount));
+    }
+
     private void startTimer(int time) {
         timerStartTime = System.currentTimeMillis();
         timerCurrentTotalTime = time * 1000;
@@ -150,18 +173,13 @@ public class ChooseTimeFragment extends BaseFragment {
         timer = new CountDownTimer(timerCurrentTotalTime, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        timerVisibleCount = timerVisibleCount - 1;
-                        textView.setText(getTimerString(timerVisibleCount));
-                    }
-                });
-
+                Timber.v("Sending tick event to the event bus");
+                EventBus.getDefault().post(new TickEvent(timerVisibleCount));
             }
 
             @Override
             public void onFinish() {
+                // TODO EventBus.getDefault().post(new FinishedTimerEvent());
                 pauseButton.setText(RESTART_BUTTON_TEXT);
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -202,5 +220,13 @@ public class ChooseTimeFragment extends BaseFragment {
 
     public int getLayout() {
         return R.layout.countdown_timer;
+    }
+
+    private class TickEvent {
+        private final int time;
+
+        public TickEvent(final int time) {
+            this.time = time;
+        }
     }
 }
