@@ -53,8 +53,7 @@ public class ChooseTimeFragment extends BaseFragment {
     private long timerCurrentTotalTime = 0;
     private long timerPausedRemainingTime = 0;
     private long timerTotalTime;
-    private CountDownTimer timer = null;
-    // private static final String CLARIFYING_TEXT_TIMER = "Time:";
+    private PairProgrammingTimer timer = null;
 
     public static ChooseTimeFragment newInstance(final String text) {
         ChooseTimeFragment fragment = new ChooseTimeFragment();
@@ -88,6 +87,15 @@ public class ChooseTimeFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
+        if(timer != null && timer.isRunning()) {
+            this.editText.setVisibility(View.GONE);
+            this.textView.setVisibility(View.VISIBLE);
+            this.startButton.setVisibility(View.GONE);
+            this.cancelButton.setVisibility(View.VISIBLE);
+            this.pauseButton.setVisibility(View.VISIBLE);
+            this.clarifyingText.setVisibility(View.GONE);
+            pauseButton.setText(PAUSE_BUTTON_TEXT);
+        }
     }
 
     @Override
@@ -111,7 +119,10 @@ public class ChooseTimeFragment extends BaseFragment {
         this.clarifyingText.setVisibility(View.GONE);
         pauseButton.setText(PAUSE_BUTTON_TEXT);
 
-        int timeSeconds = 60 * Integer.parseInt(editText.getText().toString());
+        int timeSeconds = 0;
+        if(!editText.getText().toString().equals("")) {
+            timeSeconds = 60 * Integer.parseInt(editText.getText().toString());
+        }
         timerTotalTime = timeSeconds;
         View view = getActivity().getCurrentFocus();
         if (view != null) {
@@ -123,7 +134,7 @@ public class ChooseTimeFragment extends BaseFragment {
 
     @OnClick(R.id.cancelButton)
     public void onClickCancel() {
-        timer.cancel();
+        timer.cancelPairTimer();
         this.cancelButton.setVisibility(View.GONE);
         this.editText.setVisibility(View.VISIBLE);
         this.startButton.setVisibility(View.VISIBLE);
@@ -137,7 +148,7 @@ public class ChooseTimeFragment extends BaseFragment {
     public void onClickPause() {
         if (timer != null && pauseButton.getText().equals(PAUSE_BUTTON_TEXT)) {
             pauseButton.setText(UNPAUSE_BUTTON_TEXT);
-            timer.cancel();
+            timer.cancelPairTimer();
             timerPausedRemainingTime = timerCurrentTotalTime - (System.currentTimeMillis() - timerStartTime);
         } else if (timer != null && pauseButton.getText().equals(UNPAUSE_BUTTON_TEXT)) {
             pauseButton.setText(PAUSE_BUTTON_TEXT);
@@ -166,41 +177,18 @@ public class ChooseTimeFragment extends BaseFragment {
         textView.setText(getTimerString(timerVisibleCount));
     }
 
+    @Subscribe
+    public void onFinishedTimerEvent(final FinishedTimerEvent event) {
+        pauseButton.setText(RESTART_BUTTON_TEXT);
+        textView.setText(getTimerString(0));
+    }
+
     private void startTimer(int time) {
         timerStartTime = System.currentTimeMillis();
         timerCurrentTotalTime = time * 1000;
         timerVisibleCount = time;
-        timer = new CountDownTimer(timerCurrentTotalTime, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                Timber.v("Sending tick event to the event bus");
-                EventBus.getDefault().post(new TickEvent(timerVisibleCount));
-            }
-
-            @Override
-            public void onFinish() {
-                // TODO EventBus.getDefault().post(new FinishedTimerEvent());
-                pauseButton.setText(RESTART_BUTTON_TEXT);
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        textView.setText(getTimerString(0));
-
-                        NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity());
-                        builder.setContentTitle("Pair programming timer is finished");
-                        builder.setSmallIcon(R.drawable.ic_menu_gallery); // TODO fix icon
-
-                        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-                        builder.setSound(alarmSound);
-
-                        NotificationManager nm = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-                        nm.notify(0, builder.build());
-                    }
-                });
-
-            }
-        };
-        timer.start();
+        timer = new PairProgrammingTimer(timerCurrentTotalTime, 1000);
+        timer.startPairTimer();
     }
 
     private String getTimerString(int totalSeconds) {
@@ -229,4 +217,44 @@ public class ChooseTimeFragment extends BaseFragment {
             this.time = time;
         }
     }
+
+    public class FinishedTimerEvent {
+
+        public FinishedTimerEvent() {}
+    }
+
+    private class PairProgrammingTimer extends CountDownTimer {
+        private boolean isRunning = false;
+
+        public PairProgrammingTimer(long millisuntilFinished, long tick) {
+            super(millisuntilFinished, tick);
+        }
+
+        public CountDownTimer startPairTimer()  {
+            isRunning = true;
+            return super.start();
+        }
+
+        public void cancelPairTimer()  {
+            isRunning = false;
+            super.cancel();
+        }
+
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            Timber.v("Sending tick event to the event bus");
+            EventBus.getDefault().post(new TickEvent(timerVisibleCount));
+        }
+
+        @Override
+        public void onFinish() {
+            Timber.v("Sending finishTimer event to the event bus");
+            EventBus.getDefault().post(new FinishedTimerEvent());
+        }
+        private boolean isRunning() {
+            return true;
+        }
+    }
 }
+
