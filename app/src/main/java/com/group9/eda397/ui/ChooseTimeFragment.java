@@ -39,14 +39,14 @@ public class ChooseTimeFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.countdown_timer, container, false);
         ButterKnife.bind(this, view);
         editText.setText("00");
-        editText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editText.setText("");
-            }
-        });
         return view;
     }
+
+    @OnClick(R.id.editText)
+    public void onClickText() {
+        editText.setText("");
+    }
+
     @OnClick(R.id.startButton)
     public void onClickStart() {
         this.editText.setVisibility(View.GONE);
@@ -54,18 +54,15 @@ public class ChooseTimeFragment extends BaseFragment {
         this.cancelButton.setVisibility(View.VISIBLE);
         String count = editText.getText().toString();
         textView.setText(count);
-
-        //this.textView.start;
+        System.out.print(count);
     }
 
     @OnClick(R.id.cancelButton)
     public void onClickPause() {
-        this.editText.setVisibility(View.GONE);
-        this.textView.setVisibility(View.VISIBLE);
-        String count = editText.getText().toString();
-        textView.setText(count);
+        this.cancelButton.setVisibility(View.GONE);
+        this.editText.setVisibility(View.VISIBLE);
+        this.startButton.setVisibility(View.VISIBLE);
 
-        //this.textView.start;
     }
 
     public static ChooseTimeFragment newInstance(final String text) {
