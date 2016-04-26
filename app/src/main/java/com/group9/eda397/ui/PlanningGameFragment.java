@@ -89,7 +89,7 @@ public class PlanningGameFragment extends BaseFragment {
 
         alertDialogBuilder.setView(picker);
 
-        alertDialogBuilder.setPositiveButton("Select", new DialogInterface.OnClickListener() {
+        alertDialogBuilder.setPositiveButton(R.string.label_select, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 int index = picker.getValue();
                 System.out.println(cards[index]);
