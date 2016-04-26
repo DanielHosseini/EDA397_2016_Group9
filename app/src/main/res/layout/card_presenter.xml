@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text=""
-        android:textSize="164dp"
+        android:textSize="120dp"
         android:textStyle="bold"
         android:id="@+id/text_view_selectedCard"
         />
