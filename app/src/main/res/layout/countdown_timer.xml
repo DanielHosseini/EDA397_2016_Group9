@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Start"
-        android:textSize="12sp"
+        android:textSize="30sp"
         />
 
     <RelativeLayout
