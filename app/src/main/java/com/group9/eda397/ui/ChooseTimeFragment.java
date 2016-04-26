@@ -50,7 +50,7 @@ public class ChooseTimeFragment extends BaseFragment {
     private long timerPausedRemainingTime = 0;
     private long timerTotalTime;
     private CountDownTimer timer = null;
-   // private static final String CLARIFYING_TEXT_TIMER = "Time:";
+    // private static final String CLARIFYING_TEXT_TIMER = "Time:";
 
     public static ChooseTimeFragment newInstance(final String text) {
         ChooseTimeFragment fragment = new ChooseTimeFragment();
@@ -70,7 +70,7 @@ public class ChooseTimeFragment extends BaseFragment {
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId== EditorInfo.IME_ACTION_DONE){
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
                     onClickStart();
                 }
                 return false;
@@ -98,7 +98,7 @@ public class ChooseTimeFragment extends BaseFragment {
         timerTotalTime = timeSeconds;
         View view = getActivity().getCurrentFocus();
         if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
         startTimer(timeSeconds);
@@ -132,20 +132,20 @@ public class ChooseTimeFragment extends BaseFragment {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            startTimer((int) (timerPausedRemainingTime/1000));
+                            startTimer((int) (timerPausedRemainingTime / 1000));
                         }
                     });
                 }
             }, initialDelay);
-        }else if (timer != null && pauseButton.getText().equals(RESTART_BUTTON_TEXT)) {
+        } else if (timer != null && pauseButton.getText().equals(RESTART_BUTTON_TEXT)) {
             pauseButton.setText(PAUSE_BUTTON_TEXT);
             startTimer((int) timerTotalTime);
         }
     }
 
-    private void startTimer(int time){
+    private void startTimer(int time) {
         timerStartTime = System.currentTimeMillis();
-        timerCurrentTotalTime = time*1000;
+        timerCurrentTotalTime = time * 1000;
         timerVisibleCount = time;
         timer = new CountDownTimer(timerCurrentTotalTime, 1000) {
             @Override
@@ -159,6 +159,7 @@ public class ChooseTimeFragment extends BaseFragment {
                 });
 
             }
+
             @Override
             public void onFinish() {
                 pauseButton.setText(RESTART_BUTTON_TEXT);
@@ -187,20 +188,19 @@ public class ChooseTimeFragment extends BaseFragment {
     private String getTimerString(int totalSeconds) {
         int seconds = totalSeconds % 60;
         String secondsString = "00";
-        if(seconds > 9) {
+        if (seconds > 9) {
             secondsString = "" + seconds;
         } else if (seconds > 0) {
             secondsString = "0" + seconds;
         }
         int minutes = totalSeconds / 60;
-        if(minutes == 0) {
+        if (minutes == 0) {
             return "0:" + secondsString;
         }
-        return totalSeconds/60 + ":" + secondsString;
+        return totalSeconds / 60 + ":" + secondsString;
     }
 
-    public int getLayout(){
+    public int getLayout() {
         return R.layout.countdown_timer;
     }
-
 }
