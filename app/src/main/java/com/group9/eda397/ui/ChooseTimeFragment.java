@@ -13,6 +13,8 @@ import android.support.v4.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
@@ -52,7 +54,6 @@ public class ChooseTimeFragment extends BaseFragment {
     private static final String UNPAUSE_BUTTON_TEXT = "Resume";
     private static final String RESTART_BUTTON_TEXT = "Restart";
 
-
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
@@ -79,6 +80,11 @@ public class ChooseTimeFragment extends BaseFragment {
         textView.setText(timeSeconds + "");
         pauseButton.setText(PAUSE_BUTTON_TEXT);
         timerTotalTime = timeSeconds;
+        View view = getActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
         startTimer(timeSeconds);
     }
 
@@ -87,8 +93,9 @@ public class ChooseTimeFragment extends BaseFragment {
         this.cancelButton.setVisibility(View.GONE);
         this.editText.setVisibility(View.VISIBLE);
         this.startButton.setVisibility(View.VISIBLE);
-
-    }
+        this.pauseButton.setVisibility(View.GONE);
+        this.textView.setVisibility(View.GONE);
+   }
 
     @OnClick(R.id.pauseButton)
     public void onClickPause() {
