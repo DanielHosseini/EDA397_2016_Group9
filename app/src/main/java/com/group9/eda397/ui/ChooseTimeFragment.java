@@ -7,25 +7,19 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.group9.eda397.R;
 import com.group9.eda397.ui.fragments.BaseFragment;
-
-import org.w3c.dom.Text;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -40,25 +34,31 @@ import butterknife.OnClick;
 public class ChooseTimeFragment extends BaseFragment {
 
     private static final String ARG_TEXT = ChooseTimeFragment.class.getCanonicalName() + ".arg_text";
+    private static final String PAUSE_BUTTON_TEXT = "Pause";
+    private static final String UNPAUSE_BUTTON_TEXT = "Resume";
+    private static final String RESTART_BUTTON_TEXT = "Restart";
+    private static final String CLARIFYING_TEXT_SET_TIMER = "Set time";
     @Bind(R.id.editText) EditText editText;
     @Bind(R.id.text) TextView textView;
     @Bind(R.id.startButton) Button startButton;
     @Bind(R.id.cancelButton) Button cancelButton;
     @Bind(R.id.clarifyingText) TextView clarifyingText;
     @Bind(R.id.pauseButton) Button pauseButton;
-
     private int timerVisibleCount = 0;
     private long timerStartTime = 0;
     private long timerCurrentTotalTime = 0;
     private long timerPausedRemainingTime = 0;
     private long timerTotalTime;
     private CountDownTimer timer = null;
-    private static final String PAUSE_BUTTON_TEXT = "Pause";
-    private static final String UNPAUSE_BUTTON_TEXT = "Resume";
-    private static final String RESTART_BUTTON_TEXT = "Restart";
-    private static final String CLARIFYING_TEXT_SET_TIMER = "Set time";
    // private static final String CLARIFYING_TEXT_TIMER = "Time:";
 
+    public static ChooseTimeFragment newInstance(final String text) {
+        ChooseTimeFragment fragment = new ChooseTimeFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(ARG_TEXT, text);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Nullable
     @Override
@@ -106,6 +106,7 @@ public class ChooseTimeFragment extends BaseFragment {
 
     @OnClick(R.id.cancelButton)
     public void onClickCancel() {
+        timer.cancel();
         this.cancelButton.setVisibility(View.GONE);
         this.editText.setVisibility(View.VISIBLE);
         this.startButton.setVisibility(View.VISIBLE);
@@ -196,14 +197,6 @@ public class ChooseTimeFragment extends BaseFragment {
             return "0:" + secondsString;
         }
         return totalSeconds/60 + ":" + secondsString;
-    }
-
-    public static ChooseTimeFragment newInstance(final String text) {
-        ChooseTimeFragment fragment = new ChooseTimeFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString(ARG_TEXT, text);
-        fragment.setArguments(bundle);
-        return fragment;
     }
 
     public int getLayout(){

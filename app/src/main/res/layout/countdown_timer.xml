@@ -1,43 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
     <TextView
         android:id="@+id/clarifyingText"
-        android:textSize="50dp"
-        android:includeFontPadding="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
+        android:includeFontPadding="false"
+        android:textSize="50sp"
         />
 
-<TextView
-    android:id="@+id/text"
-    android:textSize="200dp"
-    android:includeFontPadding="false"
-    android:visibility="gone"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    />
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:includeFontPadding="false"
+        android:textSize="100sp"
+        android:visibility="gone"
+        />
 
 
     <EditText
         android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
         android:inputType="number"
-        android:textSize="150dp"
         android:maxLength="2"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
+        android:textSize="100sp"/>
 
     <Button
         android:id="@+id/startButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start"
         android:layout_gravity="center"
-        android:textSize="10sp"
+        android:text="Start"
+        android:textSize="12sp"
         />
 
     <RelativeLayout
@@ -50,17 +52,16 @@ android:orientation="vertical">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pause"
-            android:visibility="gone"
-            android:layout_alignParentLeft="true"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/cancelButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel"
-            android:visibility="gone"
             android:layout_alignParentRight="true"
-            android:textSize="30sp"/>
+            android:text="Cancel"
+            android:textSize="30sp"
+            android:visibility="gone"/>
     </RelativeLayout>
 </LinearLayout>
