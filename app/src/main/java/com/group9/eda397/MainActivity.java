@@ -17,6 +17,7 @@ import android.widget.FrameLayout;
 
 import com.group9.eda397.ui.activities.BaseActivity;
 import com.group9.eda397.ui.fragments.TravisBuildsFragment;
+import com.group9.eda397.ui.PlanningGameFragment;
 
 import butterknife.Bind;
 
@@ -107,6 +108,8 @@ public class MainActivity extends BaseActivity
 
         } else if (id == R.id.nav_send) {
 
+        } else if (id == R.id.nav_planning_game) {
+            fragment = PlanningGameFragment.newInstance("planningGame");
         }
 
 

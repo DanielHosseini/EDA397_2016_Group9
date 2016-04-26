@@ -35,6 +35,11 @@
             android:name="com.group9.eda397.ui.activities.TravisBuildDetailsActivity"
             android:launchMode="standard"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".ui.activities.CardPresenter"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name">
+        </activity>
     </application>
 
 </manifest>
