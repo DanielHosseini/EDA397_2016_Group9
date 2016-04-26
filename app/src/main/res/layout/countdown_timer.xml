@@ -2,33 +2,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-android:background="@color/cardview_shadow_start_color"
 android:orientation="vertical">
+    <TextView
+        android:id="@+id/clarifyingText"
+        android:textSize="50dp"
+        android:includeFontPadding="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        />
 
 <TextView
     android:id="@+id/text"
-    android:textSize="100dp"
+    android:textSize="200dp"
     android:includeFontPadding="false"
     android:visibility="gone"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"/>
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    />
 
+
+    <EditText
+        android:id="@+id/editText"
+        android:inputType="number"
+        android:textSize="150dp"
+        android:maxLength="2"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
 
     <Button
         android:id="@+id/startButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start" />
-
-    <EditText
-        android:id="@+id/editText"
-        android:inputType="number"
-        android:textSize="100dp"
-        android:maxLength="2"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
-
-
+        android:text="Start"
+        android:layout_gravity="center"
+        />
 
     <RelativeLayout
         android:id="@+id/relativeLayout1"

@@ -44,6 +44,7 @@ public class ChooseTimeFragment extends BaseFragment {
     @Bind(R.id.text) TextView textView;
     @Bind(R.id.startButton) Button startButton;
     @Bind(R.id.cancelButton) Button cancelButton;
+    @Bind(R.id.clarifyingText) TextView clarifyingText;
     @Bind(R.id.pauseButton) Button pauseButton;
 
     private int timerVisibleCount = 0;
@@ -55,6 +56,9 @@ public class ChooseTimeFragment extends BaseFragment {
     private static final String PAUSE_BUTTON_TEXT = "Pause";
     private static final String UNPAUSE_BUTTON_TEXT = "Resume";
     private static final String RESTART_BUTTON_TEXT = "Restart";
+    private static final String CLARIFYING_TEXT_SET_TIMER = "Set time";
+   // private static final String CLARIFYING_TEXT_TIMER = "Time:";
+
 
     @Nullable
     @Override
@@ -62,6 +66,7 @@ public class ChooseTimeFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.countdown_timer, container, false);
         ButterKnife.bind(this, view);
         editText.setText("00");
+        clarifyingText.setText(CLARIFYING_TEXT_SET_TIMER);
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -86,6 +91,8 @@ public class ChooseTimeFragment extends BaseFragment {
         this.startButton.setVisibility(View.GONE);
         this.cancelButton.setVisibility(View.VISIBLE);
         this.pauseButton.setVisibility(View.VISIBLE);
+        this.clarifyingText.setVisibility(View.GONE);
+
 
         int timeSeconds = Integer.parseInt(editText.getText().toString());
         textView.setText(timeSeconds + "");
@@ -106,7 +113,9 @@ public class ChooseTimeFragment extends BaseFragment {
         this.startButton.setVisibility(View.VISIBLE);
         this.pauseButton.setVisibility(View.GONE);
         this.textView.setVisibility(View.GONE);
-   }
+        this.clarifyingText.setVisibility(View.VISIBLE);
+
+    }
 
     @OnClick(R.id.pauseButton)
     public void onClickPause() {
@@ -158,7 +167,7 @@ public class ChooseTimeFragment extends BaseFragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        textView.setText("Done");
+                        //textView.setText("");
 
                         NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity());
                         builder.setContentTitle("Pair programming timer is finished");
