@@ -3,8 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="0"
-    android:id="@+id/layout_planning_game">
+    android:layout_weight="0.35"
+    android:id="@+id/layout_planning_game"
+    android:layout_gravity="center_horizontal" >
 
     <Button
         android:layout_width="fill_parent"
@@ -12,7 +13,9 @@
         android:text="Fibonacci"
         android:id="@+id/button_fibonacci"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.25" />
+        android:layout_weight="0.25"
+        android:background="#2E313A"
+        android:textColor="#FFF"/>
 
     <Button
         android:layout_width="fill_parent"
@@ -20,12 +23,20 @@
         android:text="Power Of Two"
         android:id="@+id/button_power_of_two"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.25" />
+        android:layout_weight="0.25"
+        android:background="#2E313A"
+        android:textColor="#FFF"/>
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Standard"
         android:id="@+id/button_standard"
-        android:layout_weight="0.25" />
+        android:layout_weight="0.25"
+        android:background="#2E313A"
+        android:textColor="#FFF"/>
+
+
 </LinearLayout>
+
+
