@@ -42,12 +42,14 @@ public class ChooseTimeFragment extends BaseFragment {
     private static final String UNPAUSE_BUTTON_TEXT = "Resume";
     private static final String RESTART_BUTTON_TEXT = "Restart";
     private static final String CLARIFYING_TEXT_SET_TIMER = "Set time";
+
     @Bind(R.id.editText) EditText editText;
     @Bind(R.id.text) TextView textView;
     @Bind(R.id.startButton) Button startButton;
     @Bind(R.id.cancelButton) Button cancelButton;
     @Bind(R.id.clarifyingText) TextView clarifyingText;
     @Bind(R.id.pauseButton) Button pauseButton;
+
     private int timerVisibleCount = 0;
     private long timerStartTime = 0;
     private long timerCurrentTotalTime = 0;
