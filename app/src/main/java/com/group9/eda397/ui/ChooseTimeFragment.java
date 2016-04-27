@@ -1,13 +1,9 @@
 package com.group9.eda397.ui;
 
-import android.app.NotificationManager;
 import android.content.Context;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,20 +38,18 @@ public class ChooseTimeFragment extends BaseFragment {
     private static final String UNPAUSE_BUTTON_TEXT = "Resume";
     private static final String RESTART_BUTTON_TEXT = "Restart";
     private static final String CLARIFYING_TEXT_SET_TIMER = "Set time";
-
     @Bind(R.id.editText) EditText editText;
     @Bind(R.id.text) TextView textView;
     @Bind(R.id.startButton) Button startButton;
     @Bind(R.id.cancelButton) Button cancelButton;
     @Bind(R.id.clarifyingText) TextView clarifyingText;
     @Bind(R.id.pauseButton) Button pauseButton;
-
-    private int timerVisibleCount = 0;
-    private long timerStartTime = 0;
-    private long timerCurrentTotalTime = 0;
-    private long timerPausedRemainingTime = 0;
-    private long timerTotalTime;
-    private PairProgrammingTimer timer = null;
+    private static int timerVisibleCount = 0;
+    private static long timerStartTime = 0;
+    private static long timerCurrentTotalTime = 0;
+    private static long timerPausedRemainingTime = 0;
+    private static long timerTotalTime = 600; // 600 seconds = 10 minutes
+    private static PairProgrammingTimer timer = null;
 
     public static ChooseTimeFragment newInstance(final String text) {
         ChooseTimeFragment fragment = new ChooseTimeFragment();
@@ -71,7 +65,7 @@ public class ChooseTimeFragment extends BaseFragment {
     public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.countdown_timer, container, false);
         ButterKnife.bind(this, view);
-        editText.setText("00");
+        //editText.setText("0");
         clarifyingText.setText(CLARIFYING_TEXT_SET_TIMER);
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -89,14 +83,20 @@ public class ChooseTimeFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
+        editText.setText("" + timerTotalTime/60);
         if(timer != null && timer.isRunning()) {
             this.editText.setVisibility(View.GONE);
             this.textView.setVisibility(View.VISIBLE);
             this.startButton.setVisibility(View.GONE);
             this.cancelButton.setVisibility(View.VISIBLE);
+            if(!timer.isPaused) {
+                pauseButton.setText(PAUSE_BUTTON_TEXT);
+            } else {
+                pauseButton.setText(UNPAUSE_BUTTON_TEXT);
+            }
             this.pauseButton.setVisibility(View.VISIBLE);
             this.clarifyingText.setVisibility(View.GONE);
-            pauseButton.setText(PAUSE_BUTTON_TEXT);
+            this.textView.setText(getTimerString(timerVisibleCount));
         }
     }
 
@@ -151,6 +151,7 @@ public class ChooseTimeFragment extends BaseFragment {
         if (timer != null && pauseButton.getText().equals(PAUSE_BUTTON_TEXT)) {
             pauseButton.setText(UNPAUSE_BUTTON_TEXT);
             timer.cancelPairTimer();
+            timer.isPaused = true;
             timerPausedRemainingTime = timerCurrentTotalTime - (System.currentTimeMillis() - timerStartTime);
         } else if (timer != null && pauseButton.getText().equals(UNPAUSE_BUTTON_TEXT)) {
             pauseButton.setText(PAUSE_BUTTON_TEXT);
@@ -175,6 +176,7 @@ public class ChooseTimeFragment extends BaseFragment {
 
     @Subscribe
     public void onTickEvent(final TickEvent event) {
+        Timber.v("Sending tick event to the event bus------------------------");
         timerVisibleCount = timerVisibleCount - 1;
         textView.setText(getTimerString(timerVisibleCount));
     }
@@ -227,6 +229,7 @@ public class ChooseTimeFragment extends BaseFragment {
 
     private class PairProgrammingTimer extends CountDownTimer {
         private boolean isRunning = false;
+        private boolean isPaused = false;
 
         public PairProgrammingTimer(long millisuntilFinished, long tick) {
             super(millisuntilFinished, tick);
@@ -234,14 +237,15 @@ public class ChooseTimeFragment extends BaseFragment {
 
         public CountDownTimer startPairTimer()  {
             isRunning = true;
+            isPaused = false;
             return super.start();
         }
 
         public void cancelPairTimer()  {
             isRunning = false;
+            isPaused = false;
             super.cancel();
         }
-
 
         @Override
         public void onTick(long millisUntilFinished) {
@@ -253,9 +257,19 @@ public class ChooseTimeFragment extends BaseFragment {
         public void onFinish() {
             Timber.v("Sending finishTimer event to the event bus");
             EventBus.getDefault().post(new FinishedTimerEvent());
+            isRunning = false;
         }
+
+        /**
+         * A paused timer is considered running, i.e. will return true.
+         * @return
+         */
         private boolean isRunning() {
-            return true;
+            return isRunning || isPaused;
+        }
+
+        private boolean isPaused() {
+            return isPaused;
         }
     }
 }
