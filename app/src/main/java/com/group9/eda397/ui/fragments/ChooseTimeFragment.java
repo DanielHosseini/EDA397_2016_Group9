@@ -1,4 +1,4 @@
-package com.group9.eda397.ui;
+package com.group9.eda397.ui.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.group9.eda397.R;
-import com.group9.eda397.ui.fragments.BaseFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -79,6 +78,12 @@ public class ChooseTimeFragment extends BaseFragment {
     }
 
     @Override
+    public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        hideFab();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
@@ -90,12 +95,16 @@ public class ChooseTimeFragment extends BaseFragment {
             this.cancelButton.setVisibility(View.VISIBLE);
             if(!timer.isPaused) {
                 pauseButton.setText(PAUSE_BUTTON_TEXT);
+                //this.textView.setText(getTimerString(timerVisibleCount));
+                this.textView.setText(getTimerString(timer.getRemainingTicks()));
+                timerVisibleCount = timer.getRemainingTicks();
             } else {
                 pauseButton.setText(UNPAUSE_BUTTON_TEXT);
+                this.textView.setText(getTimerString((int)timerPausedRemainingTime / 1000));
             }
             this.pauseButton.setVisibility(View.VISIBLE);
             this.clarifyingText.setVisibility(View.GONE);
-            this.textView.setText(getTimerString(timerVisibleCount));
+
         }
     }
 
@@ -219,6 +228,10 @@ public class ChooseTimeFragment extends BaseFragment {
         public TickEvent(final int time) {
             this.time = time;
         }
+
+        public int getTime() {
+            return time;
+        }
     }
 
     public class FinishedTimerEvent {
@@ -229,9 +242,11 @@ public class ChooseTimeFragment extends BaseFragment {
     private class PairProgrammingTimer extends CountDownTimer {
         private boolean isRunning = false;
         private boolean isPaused = false;
+        private int remainingTicks = 0;
 
         public PairProgrammingTimer(long millisuntilFinished, long tick) {
             super(millisuntilFinished, tick);
+            remainingTicks = (int) (millisuntilFinished / tick) + 1;
         }
 
         public CountDownTimer startPairTimer()  {
@@ -249,7 +264,12 @@ public class ChooseTimeFragment extends BaseFragment {
         @Override
         public void onTick(long millisUntilFinished) {
             Timber.v("Sending tick event to the event bus");
-            EventBus.getDefault().post(new TickEvent(timerVisibleCount));
+            EventBus.getDefault().post(new TickEvent(remainingTicks));
+            remainingTicks--;
+        }
+
+        public int getRemainingTicks() {
+            return remainingTicks;
         }
 
         @Override

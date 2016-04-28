@@ -68,6 +68,12 @@ public class PlanningGameFragment extends BaseFragment {
         return view;
     }
 
+    @Override
+    public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        hideFab();
+    }
+
     public void openCardChooserDialog (final String[] cards) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
         final NumberPicker picker = new NumberPicker(getActivity());
