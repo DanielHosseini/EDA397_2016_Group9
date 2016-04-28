@@ -59,7 +59,6 @@ public class ChooseTimeFragment extends BaseFragment {
         return fragment;
     }
 
-
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
@@ -195,7 +194,7 @@ public class ChooseTimeFragment extends BaseFragment {
         timer.startPairTimer();
     }
 
-    private String getTimerString(int totalSeconds) {
+    public String getTimerString(int totalSeconds) {
         int seconds = totalSeconds % 60;
         String secondsString = "00";
         if (seconds > 9) {
@@ -273,4 +272,3 @@ public class ChooseTimeFragment extends BaseFragment {
         }
     }
 }
-

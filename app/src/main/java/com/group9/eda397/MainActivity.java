@@ -22,7 +22,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.group9.eda397.ui.ChooseTimeFragment;
-import com.group9.eda397.ui.TimerFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
