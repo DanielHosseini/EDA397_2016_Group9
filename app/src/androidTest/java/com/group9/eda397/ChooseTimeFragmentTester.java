@@ -13,11 +13,11 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.contrib.DrawerActions.open;
 
 
 
@@ -41,9 +41,17 @@ public class ChooseTimeFragmentTester{
     @Test
     public void testStartingTheTimer(){
         String time = "10";
+        onView(withId(R.id.drawer_layout)).perform(open());
+
         onView(withId(R.layout.countdown_timer)).perform(click()).check(matches(isDisplayed()));
-        onView(withId(R.id.editText)).perform(click(),typeText(time), closeSoftKeyboard()).check(matches(isDisplayed()));
+        onView(withId(R.id.clarifyingText)).check(matches(isDisplayed()));
+        onView(withId(R.id.editText)).perform(click(),typeText(time)).check(matches(isDisplayed()));
         onView(withId(R.id.startButton)).perform(click());
+        onView(withId(R.id.cancelButton)).check(matches(isDisplayed()));
+        onView(withId(R.id.textView)).check(matches(isDisplayed()));
+        onView(withId(R.id.pauseButton)).check(matches(isDisplayed()));
+        //onView(withId(R.id.pauseButton)).perform(click());
+        //onView(withId(R.id.pauseButton)).check(matches(isDisplayed()));
 
     }
 }
