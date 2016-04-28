@@ -33,8 +33,6 @@ import com.group9.eda397.ui.activities.BaseActivity;
 import com.group9.eda397.ui.fragments.TravisBuildsFragment;
 import com.group9.eda397.ui.fragments.WelcomeFragment;
 
-import butterknife.Bind;
-
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -135,8 +133,8 @@ public class MainActivity extends BaseActivity
         Fragment fragment = null;
         if (id == R.id.nav_home) {
             fragment = WelcomeFragment.newInstance();
-        } else if (id == R.id.nav_gallery) {
-            fragment = ChooseTimeFragment.newInstance("nav_gallery");
+        } else if (id == R.id.timer) {
+            fragment = ChooseTimeFragment.newInstance("timer");
         } else if (id == R.id.nav_slideshow) {
         } else if (id == R.id.nav_travis) {
             fragment = TravisBuildsFragment.newInstance();
