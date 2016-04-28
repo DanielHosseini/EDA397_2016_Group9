@@ -34,5 +34,6 @@
     <!-- Countdown Timer Labels-->
     <string name="title_set_time">Set Time</string>
     <string name="title_start">Start</string>
+    <string name="title_timer">Timer</string>
 
 </resources>

@@ -21,17 +21,16 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.group9.eda397.ui.ChooseTimeFragment;
+import com.group9.eda397.ui.activities.BaseActivity;
+import com.group9.eda397.ui.fragments.PlanningGameFragment;
+import com.group9.eda397.ui.fragments.TravisBuildsFragment;
+import com.group9.eda397.ui.fragments.WelcomeFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-
-import com.group9.eda397.ui.fragments.PlanningGameFragment;
-import com.group9.eda397.ui.activities.BaseActivity;
-import com.group9.eda397.ui.fragments.TravisBuildsFragment;
-import com.group9.eda397.ui.fragments.WelcomeFragment;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -133,13 +132,10 @@ public class MainActivity extends BaseActivity
         Fragment fragment = null;
         if (id == R.id.nav_home) {
             fragment = WelcomeFragment.newInstance();
-        } else if (id == R.id.timer) {
+        } else if (id == R.id.nav_timer) {
             fragment = ChooseTimeFragment.newInstance("timer");
-        } else if (id == R.id.nav_slideshow) {
         } else if (id == R.id.nav_travis) {
             fragment = TravisBuildsFragment.newInstance();
-        } else if (id == R.id.nav_share) {
-        } else if (id == R.id.nav_send) {
         } else if (id == R.id.nav_planning_game) {
             fragment = PlanningGameFragment.newInstance();
         }
