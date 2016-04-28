@@ -27,4 +27,7 @@
     <string name="label_author_email">Email: </string>
     <string name="title_planning_game">Planning Game</string>
     <string name="label_select">Select</string>
+    <string name="title_welcome">Welcome</string>
+    <string name="title_welcome_subtitle">To the Pair Programming Assistant</string>
+    <string name="title_home">Home</string>
 </resources>

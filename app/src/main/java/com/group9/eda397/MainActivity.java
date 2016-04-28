@@ -15,9 +15,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.group9.eda397.ui.PlanningGameFragment;
 import com.group9.eda397.ui.activities.BaseActivity;
 import com.group9.eda397.ui.fragments.TravisBuildsFragment;
-import com.group9.eda397.ui.PlanningGameFragment;
+import com.group9.eda397.ui.fragments.WelcomeFragment;
 
 import butterknife.Bind;
 
@@ -50,6 +51,12 @@ public class MainActivity extends BaseActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+
+        if (savedInstanceState == null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment_container, WelcomeFragment.newInstance());
+            ft.commit();
+        }
     }
 
     @Override
@@ -96,8 +103,8 @@ public class MainActivity extends BaseActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         Fragment fragment = null;
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
+        if (id == R.id.nav_home) {
+            fragment = WelcomeFragment.newInstance();
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {

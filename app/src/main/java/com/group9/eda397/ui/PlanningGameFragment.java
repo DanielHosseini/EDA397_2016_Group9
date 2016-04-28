@@ -1,22 +1,17 @@
 package com.group9.eda397.ui;
 
-<<<<<<< 919693e20bf7fbb60f85d0437134aa54c420197c
-=======
 import android.app.AlertDialog;
 import android.content.DialogInterface;
->>>>>>> User can now choose cards from different decks. The selected cards is presented
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-<<<<<<< 919693e20bf7fbb60f85d0437134aa54c420197c
-=======
 import android.widget.NumberPicker;
->>>>>>> User can now choose cards from different decks. The selected cards is presented
 
 import com.group9.eda397.R;
 import com.group9.eda397.ui.activities.CardPresenter;
@@ -32,7 +27,7 @@ public class PlanningGameFragment extends BaseFragment {
 
     private static final String ARG_TEXT = PlanningGameFragment.class.getCanonicalName() + ".arg_text";
 
-    public static PlanningGameFragment newInstance(final String text) {
+    public static Fragment newInstance(final String text) {
         PlanningGameFragment fragment = new PlanningGameFragment();
         Bundle bundle = new Bundle();
         bundle.putString(ARG_TEXT, text);
