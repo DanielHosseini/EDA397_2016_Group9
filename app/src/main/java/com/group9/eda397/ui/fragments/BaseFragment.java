@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.group9.eda397.MainActivity;
+
 import butterknife.ButterKnife;
 import icepick.Icepick;
 
@@ -55,6 +57,11 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    protected void hideFab() {
+        MainActivity mainActivity = (MainActivity) getActivity();
+        mainActivity.getFab().setVisibility(View.GONE);
     }
 
     public AppCompatActivity getAppCompatActivity() {
