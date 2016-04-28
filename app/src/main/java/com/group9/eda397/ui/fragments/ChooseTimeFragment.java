@@ -1,4 +1,4 @@
-package com.group9.eda397.ui;
+package com.group9.eda397.ui.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.group9.eda397.R;
-import com.group9.eda397.ui.fragments.BaseFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

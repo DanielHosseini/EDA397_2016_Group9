@@ -1,10 +1,10 @@
-package com.group9.eda397;
+package com.group9.eda397.ui.fragments;
 /*
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import com.group9.eda397.ui.ChooseTimeFragment;
+import com.group9.eda397.ui.fragments.ChooseTimeFragment;
 
 import org.junit.Before;
 import org.junit.Rule;
