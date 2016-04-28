@@ -1,5 +1,5 @@
 # EDA397 - Agile Development Processes
-Group 9 - 2016 
+Group 9 - 2016
 
 Travis CI status: ![alt tag](https://travis-ci.org/DanielHosseini/EDA397_2016_Group9.svg?branch=develop)
 
