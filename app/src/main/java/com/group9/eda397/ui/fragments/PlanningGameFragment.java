@@ -33,7 +33,7 @@ public class PlanningGameFragment extends BaseFragment {
     public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_planning_game, container, false);
         ButterKnife.bind(this, view);
-
+        getAppCompatActivity().getSupportActionBar().setTitle(R.string.title_planning_game);
         Button btn_fib = (Button) view.findViewById(R.id.button_fibonacci);
         Button btn_powertwo = (Button) view.findViewById(R.id.button_power_of_two);
         Button btn_standard = (Button) view.findViewById(R.id.button_standard);

@@ -38,18 +38,18 @@ public class ChooseTimeFragment extends BaseFragment {
     private static final String UNPAUSE_BUTTON_TEXT = "Resume";
     private static final String RESTART_BUTTON_TEXT = "Restart";
     private static final String CLARIFYING_TEXT_SET_TIMER = "Set time";
-    @Bind(R.id.editText) EditText editText;
-    @Bind(R.id.text) TextView textView;
-    @Bind(R.id.startButton) Button startButton;
-    @Bind(R.id.cancelButton) Button cancelButton;
-    @Bind(R.id.clarifyingText) TextView clarifyingText;
-    @Bind(R.id.pauseButton) Button pauseButton;
     private static int timerVisibleCount = 0;
     private static long timerStartTime = 0;
     private static long timerCurrentTotalTime = 0;
     private static long timerPausedRemainingTime = 0;
     private static long timerTotalTime = 600; // 600 seconds = 10 minutes
     private static PairProgrammingTimer timer = null;
+    @Bind(R.id.editText) EditText editText;
+    @Bind(R.id.text) TextView textView;
+    @Bind(R.id.startButton) Button startButton;
+    @Bind(R.id.cancelButton) Button cancelButton;
+    @Bind(R.id.clarifyingText) TextView clarifyingText;
+    @Bind(R.id.pauseButton) Button pauseButton;
 
     public static ChooseTimeFragment newInstance(final String text) {
         ChooseTimeFragment fragment = new ChooseTimeFragment();
@@ -64,7 +64,7 @@ public class ChooseTimeFragment extends BaseFragment {
     public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.countdown_timer, container, false);
         ButterKnife.bind(this, view);
-        //editText.setText("0");
+        getAppCompatActivity().getSupportActionBar().setTitle(R.string.title_timer);
         clarifyingText.setText(CLARIFYING_TEXT_SET_TIMER);
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
