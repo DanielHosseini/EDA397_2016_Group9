@@ -1,4 +1,4 @@
-package com.group9.eda397.ui;
+package com.group9.eda397.ui.fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -15,7 +15,6 @@ import android.widget.NumberPicker;
 
 import com.group9.eda397.R;
 import com.group9.eda397.ui.activities.CardPresenter;
-import com.group9.eda397.ui.fragments.BaseFragment;
 
 import butterknife.ButterKnife;
 
@@ -25,16 +24,10 @@ import butterknife.ButterKnife;
  */
 public class PlanningGameFragment extends BaseFragment {
 
-    private static final String ARG_TEXT = PlanningGameFragment.class.getCanonicalName() + ".arg_text";
-
-    public static Fragment newInstance(final String text) {
-        PlanningGameFragment fragment = new PlanningGameFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString(ARG_TEXT, text);
-        fragment.setArguments(bundle);
-        return fragment;
+    public static Fragment newInstance() {
+        return new PlanningGameFragment();
     }
-
+    
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {

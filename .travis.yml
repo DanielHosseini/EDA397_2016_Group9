@@ -37,3 +37,10 @@ before_script:
 
 script:
    - ./gradlew cAT
+   - ./gradlew sonarRunner
+
+# whitelist
+branches:
+  only:
+    - master
+    - develop
