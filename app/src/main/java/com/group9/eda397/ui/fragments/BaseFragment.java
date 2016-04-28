@@ -26,7 +26,6 @@ import icepick.Icepick;
  */
 public abstract class BaseFragment extends Fragment {
 
-
     @Override
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         Bundle params = getArguments();

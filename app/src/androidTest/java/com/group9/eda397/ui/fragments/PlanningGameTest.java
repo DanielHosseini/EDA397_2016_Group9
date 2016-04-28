@@ -1,20 +1,22 @@
 package com.group9.eda397.ui.fragments;
 
 import android.support.test.rule.ActivityTestRule;
+import android.support.v4.app.FragmentTransaction;
 
 import com.group9.eda397.MainActivity;
 import com.group9.eda397.R;
 
-import org.hamcrest.Matchers;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+
+import java.io.IOException;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.contrib.DrawerActions.open;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -24,12 +26,19 @@ public class PlanningGameTest {
     public ActivityTestRule<MainActivity> mainActivityRule = new ActivityTestRule<>(
             MainActivity.class);
 
+    private void replaceFragment() {
+        FragmentTransaction ft = mainActivityRule.getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, PlanningGameFragment.newInstance());
+        ft.commit();
+    }
+
+    @Before
+    public void setUp() throws IOException {
+        replaceFragment();
+    }
+
     @Test
     public void allowUserToChooseDeck() {
-        onView(withId(R.id.drawer_layout)).perform(open());
-        String FragmentName = mainActivityRule.getActivity().getResources().getString(R.string.title_planning_game);
-        onView(withText(Matchers.containsString(FragmentName))).perform(click());
-
         onView(withId(R.id.button_fibonacci)).check(matches(isDisplayed()));
         onView(withId(R.id.button_power_of_two)).check(matches(isDisplayed()));
         onView(withId(R.id.button_standard)).check(matches(isDisplayed()));
@@ -37,10 +46,6 @@ public class PlanningGameTest {
 
     @Test
     public void rightFibonacciCardIsPresented() {
-        onView(withId(R.id.drawer_layout)).perform(open());
-        String FragmentName = mainActivityRule.getActivity().getResources().getString(R.string.title_planning_game);
-        onView(withText(Matchers.containsString(FragmentName))).perform(click());
-
         onView(withId(R.id.button_fibonacci)).perform(click());
         onView(withText("0")).check(matches(isDisplayed()));
         onView(withText(R.string.label_select)).perform(click());
