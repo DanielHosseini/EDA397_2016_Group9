@@ -52,15 +52,16 @@
 
         <Button
             android:id="@+id/pauseButton"
-            android:layout_width="wrap_content"
+            android:layout_width="190dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:text="Pause"
             android:textSize="30sp"
             android:visibility="gone"/>
 
         <Button
             android:id="@+id/cancelButton"
-            android:layout_width="wrap_content"
+            android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="Cancel"
