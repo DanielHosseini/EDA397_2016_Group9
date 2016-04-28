@@ -1,11 +1,16 @@
 package com.group9.eda397;
 
+import android.app.NotificationManager;
+import android.content.Context;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,6 +19,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+
+import com.group9.eda397.ui.ChooseTimeFragment;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 import com.group9.eda397.ui.PlanningGameFragment;
 import com.group9.eda397.ui.activities.BaseActivity;
@@ -34,8 +47,11 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setSupportActionBar(toolbar);
 
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
+        EventBus.getDefault().register(this);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +91,20 @@ public class MainActivity extends BaseActivity
         }
     }
 
+    @Subscribe
+    public void onFinishedTimerEvent(final ChooseTimeFragment.FinishedTimerEvent event) {
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        builder.setContentTitle("Pair programming timer is finished");
+        builder.setSmallIcon(R.drawable.ic_menu_gallery); // TODO fix icon
+
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        builder.setSound(alarmSound);
+
+        NotificationManager nm = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+        nm.notify(0, builder.build());
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -106,15 +136,12 @@ public class MainActivity extends BaseActivity
         if (id == R.id.nav_home) {
             fragment = WelcomeFragment.newInstance();
         } else if (id == R.id.nav_gallery) {
-
+            fragment = ChooseTimeFragment.newInstance("nav_gallery");
         } else if (id == R.id.nav_slideshow) {
-
         } else if (id == R.id.nav_travis) {
             fragment = TravisBuildsFragment.newInstance();
         } else if (id == R.id.nav_share) {
-
         } else if (id == R.id.nav_send) {
-
         } else if (id == R.id.nav_planning_game) {
             fragment = PlanningGameFragment.newInstance("planningGame");
         }
