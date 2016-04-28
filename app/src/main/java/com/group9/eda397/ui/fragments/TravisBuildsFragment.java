@@ -3,7 +3,6 @@ package com.group9.eda397.ui.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,7 +12,6 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.group9.eda397.MainActivity;
 import com.group9.eda397.R;
 import com.group9.eda397.data.TravisServiceFactory;
 import com.group9.eda397.data.github.TravisService;
@@ -74,8 +72,10 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
         setupAdapter();
         setupRecyclerView();
         setupRefreshLayout();
-        dismissFab();
-        load(false);
+        hideFab();
+        if (adapter.getList().isEmpty()) {
+            load(false);
+        }
     }
 
     @Override
@@ -189,10 +189,5 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
         if (adapter == null) {
             adapter = new TravisBuildsAdapter(getContext(), Picasso.with(getActivity()), this);
         }
-    }
-
-    private void dismissFab() {
-        MainActivity mainActivity = (MainActivity) getActivity();
-        mainActivity.getFab().setVisibility(View.GONE);
     }
 }
