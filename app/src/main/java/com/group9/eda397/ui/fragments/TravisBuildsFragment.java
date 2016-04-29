@@ -13,8 +13,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.group9.eda397.R;
+import com.group9.eda397.data.GitHubServiceFactory;
 import com.group9.eda397.data.TravisServiceFactory;
-import com.group9.eda397.data.github.TravisService;
+import com.group9.eda397.data.github.GitHubService;
+import com.group9.eda397.data.travis.TravisService;
 import com.group9.eda397.model.TravisBuild;
 import com.group9.eda397.ui.activities.TravisBuildDetailsActivity;
 import com.group9.eda397.ui.adapters.TravisBuildsAdapter;
@@ -50,6 +52,7 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
     private TravisBuildsAdapter adapter;
     private LinearLayoutManager layoutManager;
     private TravisService travisService;
+    private GitHubService gitHubServcie;
 
     public static Fragment newInstance() {
         return new TravisBuildsFragment();
@@ -63,6 +66,7 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
             this.repository = DEFAULT_REPOSITORY;
         }
         travisService = TravisServiceFactory.getService(getActivity().getApplication());
+        gitHubServcie = GitHubServiceFactory.getService(getActivity().getApplication());
     }
 
     @Override

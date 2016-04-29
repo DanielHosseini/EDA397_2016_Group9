@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.group9.eda397.R;
 import com.group9.eda397.data.TravisServiceFactory;
-import com.group9.eda397.data.github.TravisService;
+import com.group9.eda397.data.travis.TravisService;
 import com.group9.eda397.model.TravisBuildDetails;
 import com.group9.eda397.utils.StringUtils;
 
