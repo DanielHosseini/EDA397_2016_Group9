@@ -2,27 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+    android:background="#44464F">
 
-    <TextView
-        android:id="@+id/tv_welcome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/spacing_large"
-        android:layout_marginTop="75dp"
-        android:gravity="center"
-        android:text="@string/title_welcome"
-        android:textSize="60sp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_welcome"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:paddingLeft="@dimen/spacing_normal"
-        android:paddingRight="@dimen/spacing_normal"
-        android:text="@string/title_welcome_subtitle"
-        android:textSize="30sp"/>
 </RelativeLayout>
