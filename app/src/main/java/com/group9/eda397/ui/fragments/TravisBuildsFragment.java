@@ -190,4 +190,10 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
             adapter = new TravisBuildsAdapter(getContext(), Picasso.with(getActivity()), this);
         }
     }
+
+    private void changeTravisRepo(String owner, String repository){
+        this.owner = owner;
+        this.repository = repository;
+        load(false);
+    }
 }
