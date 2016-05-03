@@ -22,7 +22,11 @@ import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 /**
  * Espresso unit tests for the Travis Builds Fragment
@@ -97,5 +101,16 @@ public class TravisBuildsFragmentTest {
         onView(withId(R.id.fab)).check(UIAssertions.isGone());
     }
 
-    // TODO write test for travis configuration dialog
+    @Test
+    public void testTravisDialogConfiguration() throws InterruptedException {
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(EXAMPLE_RESPONSE));
+        onView(withId(R.id.set_travis_fab)).perform(click());
+        onView(withId(R.id.travis_owner)).check(UIAssertions.isVisible())
+                .perform(typeText("donirn")).check(matches(withText("donirn")));
+        onView(withId(R.id.travis_repository)).check(UIAssertions.isVisible())
+                .perform(typeText("travis-broken-example")).check(matches(withText("travis-broken-example")));
+        // TODO test result by clicking on positive button in the dialog
+    }
 }
