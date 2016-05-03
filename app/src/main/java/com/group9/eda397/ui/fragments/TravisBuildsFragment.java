@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import icepick.State;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -219,7 +221,10 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
         builder.setTitle("Change Travis Configuration")
                 .setPositiveButton("Apply",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        changeTravisRepo("donirn","travis-broken-example");
+                        AlertDialog alertDialog = (AlertDialog) dialog;
+                        EditText ownerText = ButterKnife.findById(alertDialog, R.id.travis_owner);
+                        EditText repoText = ButterKnife.findById(alertDialog, R.id.travis_repository);
+                        changeTravisRepo(ownerText.getText().toString(),repoText.getText().toString());
                     }
                 })
                 .setNegativeButton("Cancel",null);
