@@ -123,4 +123,15 @@ public class TravisBuildsFragmentTest {
         onView(withId(R.id.rl_error)).check(UIAssertions.isGone());
         onView(withId(R.id.fab)).check(UIAssertions.isGone());
     }
+
+    @Test
+    public void testTravisDialogCancel() throws InterruptedException{
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(EXAMPLE_RESPONSE));
+        onView(withId(R.id.set_travis_fab)).perform(click());
+        onView(withId(R.id.travis_owner)).check(UIAssertions.isVisible());
+        onView(withId(R.id.travis_cancel_button)).perform(click());
+        onView(withId(R.id.travis_owner)).check(UIAssertions.isGone());
+    }
 }
