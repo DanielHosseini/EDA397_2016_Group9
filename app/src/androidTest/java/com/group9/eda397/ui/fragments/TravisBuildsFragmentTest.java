@@ -106,11 +106,21 @@ public class TravisBuildsFragmentTest {
         server.enqueue(new MockResponse()
                 .setResponseCode(200)
                 .setBody(EXAMPLE_RESPONSE));
+        server.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(EXAMPLE_RESPONSE));
+
         onView(withId(R.id.set_travis_fab)).perform(click());
         onView(withId(R.id.travis_owner)).check(UIAssertions.isVisible())
                 .perform(typeText("donirn")).check(matches(withText("donirn")));
         onView(withId(R.id.travis_repository)).check(UIAssertions.isVisible())
                 .perform(typeText("travis-broken-example")).check(matches(withText("travis-broken-example")));
-        // TODO test result by clicking on positive button in the dialog
+        onView(withId(R.id.travis_apply_button)).perform(click());
+
+        onView(withId(R.id.tv_no_results)).check(UIAssertions.isGone());
+        onView(withId(R.id.recycler_view)).check(UIAssertions.isVisible());
+        onView(withId(R.id.swipe_refresh_layout)).check(UIAssertions.isVisible());
+        onView(withId(R.id.rl_error)).check(UIAssertions.isGone());
+        onView(withId(R.id.fab)).check(UIAssertions.isGone());
     }
 }
