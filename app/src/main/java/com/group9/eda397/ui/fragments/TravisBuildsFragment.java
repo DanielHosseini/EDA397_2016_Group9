@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -217,19 +218,31 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
     private void showTravisRepoConfiguration() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        builder.setView(inflater.inflate(R.layout.dialog_travis_configuration, null));
-        builder.setTitle("Change Travis Configuration")
-                .setPositiveButton("Apply",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        AlertDialog alertDialog = (AlertDialog) dialog;
-                        EditText ownerText = ButterKnife.findById(alertDialog, R.id.travis_owner);
-                        EditText repoText = ButterKnife.findById(alertDialog, R.id.travis_repository);
-                        changeTravisRepo(ownerText.getText().toString(),repoText.getText().toString());
-                    }
-                })
-                .setNegativeButton("Cancel",null);
 
-        AlertDialog dialog = builder.create();
+        final View dialogView = inflater.inflate(R.layout.dialog_travis_configuration, null);
+        builder.setView(dialogView);
+        builder.setTitle("Change Travis Configuration");
+
+        final AlertDialog dialog = builder.create();
         dialog.show();
+
+        Button applyButton = ButterKnife.findById(dialog,R.id.travis_apply_button);
+        applyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText ownerText = ButterKnife.findById(dialogView, R.id.travis_owner);
+                EditText repoText = ButterKnife.findById(dialogView, R.id.travis_repository);
+                changeTravisRepo(ownerText.getText().toString(),repoText.getText().toString());
+                dialog.dismiss();
+            }
+        });
+
+        Button cancelButton = ButterKnife.findById(dialog, R.id.travis_cancel_button);
+        cancelButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                dialog.cancel();
+            }
+        });
     }
 }
