@@ -10,6 +10,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -213,13 +214,15 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
 
     private void showTravisRepoConfiguration() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        builder.setView(inflater.inflate(R.layout.dialog_travis_configuration, null));
         builder.setTitle("Change Travis Configuration")
-            .setPositiveButton("Apply",new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    changeTravisRepo("donirn","travis-broken-example");
-                }
-            })
-            .setNegativeButton("Cancel",null);
+                .setPositiveButton("Apply",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        changeTravisRepo("donirn","travis-broken-example");
+                    }
+                })
+                .setNegativeButton("Cancel",null);
 
         AlertDialog dialog = builder.create();
         dialog.show();
