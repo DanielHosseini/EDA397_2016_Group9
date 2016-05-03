@@ -2,6 +2,7 @@ package com.group9.eda397.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -47,6 +48,7 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
     @Bind(R.id.fl_loading) FrameLayout loadingFrameLayout;
     @Bind(R.id.tv_no_results) TextView noResultsTextView;
     @Bind(R.id.rl_error) RelativeLayout errorView;
+    @Bind(R.id.set_travis_fab) FloatingActionButton travisFab;
     private TravisBuildsAdapter adapter;
     private LinearLayoutManager layoutManager;
     private TravisService travisService;
@@ -73,6 +75,7 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
         setupRecyclerView();
         setupRefreshLayout();
         hideFab();
+        setupTravisFab();
         if (adapter.getList().isEmpty()) {
             load(false);
         }
@@ -195,5 +198,14 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
         this.owner = owner;
         this.repository = repository;
         load(false);
+    }
+
+    private void setupTravisFab() {
+        travisFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeTravisRepo("donirn","travis-broken-example");
+            }
+        });
     }
 }
