@@ -1,5 +1,7 @@
 package com.group9.eda397.ui.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -204,8 +206,22 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
         travisFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                changeTravisRepo("donirn","travis-broken-example");
+                showTravisRepoConfiguration();
             }
         });
+    }
+
+    private void showTravisRepoConfiguration() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Change Travis Configuration")
+            .setPositiveButton("Apply",new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    changeTravisRepo("donirn","travis-broken-example");
+                }
+            })
+            .setNegativeButton("Cancel",null);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
