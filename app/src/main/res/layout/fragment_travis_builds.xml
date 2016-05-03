@@ -18,7 +18,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_menu_preferences"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:src="@android:drawable/ic_menu_edit"
         app:layout_behavior="com.group9.eda397.ui.animations.ScrollAwareFabBehavior"
         app:elevation="4dp"/>
 
