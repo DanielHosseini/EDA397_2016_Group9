@@ -96,4 +96,6 @@ public class TravisBuildsFragmentTest {
         onView(withId(R.id.rl_error)).check(UIAssertions.isGone());
         onView(withId(R.id.fab)).check(UIAssertions.isGone());
     }
+
+    // TODO write test for travis configuration dialog
 }
