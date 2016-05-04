@@ -21,6 +21,7 @@ import java.io.IOException;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 
+import static android.support.test.espresso.Espresso.closeSoftKeyboard;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
@@ -113,8 +114,10 @@ public class TravisBuildsFragmentTest {
         onView(withId(R.id.set_travis_fab)).perform(click());
         onView(withId(R.id.travis_owner)).check(UIAssertions.isVisible())
                 .perform(typeText("donirn")).check(matches(withText("donirn")));
+        closeSoftKeyboard();
         onView(withId(R.id.travis_repository)).check(UIAssertions.isVisible())
                 .perform(typeText("travis-broken-example")).check(matches(withText("travis-broken-example")));
+        closeSoftKeyboard();
         onView(withId(R.id.travis_apply_button)).perform(click());
 
         onView(withId(R.id.tv_no_results)).check(UIAssertions.isGone());
