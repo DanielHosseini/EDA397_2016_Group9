@@ -22,6 +22,4 @@ public interface GitHubService {
     @GET("/repos/{" + PATH_PARAM_OWNER + "}/{" + PATH_PARAM_REPO + "}/commits")
     Call<List<GitHubCommitItem>> getCommits(@Path(PATH_PARAM_OWNER) final String owner,
                                             @Path(PATH_PARAM_REPO) final String repository);
-
-    List<GitHubCommitItem> getCommitsMock();
 }
