@@ -18,6 +18,10 @@
             android:id="@+id/nav_planning_game"
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/title_planning_game"/>
+        <item
+            android:id="@+id/nav_github"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/title_github_commits"/>
     </group>
 
 </menu>

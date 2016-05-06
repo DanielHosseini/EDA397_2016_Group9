@@ -78,6 +78,11 @@ public class GitHubServiceTest extends InstrumentationTestCase {
             List<GitHubCommitItem> response = Collections.emptyList();
             return delegate.returningResponse(response).getCommits(owner, repository);
         }
+
+        @Override
+        public List<GitHubCommitItem> getCommitsMock() {
+            return null; // TODO change interface githubService?
+        }
     }
 
 }

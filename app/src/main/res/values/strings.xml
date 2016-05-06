@@ -11,6 +11,7 @@
     <string name="title_travis_builds">Travis CI Builds</string>
     <string name="title_in_progress">In Progress</string>
     <string name="title_build">Build</string>
+    <string name="title_github_commits">Github Commits</string>
 
     <!-- Actions: prefix action_ -->
 
