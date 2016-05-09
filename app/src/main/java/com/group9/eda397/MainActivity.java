@@ -37,7 +37,6 @@ public class MainActivity extends BaseActivity
 
     @Bind(R.id.fragment_container) FrameLayout fragmentContainer;
     @Bind(R.id.toolbar) Toolbar toolbar;
-    @Bind(R.id.fab) FloatingActionButton fab;
     @Bind(R.id.drawer_layout) DrawerLayout drawer;
     @Bind(R.id.nav_view) NavigationView navigationView;
 
@@ -50,13 +49,7 @@ public class MainActivity extends BaseActivity
         setSupportActionBar(toolbar);
         EventBus.getDefault().register(this);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -153,7 +146,4 @@ public class MainActivity extends BaseActivity
         return true;
     }
 
-    public FloatingActionButton getFab() {
-        return fab;
-    }
 }
