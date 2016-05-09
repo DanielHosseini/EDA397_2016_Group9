@@ -1,13 +1,19 @@
 package com.group9.eda397.ui.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,6 +29,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import icepick.State;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,6 +54,7 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
     @Bind(R.id.fl_loading) FrameLayout loadingFrameLayout;
     @Bind(R.id.tv_no_results) TextView noResultsTextView;
     @Bind(R.id.rl_error) RelativeLayout errorView;
+    @Bind(R.id.set_travis_fab) FloatingActionButton travisFab;
     private TravisBuildsAdapter adapter;
     private LinearLayoutManager layoutManager;
     private TravisService travisService;
@@ -73,6 +81,7 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
         setupRecyclerView();
         setupRefreshLayout();
         hideFab();
+        setupTravisFab();
         if (adapter.getList().isEmpty()) {
             load(false);
         }
@@ -189,5 +198,51 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
         if (adapter == null) {
             adapter = new TravisBuildsAdapter(getContext(), Picasso.with(getActivity()), this);
         }
+    }
+
+    private void changeTravisRepo(String owner, String repository){
+        this.owner = owner;
+        this.repository = repository;
+        load(false);
+    }
+
+    private void setupTravisFab() {
+        travisFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showTravisRepoConfiguration();
+            }
+        });
+    }
+
+    private void showTravisRepoConfiguration() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+
+        final View dialogView = inflater.inflate(R.layout.dialog_travis_configuration, null);
+        builder.setView(dialogView);
+        builder.setTitle("Change Travis Configuration");
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
+        Button applyButton = ButterKnife.findById(dialog,R.id.travis_apply_button);
+        applyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText ownerText = ButterKnife.findById(dialogView, R.id.travis_owner);
+                EditText repoText = ButterKnife.findById(dialogView, R.id.travis_repository);
+                changeTravisRepo(ownerText.getText().toString(),repoText.getText().toString());
+                dialog.dismiss();
+            }
+        });
+
+        Button cancelButton = ButterKnife.findById(dialog, R.id.travis_cancel_button);
+        cancelButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                dialog.cancel();
+            }
+        });
     }
 }
