@@ -25,6 +25,7 @@
     <!-- Travis Build Details Label-->
     <string name="label_author_name">Author: </string>
     <string name="label_author_email">Email: </string>
+    <string name="label_message">Message: </string>
     <string name="title_planning_game">Planning Game</string>
     <string name="label_select">Select</string>
     <string name="title_welcome">Welcome</string>
