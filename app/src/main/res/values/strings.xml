@@ -25,7 +25,9 @@
     <!-- Travis Build Details Label-->
     <string name="label_author_name">Author: </string>
     <string name="label_author_email">Email: </string>
+    <string name="label_branch">Branch: </string>
     <string name="label_message">Message: </string>
+    <string name="label_commit_link">More info: </string>
     <string name="title_planning_game">Planning Game</string>
     <string name="label_select">Select</string>
     <string name="title_welcome">Welcome</string>
@@ -36,5 +38,6 @@
     <string name="title_set_time">Set Time</string>
     <string name="title_start">Start</string>
     <string name="title_timer">Timer</string>
+    <string name="repositoryLink">https://github.com/DanielHosseini/EDA397_2016_Group9</string>
 
 </resources>

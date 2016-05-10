@@ -42,7 +42,9 @@ public class TravisBuildDetailsActivity extends ToolbarActivity {
     @State protected TravisBuildDetails travisBuildDetails;
     @Bind(R.id.tv_author_name) TextView authorTextView;
     @Bind(R.id.tv_author_email) TextView authorEmailTextView;
+    @Bind(R.id.tv_branch) TextView branchTextView;
     @Bind(R.id.tv_message) TextView messageTextView;
+    @Bind(R.id.tv_commit_link) TextView commitLinkTextView;
     @Bind(R.id.travis_build_details) LinearLayout mainView;
     @Bind(R.id.fl_loading) FrameLayout loadingFrameLayout;
     @Bind(R.id.rl_error) RelativeLayout errorView;
@@ -133,6 +135,8 @@ public class TravisBuildDetailsActivity extends ToolbarActivity {
 
         authorTextView.setText(travisBuildDetails.getAuthorName());
         authorEmailTextView.setText(travisBuildDetails.getAuthorEmail());
+        branchTextView.setText(travisBuildDetails.getBranch());
         messageTextView.setText(travisBuildDetails.getMessage());
+        commitLinkTextView.setText(getResources().getString(R.string.repositoryLink) + "/commit/" + travisBuildDetails.getCommit());
     }
 }

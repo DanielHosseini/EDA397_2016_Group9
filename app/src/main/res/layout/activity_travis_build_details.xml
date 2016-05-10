@@ -22,86 +22,141 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
-        android:id="@+id/travis_build_details"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:padding="@dimen/spacing_normal"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardview"
-            android:layout_width="fill_parent"
+
+        <LinearLayout
+            android:id="@+id/travis_build_details"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="100dp"
-            card_view:cardCornerRadius="8dp"
-            android:layout_margin="@dimen/spacing_normal">
+            android:padding="@dimen/spacing_normal"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="@dimen/spacing_normal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/label_author_name"/>
-                <TextView
-                    android:id="@+id/tv_author_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/spacing_normal"/>
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardview"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:elevation="100dp"
+                card_view:cardCornerRadius="8dp"
+                android:layout_margin="@dimen/spacing_normal">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardview2"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:elevation="100dp"
-            card_view:cardCornerRadius="8dp"
-            android:layout_margin="@dimen/spacing_normal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/spacing_normal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_author_name"/>
+                    <TextView
+                        android:id="@+id/tv_author_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/spacing_normal"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="@dimen/spacing_normal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/label_author_email"/>
-                <TextView
-                    android:id="@+id/tv_author_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/spacing_normal"/>
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardview2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:elevation="100dp"
+                card_view:cardCornerRadius="8dp"
+                android:layout_margin="@dimen/spacing_normal">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardview3"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:elevation="100dp"
-            card_view:cardCornerRadius="8dp"
-            android:layout_margin="@dimen/spacing_normal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/spacing_normal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_author_email"/>
+                    <TextView
+                        android:id="@+id/tv_author_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/spacing_normal"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="@dimen/spacing_normal">
-                <TextView
-                    android:layout_width="wrap_content"
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardview3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:elevation="100dp"
+                card_view:cardCornerRadius="8dp"
+                android:layout_margin="@dimen/spacing_normal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/label_message"/>
-                <TextView
-                    android:id="@+id/tv_message"
-                    android:layout_width="wrap_content"
+                    android:padding="@dimen/spacing_normal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_branch"/>
+                    <TextView
+                        android:id="@+id/tv_branch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/spacing_normal"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardview4"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:elevation="100dp"
+                card_view:cardCornerRadius="8dp"
+                android:layout_margin="@dimen/spacing_normal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/spacing_normal"/>
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-    </LinearLayout>
+                    android:padding="@dimen/spacing_normal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_message"/>
+                    <TextView
+                        android:id="@+id/tv_message"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/spacing_normal"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardview5"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:elevation="100dp"
+                card_view:cardCornerRadius="8dp"
+                android:layout_margin="@dimen/spacing_normal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/spacing_normal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_commit_link"/>
+                    <TextView
+                        android:id="@+id/tv_commit_link"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/spacing_normal"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
     <include layout="@layout/merge_loading"/>
     <include layout="@layout/merge_error_view"/>
