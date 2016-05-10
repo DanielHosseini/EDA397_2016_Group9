@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:background="#FF4081"
+        android:background="#000"
         android:orientation="horizontal"></LinearLayout>
     <RelativeLayout
         android:id="@+id/PokerButton"
@@ -42,7 +42,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:background="#FF4081"
+        android:background="#000"
         android:orientation="horizontal" />
 
     <RelativeLayout
@@ -80,7 +80,7 @@
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:background="#FF4081"
+            android:background="#000"
             android:orientation="horizontal"
             android:id="@+id/linearLayout">
         </LinearLayout>
@@ -93,17 +93,17 @@
         android:orientation="horizontal">
 
         <RelativeLayout
-            android:id="@+id/trelloButton"
+            android:id="@+id/travisButton"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:background="#44464F">
 
             <TextView
-                android:id="@+id/trelloText"
+                android:id="@+id/travisText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/title_trello"
+                android:text="@string/title_travis"
                 android:textColor="#FFF"
                 android:textAllCaps="true"
                 android:fontFamily="serif-monospace"
@@ -113,18 +113,18 @@
                 android:layout_marginBottom="24dp" />
 
             <ImageView
-                android:id="@+id/trelloimage"
+                android:id="@+id/travisImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/trelloText"
-                android:background="@drawable/trellologo"
-                android:layout_alignStart="@+id/trelloText" />
+                android:background="@drawable/travist"
+                android:layout_above="@+id/travisText"
+                android:layout_centerHorizontal="true" />
         </RelativeLayout>
 
         <LinearLayout
             android:layout_width="1dp"
             android:layout_height="fill_parent"
-            android:background="#FF4081"
+            android:background="#000"
             android:orientation="vertical"></LinearLayout>
 
         <RelativeLayout
@@ -160,7 +160,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:background="#FF4081"
+        android:background="#000"
         android:orientation="horizontal"></LinearLayout>
 
 
