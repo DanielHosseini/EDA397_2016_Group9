@@ -149,6 +149,8 @@
                         android:text="@string/label_commit_link"/>
                     <TextView
                         android:id="@+id/tv_commit_link"
+                        android:clickable="true"
+                        android:textColor="#0000EE"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/spacing_normal"/>

@@ -129,6 +129,8 @@ public class TravisBuildDetailsActivity extends ToolbarActivity {
     }
 
     private void setupViews() {
+        final String url = getResources().getString(R.string.repositoryLink) + "/commit/" + travisBuildDetails.getCommit();
+
         mainView.setVisibility(View.VISIBLE);
         loadingFrameLayout.setVisibility(View.GONE);
         errorView.setVisibility(View.GONE);
@@ -137,6 +139,17 @@ public class TravisBuildDetailsActivity extends ToolbarActivity {
         authorEmailTextView.setText(travisBuildDetails.getAuthorEmail());
         branchTextView.setText(travisBuildDetails.getBranch());
         messageTextView.setText(travisBuildDetails.getMessage());
-        commitLinkTextView.setText(getResources().getString(R.string.repositoryLink) + "/commit/" + travisBuildDetails.getCommit());
+        commitLinkTextView.setText(url);
+        //commitLinkTextView.setMovementMethod(LinkMovementMethod.getInstance());
+
+        commitLinkTextView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), WebActivity.class  );
+                intent.putExtra("url", url);
+                startActivity(intent);
+            }
+        });
     }
 }
