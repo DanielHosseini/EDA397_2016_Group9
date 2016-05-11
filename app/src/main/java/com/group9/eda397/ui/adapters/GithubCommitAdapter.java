@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.group9.eda397.R;
 import com.group9.eda397.model.GitHubCommitItem;
-import com.group9.eda397.utils.StringUtils;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
@@ -73,7 +72,7 @@ public class GithubCommitAdapter extends BaseRecyclerAdapter<GitHubCommitItem>{
         @Override
         protected void bindTo() {
             GitHubCommitItem ghItem = getList().get(getAdapterPosition());
-            buildTextView.setText(ghItem.getAuthor().getUsername());
+            buildTextView.setText(ghItem.getCommitter().getUsername());
             finishedAtTextView.setText(DateUtils.formatDateTime(context, ghItem.getCommit().getAuthor().getDate().getTime(), DateUtils.FORMAT_ABBREV_MONTH) +
                     DateUtils.formatDateTime(context, ghItem.getCommit().getAuthor().getDate().getTime(), DateUtils.FORMAT_SHOW_TIME));
             branchTextView.setText(ghItem.getCommit().getMessage());
