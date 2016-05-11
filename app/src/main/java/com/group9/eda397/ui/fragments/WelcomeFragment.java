@@ -1,18 +1,15 @@
 package com.group9.eda397.ui.fragments;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.group9.eda397.R;
-import com.group9.eda397.ui.ChooseTimeFragment;
 
 /**
  * Fragment to display on app start.
