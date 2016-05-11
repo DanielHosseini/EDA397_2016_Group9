@@ -56,15 +56,13 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
-            this.owner = TravisBuildsFragment.DEFAULT_OWNER;// TODO should constants be located somewhere else?
+            this.owner = TravisBuildsFragment.DEFAULT_OWNER;
             this.repository = TravisBuildsFragment.DEFAULT_REPOSITORY;
         }
         gitHubServcie = GitHubServiceFactory.getService(getActivity().getApplication());
     }
 
 
-    // TODO icon of main menu
-    // TODO create separate layout or change name
     @Override
     protected int getLayout() {
         return R.layout.fragment_travis_builds;

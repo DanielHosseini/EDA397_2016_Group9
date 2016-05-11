@@ -45,7 +45,7 @@ public class GithubCommitAdapter extends BaseRecyclerAdapter<GitHubCommitItem>{
 
     @Override
     protected RecyclerView.ViewHolder getItemView(final LayoutInflater inflater, final ViewGroup parent) {
-        return new ItemViewHolder(LayoutInflater.from(context).inflate(R.layout.item_travis_build, parent, false));
+        return new ItemViewHolder(LayoutInflater.from(context).inflate(R.layout.item_github_commits, parent, false));
     }
 
 
@@ -58,10 +58,9 @@ public class GithubCommitAdapter extends BaseRecyclerAdapter<GitHubCommitItem>{
 
         protected View itemView;
 
-        @Bind(R.id.tv_build_no) TextView buildTextView;
-        @Bind(R.id.tv_branch) TextView branchTextView;
-        @Bind(R.id.tv_date) TextView finishedAtTextView;
-        @Bind(R.id.iv_result) ImageView stateImageView;
+        @Bind(R.id.tv_user) TextView userTextView;
+        @Bind(R.id.tv_message) TextView messageTextView;
+        @Bind(R.id.tv_date) TextView dateTextView;
 
         public ItemViewHolder(final View itemView) {
             super(itemView);
@@ -69,26 +68,13 @@ public class GithubCommitAdapter extends BaseRecyclerAdapter<GitHubCommitItem>{
             ButterKnife.bind(this, itemView);
         }
 
-        // TODO fix design
         @Override
         protected void bindTo() {
             GitHubCommitItem ghItem = getList().get(getAdapterPosition());
-            buildTextView.setText(ghItem.getAuthor().getUsername());
-            finishedAtTextView.setText(DateUtils.formatDateTime(context, ghItem.getCommit().getAuthor().getDate().getTime(), DateUtils.FORMAT_ABBREV_MONTH) +
+            userTextView.setText(ghItem.getAuthor().getUsername());
+            dateTextView.setText(DateUtils.formatDateTime(context, ghItem.getCommit().getAuthor().getDate().getTime(), DateUtils.FORMAT_ABBREV_MONTH) +
                     DateUtils.formatDateTime(context, ghItem.getCommit().getAuthor().getDate().getTime(), DateUtils.FORMAT_SHOW_TIME));
-            branchTextView.setText(ghItem.getCommit().getMessage());
-           /* DateUtils.formatDateTime(context, ghItem.getCommit().getAuthor().getDate(), DateUtils.FORMAT_ABBREV_MONTH),
-                    DateUtils.formatDateTime(context, build.getFinishedAt().getTime(), DateUtils.FORMAT_SHOW_TIME)));
-            buildTextView.setText(ghItem.getAuthor().getUsername());
-            if (ghItem.isOngoing() true) {
-                finishedAtTextView.setText(R.string.title_in_progress);
-                stateImageView.setImageResource(R.drawable.ic_loop_black_36dp);
-            } else {/*
-                finishedAtTextView.setText(String.format("Finished: %s at %s",
-                        DateUtils.formatDateTime(context, build.getFinishedAt().getTime(), DateUtils.FORMAT_ABBREV_MONTH),
-                        DateUtils.formatDateTime(context, build.getFinishedAt().getTime(), DateUtils.FORMAT_SHOW_TIME)));
-                stateImageView.setImageResource(build.getResult() != 0 ? R.drawable.ic_thumb_down_black_24dp : R.drawable.ic_thumb_up_black_24dp);
-            }*/
+            messageTextView.setText(ghItem.getCommit().getMessage());
         }
     }
 
