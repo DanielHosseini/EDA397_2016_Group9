@@ -1,103 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/linearlayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#44464F"
-    android:orientation="vertical"
-    android:weightSum="1">
-
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#000"
+        android:orientation="horizontal"></LinearLayout>
     <RelativeLayout
-        android:orientation="vertical"
+        android:id="@+id/PokerButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.08">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="HEJSAN
-            android:id="
-            android:layout_weight="0.08"
-            android:layout_gravity="right"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="79dp"
-            android:id="@+id/textView2" />
+        android:layout_height="64dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.65"
+        android:background="#44464F">
 
         <ImageView
+            android:id="@+id/pokercardsimage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView2"
-            android:background="@drawable/programming"
-            android:layout_alignParentTop="true"
-            android:layout_toStartOf="@+id/textView2" />
+            android:layout_above="@+id/pokerCardText"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/playingcards" />
 
+        <TextView
+            android:id="@+id/pokerCardText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_poker_game"
+            android:textColor="#FFF"
+            android:textAllCaps="true"
+            android:fontFamily="serif-monospace"
+            android:textSize="16sp"
+            android:layout_marginBottom="51dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#000"
+        android:orientation="horizontal" />
+
+    <RelativeLayout
+        android:id="@+id/TimerButton"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.42"
+        android:background="#44464F">
+
+        <ImageView
+            android:id="@+id/timerimage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/timerText"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/timer"
+            />
+
+        <TextView
+            android:id="@+id/timerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_timer"
+            android:textColor="#FFF"
+            android:layout_marginBottom="25dp"
+            android:layout_above="@+id/linearLayout"
+            android:layout_centerHorizontal="true"
+            android:textAllCaps="true"
+            android:fontFamily="serif-monospace"
+            android:textSize="16sp"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:background="#000"
+            android:orientation="horizontal"
+            android:id="@+id/linearLayout">
+        </LinearLayout>
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="119dp"
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal">
 
         <RelativeLayout
-            android:id="@+id/ContactButton"
+            android:id="@+id/travisButton"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:background="#44464F">
 
             <TextView
-                android:id="@+id/contactInfo"
+                android:id="@+id/travisText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/title_travis"
+                android:textColor="#FFF"
+                android:textAllCaps="true"
+                android:fontFamily="serif-monospace"
+                android:textSize="16sp"
+                android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/stopwatch" />
+                android:layout_marginBottom="24dp" />
 
             <ImageView
-                android:id="@+id/editPic"
+                android:id="@+id/travisImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/oval"
-                android:layout_centerVertical="true"
+                android:background="@drawable/travist"
+                android:layout_above="@+id/travisText"
                 android:layout_centerHorizontal="true" />
-
         </RelativeLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="500dp"
-            android:background="#FFF"
-            android:orientation="horizontal">
-
-        </LinearLayout>
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:background="#000"
+            android:orientation="vertical"></LinearLayout>
 
         <RelativeLayout
-            android:id="@+id/AppliedButton"
+            android:id="@+id/githubButton"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:background="#44464F">
 
             <TextView
-                android:id="@+id/appliedObjects"
+                android:id="@+id/githubText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/playingcards"
+                android:text="@string/title_github"
                 android:textColor="#FFF"
-                android:textSize="16dp" />
+                android:textAllCaps="true"
+                android:fontFamily="serif-monospace"
+                android:textSize="16sp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="27dp" />
 
             <ImageView
-                android:id="@+id/searchedHousePic"
+                android:id="@+id/githubImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/oval"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_above="@+id/githubText"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/github" />
         </RelativeLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#000"
+        android:orientation="horizontal"></LinearLayout>
+
+
+
 </LinearLayout>

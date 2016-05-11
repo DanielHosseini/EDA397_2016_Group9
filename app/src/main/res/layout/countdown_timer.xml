@@ -23,9 +23,7 @@
         android:fontFamily="serif-monospace"
         android:includeFontPadding="false"
         android:textSize="100sp"
-        android:visibility="gone"
-
-        />
+        android:visibility="gone" />
 
 
     <EditText
