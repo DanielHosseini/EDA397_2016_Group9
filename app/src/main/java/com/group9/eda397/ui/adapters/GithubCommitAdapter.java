@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.group9.eda397.R;
 import com.group9.eda397.model.GitHubCommitItem;
-import com.group9.eda397.utils.StringUtils;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;

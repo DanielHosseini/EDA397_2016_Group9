@@ -15,14 +15,11 @@ import android.widget.TextView;
 
 import com.group9.eda397.R;
 import com.group9.eda397.data.GitHubServiceFactory;
-import com.group9.eda397.data.TravisServiceFactory;
 import com.group9.eda397.data.github.GitHubService;
-import com.group9.eda397.model.GitHubCommit;
+import com.group9.eda397.data.github.pagination.Pagination;
+import com.group9.eda397.data.github.pagination.PaginationHeaderParser;
 import com.group9.eda397.model.GitHubCommitItem;
-import com.group9.eda397.model.TravisBuild;
-import com.group9.eda397.ui.activities.TravisBuildDetailsActivity;
 import com.group9.eda397.ui.adapters.GithubCommitAdapter;
-import com.group9.eda397.ui.adapters.TravisBuildsAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -35,17 +32,23 @@ import retrofit2.Response;
 import timber.log.Timber;
 
 public class GithubCommitsFragment extends BaseFragment implements GithubCommitAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener {
-    private GitHubService gitHubServcie;
-    private GithubCommitAdapter adapter;
-    private LinearLayoutManager layoutManager;
+    // Variables used for pagination
+    private static final int visibleThreshold = 2;
     @State protected String owner;
     @State protected String repository;
-
     @Bind(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.recycler_view) RecyclerView recyclerView;
     @Bind(R.id.fl_loading) FrameLayout loadingFrameLayout;
     @Bind(R.id.tv_no_results) TextView noResultsTextView;
     @Bind(R.id.rl_error) RelativeLayout errorView;
+    private int firstVisibleItem, visibleItemCount, totalItemCount;
+    private int lastFirstVisibleItem;
+    private boolean isLoading = false;
+
+    private GitHubService gitHubServcie;
+    private GithubCommitAdapter adapter;
+    private LinearLayoutManager layoutManager;
+    private Pagination pagination;
 
     public static Fragment newInstance() {
         return new GithubCommitsFragment();
@@ -95,14 +98,31 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
     private void load(final boolean pullToRefresh) {
         if (!pullToRefresh) {
             showLoading();
+        } else {
+            pagination = null;
         }
-        Call<List<GitHubCommitItem>> call = gitHubServcie.getCommits(owner, repository);
+        getCommits(pullToRefresh);
+    }
+
+    private void getCommits(final boolean pullToRefresh) {
+        isLoading = true;
+        String page = null;
+        if (!pullToRefresh && pagination != null) {
+            if (pagination.hasNext()) {
+                page = String.valueOf(pagination.getNextLink().getPage());
+            }
+        }
+        Call<List<GitHubCommitItem>> call = gitHubServcie.getCommits(owner, repository, page);
+        final String finalPage = page;
         call.enqueue(new Callback<List<GitHubCommitItem>>() {
             @Override
             public void onResponse(Call<List<GitHubCommitItem>> call, Response<List<GitHubCommitItem>> response) {
                 if (getView() != null) {
                     if (response.isSuccessful()) {
-                        adapter.clear();
+                        if (pullToRefresh) {
+                            adapter.clear();
+                        }
+                        pagination = PaginationHeaderParser.parse(response);
                         List<GitHubCommitItem> gitHubCommits = response.body();
                         if (gitHubCommits.isEmpty()) {
                             showEmptyView();
@@ -116,6 +136,7 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
                             showErrorView();
                         }
                     }
+                    isLoading = false;
                 }
             }
 
@@ -152,6 +173,20 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
             @Override
             public void onScrolled(final RecyclerView recyclerView, final int dx, final int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+                //if (dy > 0) { //check for scroll down
+                firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
+
+                lastFirstVisibleItem = firstVisibleItem;
+                visibleItemCount = layoutManager.getChildCount();
+                totalItemCount = layoutManager.getItemCount();
+
+                if (!isLoading && (totalItemCount - visibleItemCount)
+                        <= (firstVisibleItem + visibleThreshold)) {
+                    if (pagination != null && pagination.hasNext()) {
+                        getCommits(false);
+                    }
+                }
+                //}
             }
         });
     }

@@ -1,6 +1,7 @@
 package com.group9.eda397.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.group9.eda397.utils.StringUtils;
 
 /**
  * @author palmithor
@@ -132,5 +133,9 @@ public class GitHubUser {
 
     public Boolean getSiteAdmin() {
         return siteAdmin;
+    }
+
+    public boolean hasUsername() {
+        return StringUtils.isNotBlank(username);
     }
 }
