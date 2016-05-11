@@ -19,6 +19,7 @@ import com.group9.eda397.data.github.GitHubService;
 import com.group9.eda397.data.github.pagination.Pagination;
 import com.group9.eda397.data.github.pagination.PaginationHeaderParser;
 import com.group9.eda397.model.GitHubCommitItem;
+import com.group9.eda397.ui.activities.GithubCommitDetailsActivity;
 import com.group9.eda397.ui.adapters.GithubCommitAdapter;
 import com.squareup.picasso.Picasso;
 
@@ -88,6 +89,8 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
     @Override
     public void onClickItem(final View view, final int position, final GitHubCommitItem item) {
         //startActivity(TravisBuildDetailsActivity.getStartingIntent(getActivity(), owner, repository, item.getId(), item.getBuildNumber()));
+        startActivity(GithubCommitDetailsActivity.getStartingIntent(getActivity(),item.getAuthor().getUsername(),
+                item.getCommit().getAuthor().getEmail(),item.getCommit().getMessage(),item.getSha()));
     }
 
     @Override

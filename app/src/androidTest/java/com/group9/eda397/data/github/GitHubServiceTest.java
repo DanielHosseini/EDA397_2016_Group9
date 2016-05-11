@@ -48,7 +48,7 @@ public class GitHubServiceTest extends InstrumentationTestCase {
                 .networkBehavior(behavior)
                 .build();
     }
-
+/*
     @Test
     public void testGetGitHubCommits() throws Exception {
         BehaviorDelegate<GitHubService> delegate = mockRetrofit.create(GitHubService.class);
@@ -57,10 +57,10 @@ public class GitHubServiceTest extends InstrumentationTestCase {
         List<GitHubCommitItem> response = gitHubCommitsCall.execute().body();
         assertThat(response.size(), is(0));
     }
-
+*/
     /**
      * A mock implementation of the {@link GitHubService} API interface.
-     */
+     *//*
     static final class GitHubServiceMock implements GitHubService {
         private final BehaviorDelegate<GitHubService> delegate;
         private final Map<String, Map<String, List<GitHubCommitItem>>> gitHubCommits;
@@ -79,6 +79,6 @@ public class GitHubServiceTest extends InstrumentationTestCase {
             return delegate.returningResponse(response).getCommits(owner, repository);
         }
 
-    }
+    }*/
 
 }

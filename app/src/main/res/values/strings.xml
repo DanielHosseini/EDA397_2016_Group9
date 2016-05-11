@@ -32,6 +32,9 @@
     <string name="title_welcome_subtitle">To the Pair Programming Assistant</string>
     <string name="title_home">Home</string>
 
+    <!-- Github commit Details Label-->
+    <string name="github_commit_details">Comment: </string>
+    <string name="github_commit_sha">Commit: </string>
     <!-- Countdown Timer Labels-->
     <string name="title_set_time">Set Time</string>
     <string name="title_start">Start</string>
