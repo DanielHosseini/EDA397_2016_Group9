@@ -20,7 +20,7 @@ import com.group9.eda397.R;
  * @since 28/04/16.
  */
 public class WelcomeFragment extends BaseFragment {
-    private RelativeLayout PlanningButton, TimerButton, TravisButton;
+    private RelativeLayout PlanningButton, TimerButton, TravisButton, GitHubButton;
     private Fragment fragment = null;
 
 
@@ -63,6 +63,18 @@ public class WelcomeFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Fragment newFragment = new TravisBuildsFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
+        GitHubButton = (RelativeLayout) view.findViewById(R.id.githubButton);
+        GitHubButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment newFragment = new GithubCommitsFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container, newFragment);
                 transaction.addToBackStack(null);
