@@ -48,10 +48,7 @@
     <string name="title_poker_game">Planning Game</string>
     <string name="title_travis">Travis CI</string>
     <string name="title_github">Github</string>
-
-
-
-
+    <string name="title_github_commit_details">Commit Details</string>
 
 
 </resources>
