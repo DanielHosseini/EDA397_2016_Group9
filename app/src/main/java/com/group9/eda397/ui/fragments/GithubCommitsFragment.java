@@ -1,6 +1,8 @@
 package com.group9.eda397.ui.fragments;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,6 +22,7 @@ import com.group9.eda397.data.github.pagination.Pagination;
 import com.group9.eda397.data.github.pagination.PaginationHeaderParser;
 import com.group9.eda397.model.GitHubCommitItem;
 import com.group9.eda397.ui.activities.GithubCommitDetailsActivity;
+import com.group9.eda397.ui.activities.SettingsActivity;
 import com.group9.eda397.ui.adapters.GithubCommitAdapter;
 import com.squareup.picasso.Picasso;
 
@@ -60,8 +63,11 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
-            this.owner = TravisBuildsFragment.DEFAULT_OWNER;
-            this.repository = TravisBuildsFragment.DEFAULT_REPOSITORY;
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SettingsActivity.SHARED_PREF_NAME_DEFAULT, Context.MODE_PRIVATE);
+            String owner = sharedPreferences.getString(SettingsActivity.SHARED_PREF_KEY_USERNAME, SettingsActivity.DEFAULT_USERNAME);
+            String repository = sharedPreferences.getString(SettingsActivity.SHARED_PREF_KEY_REPOSITORY, SettingsActivity.DEFAULT_REPOSITORY);
+            this.owner = owner;
+            this.repository = repository;
         }
         gitHubServcie = GitHubServiceFactory.getService(getActivity().getApplication());
     }
