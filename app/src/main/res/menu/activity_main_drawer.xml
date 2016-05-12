@@ -20,7 +20,7 @@
             android:title="@string/title_planning_game"/>
         <item
             android:id="@+id/nav_github"
-            android:icon="@drawable/ic_menu_share"
+            android:icon="@drawable/github_icon"
             android:title="@string/title_github_commits"/>
     </group>
 
