@@ -1,4 +1,4 @@
-package com.group9.eda397.data.github;
+package com.group9.eda397.data.travis;
 
 import com.group9.eda397.model.TravisBuild;
 import com.group9.eda397.model.TravisBuildDetails;

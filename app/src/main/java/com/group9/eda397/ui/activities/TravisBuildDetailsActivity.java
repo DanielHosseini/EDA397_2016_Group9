@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.group9.eda397.R;
 import com.group9.eda397.data.TravisServiceFactory;
-import com.group9.eda397.data.github.TravisService;
+import com.group9.eda397.data.travis.TravisService;
 import com.group9.eda397.model.TravisBuildDetails;
 import com.group9.eda397.utils.StringUtils;
 
@@ -42,6 +42,9 @@ public class TravisBuildDetailsActivity extends ToolbarActivity {
     @State protected TravisBuildDetails travisBuildDetails;
     @Bind(R.id.tv_author_name) TextView authorTextView;
     @Bind(R.id.tv_author_email) TextView authorEmailTextView;
+    @Bind(R.id.tv_branch) TextView branchTextView;
+    @Bind(R.id.tv_message) TextView messageTextView;
+    @Bind(R.id.tv_commit_link) TextView commitLinkTextView;
     @Bind(R.id.travis_build_details) LinearLayout mainView;
     @Bind(R.id.fl_loading) FrameLayout loadingFrameLayout;
     @Bind(R.id.rl_error) RelativeLayout errorView;
@@ -126,11 +129,26 @@ public class TravisBuildDetailsActivity extends ToolbarActivity {
     }
 
     private void setupViews() {
+        final String url = getResources().getString(R.string.repositoryLink) + "/commit/" + travisBuildDetails.getCommit();
+
         mainView.setVisibility(View.VISIBLE);
         loadingFrameLayout.setVisibility(View.GONE);
         errorView.setVisibility(View.GONE);
 
         authorTextView.setText(travisBuildDetails.getAuthorName());
         authorEmailTextView.setText(travisBuildDetails.getAuthorEmail());
+        branchTextView.setText(travisBuildDetails.getBranch());
+        messageTextView.setText(travisBuildDetails.getMessage());
+        commitLinkTextView.setText(url);
+
+        commitLinkTextView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), WebActivity.class  );
+                intent.putExtra("url", url);
+                startActivity(intent);
+            }
+        });
     }
 }

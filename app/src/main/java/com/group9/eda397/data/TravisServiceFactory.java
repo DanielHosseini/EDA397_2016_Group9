@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.group9.eda397.data.github.TravisService;
+import com.group9.eda397.data.travis.TravisService;
 import com.group9.eda397.data.util.HttpUtil;
 import com.group9.eda397.data.util.Rfc339DateJsonAdapter;
 

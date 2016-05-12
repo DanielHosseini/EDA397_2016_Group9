@@ -24,14 +24,15 @@ public class GitHubServiceFactory {
     public static String BASE_URL = "https://api.github.com";
 
     public static GitHubService getService(final Application app) {
-        Gson gson = new GsonBuilder()
+        final Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Date.class, new Rfc339DateJsonAdapter())
                 .create();
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .client(HttpUtil.createApiClient(app).build()) // todo add interceptors if needed, access token for instance
+                .client(HttpUtil.createApiClient(app).build())
                 .baseUrl(BASE_URL)
                 .build()
                 .create(GitHubService.class);
+
     }
 }

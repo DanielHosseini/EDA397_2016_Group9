@@ -8,7 +8,6 @@ import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.google.gson.reflect.TypeToken;
 import com.group9.eda397.data.TravisServiceFactory;
 import com.group9.eda397.data.github.GitHubService;
-import com.group9.eda397.data.github.TravisService;
 import com.group9.eda397.data.util.Rfc339DateJsonAdapter;
 import com.group9.eda397.model.TravisBuild;
 import com.group9.eda397.model.TravisBuildDetails;
