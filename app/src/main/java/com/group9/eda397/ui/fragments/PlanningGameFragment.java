@@ -71,7 +71,6 @@ public class PlanningGameFragment extends BaseFragment {
     @Override
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        hideFab();
     }
 
     public void openCardChooserDialog (final String[] cards) {

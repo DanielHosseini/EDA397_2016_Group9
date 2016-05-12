@@ -84,7 +84,6 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
         setupAdapter();
         setupRecyclerView();
         setupRefreshLayout();
-        hideFab();
         setupTravisFab();
         if (adapter.getList().isEmpty()) {
             load(false);

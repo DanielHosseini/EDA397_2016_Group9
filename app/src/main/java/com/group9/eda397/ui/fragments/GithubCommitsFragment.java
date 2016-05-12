@@ -79,7 +79,6 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
         setupAdapter();
         setupRecyclerView();
         setupRefreshLayout();
-        hideFab();
         if (adapter.getList().isEmpty()) {
             load(false);
         }
