@@ -129,7 +129,8 @@ public class TravisBuildDetailsActivity extends ToolbarActivity {
     }
 
     private void setupViews() {
-        final String url = getResources().getString(R.string.repositoryLink) + "/commit/" + travisBuildDetails.getCommit();
+        String compareUrl = travisBuildDetails.getCompareUrl();
+        int repoEndIndex = compareUrl.indexOf("compare");
 
         mainView.setVisibility(View.VISIBLE);
         loadingFrameLayout.setVisibility(View.GONE);
@@ -139,16 +140,24 @@ public class TravisBuildDetailsActivity extends ToolbarActivity {
         authorEmailTextView.setText(travisBuildDetails.getAuthorEmail());
         branchTextView.setText(travisBuildDetails.getBranch());
         messageTextView.setText(travisBuildDetails.getMessage());
-        commitLinkTextView.setText(url);
 
-        commitLinkTextView.setOnClickListener(new View.OnClickListener() {
+        if (compareUrl != null && repoEndIndex > 0) {
+            String repoUrl = compareUrl // get only first part of compare_url to get the repo url
+                    .substring(0, compareUrl.indexOf("compare"));
+            final String url = repoUrl + "commit/" + travisBuildDetails.getCommit();
 
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), WebActivity.class  );
-                intent.putExtra("url", url);
-                startActivity(intent);
-            }
-        });
+            commitLinkTextView.setText(url);
+            commitLinkTextView.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(), WebActivity.class);
+                    intent.putExtra("url", url);
+                    startActivity(intent);
+                }
+            });
+        } else {
+            commitLinkTextView.setText("Not available.");
+        }
     }
 }

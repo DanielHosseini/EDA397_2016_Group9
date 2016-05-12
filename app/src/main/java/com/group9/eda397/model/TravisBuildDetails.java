@@ -20,6 +20,7 @@ public class TravisBuildDetails extends TravisBuild implements Serializable {
     @SerializedName("author_email") private final String authorEmail;
     @SerializedName("committer_name") private final String committerName;
     @SerializedName("committer_email") private final String committerEmail;
+    @SerializedName("compare_url") private final String compareUrl;
 
     public TravisBuildDetails() {
         super();
@@ -28,15 +29,17 @@ public class TravisBuildDetails extends TravisBuild implements Serializable {
         this.authorEmail = null;
         this.committerName = null;
         this.committerEmail = null;
+        this.compareUrl = null;
     }
 
-    public TravisBuildDetails(final Long id, final Long repositoryId, final String buildNumber, final String state, final Long result, final Date startedAt, final Date finishedAt, final Long duration, final String commit, final String branch, final String message, final String eventType, final Date committedAt, final String authorName, final String authorEmail, final String committerName, final String committerEmail) {
+    public TravisBuildDetails(final Long id, final Long repositoryId, final String buildNumber, final String state, final Long result, final Date startedAt, final Date finishedAt, final Long duration, final String commit, final String branch, final String message, final String eventType, final Date committedAt, final String authorName, final String authorEmail, final String committerName, final String committerEmail, final String compareUrl) {
         super(id, repositoryId, buildNumber, state, result, startedAt, finishedAt, duration, commit, branch, message, eventType);
         this.committedAt = committedAt;
         this.authorName = authorName;
         this.authorEmail = authorEmail;
         this.committerName = committerName;
         this.committerEmail = committerEmail;
+        this.compareUrl = compareUrl;
     }
 
 
@@ -58,5 +61,9 @@ public class TravisBuildDetails extends TravisBuild implements Serializable {
 
     public String getCommitterEmail() {
         return committerEmail;
+    }
+
+    public String getCompareUrl() {
+        return compareUrl;
     }
 }
