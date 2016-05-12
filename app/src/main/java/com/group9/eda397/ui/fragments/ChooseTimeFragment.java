@@ -80,7 +80,6 @@ public class ChooseTimeFragment extends BaseFragment {
     @Override
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        hideFab();
     }
 
     @Override

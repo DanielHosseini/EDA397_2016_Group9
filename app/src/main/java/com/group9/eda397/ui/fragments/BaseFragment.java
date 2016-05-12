@@ -59,10 +59,6 @@ public abstract class BaseFragment extends Fragment {
         ButterKnife.unbind(this);
     }
 
-    protected void hideFab() {
-        MainActivity mainActivity = (MainActivity) getActivity();
-    }
-
     public AppCompatActivity getAppCompatActivity() {
         return (AppCompatActivity) getActivity();
     }

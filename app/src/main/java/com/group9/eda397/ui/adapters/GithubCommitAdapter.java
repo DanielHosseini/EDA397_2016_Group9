@@ -70,10 +70,16 @@ public class GithubCommitAdapter extends BaseRecyclerAdapter<GitHubCommitItem>{
         @Override
         protected void bindTo() {
             GitHubCommitItem ghItem = getList().get(getAdapterPosition());
-            userTextView.setText(ghItem.getAuthor().getUsername());
-            dateTextView.setText(DateUtils.formatDateTime(context, ghItem.getCommit().getAuthor().getDate().getTime(), DateUtils.FORMAT_ABBREV_MONTH) +
-                    DateUtils.formatDateTime(context, ghItem.getCommit().getAuthor().getDate().getTime(), DateUtils.FORMAT_SHOW_TIME));
-            messageTextView.setText(ghItem.getCommit().getMessage());
+            if(ghItem.getAuthor() != null && ghItem.getAuthor().getUsername() != null) {
+                userTextView.setText(ghItem.getAuthor().getUsername());
+            }
+            if(ghItem.getCommit()!= null && ghItem.getCommit().getAuthor() != null && ghItem.getCommit().getAuthor().getDate() != null) {
+                dateTextView.setText(DateUtils.formatDateTime(context, ghItem.getCommit().getAuthor().getDate().getTime(), DateUtils.FORMAT_ABBREV_MONTH) +
+                        " " + DateUtils.formatDateTime(context, ghItem.getCommit().getAuthor().getDate().getTime(), DateUtils.FORMAT_SHOW_TIME));
+            }
+            if(ghItem.getCommit() != null && ghItem.getCommit().getMessage() != null) {
+                messageTextView.setText(ghItem.getCommit().getMessage());
+            }
         }
     }
 
