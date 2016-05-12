@@ -61,7 +61,6 @@ public abstract class BaseFragment extends Fragment {
 
     protected void hideFab() {
         MainActivity mainActivity = (MainActivity) getActivity();
-        mainActivity.getFab().setVisibility(View.GONE);
     }
 
     public AppCompatActivity getAppCompatActivity() {

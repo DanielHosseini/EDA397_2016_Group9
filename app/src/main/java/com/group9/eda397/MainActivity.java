@@ -5,9 +5,7 @@ import android.content.Context;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
@@ -17,12 +15,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.FrameLayout;
 
-import com.group9.eda397.ui.fragments.ChooseTimeFragment;
 import com.group9.eda397.ui.activities.BaseActivity;
 import com.group9.eda397.ui.fragments.GithubCommitsFragment;
+import com.group9.eda397.ui.fragments.ChooseTimeFragment;
 import com.group9.eda397.ui.fragments.PlanningGameFragment;
 import com.group9.eda397.ui.fragments.TravisBuildsFragment;
 import com.group9.eda397.ui.fragments.WelcomeFragment;
@@ -38,9 +35,10 @@ public class MainActivity extends BaseActivity
 
     @Bind(R.id.fragment_container) FrameLayout fragmentContainer;
     @Bind(R.id.toolbar) Toolbar toolbar;
-    @Bind(R.id.fab) FloatingActionButton fab;
     @Bind(R.id.drawer_layout) DrawerLayout drawer;
     @Bind(R.id.nav_view) NavigationView navigationView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +48,6 @@ public class MainActivity extends BaseActivity
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         EventBus.getDefault().register(this);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -94,7 +84,7 @@ public class MainActivity extends BaseActivity
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setContentTitle("Pair programming timer is finished");
-        builder.setSmallIcon(R.drawable.ic_menu_gallery); // TODO fix icon
+        builder.setSmallIcon(R.drawable.timer);
 
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         builder.setSound(alarmSound);
@@ -156,7 +146,4 @@ public class MainActivity extends BaseActivity
         return true;
     }
 
-    public FloatingActionButton getFab() {
-        return fab;
-    }
 }
