@@ -140,7 +140,6 @@ public class TravisBuildDetailsActivity extends ToolbarActivity {
         branchTextView.setText(travisBuildDetails.getBranch());
         messageTextView.setText(travisBuildDetails.getMessage());
         commitLinkTextView.setText(url);
-        //commitLinkTextView.setMovementMethod(LinkMovementMethod.getInstance());
 
         commitLinkTextView.setOnClickListener(new View.OnClickListener() {
 
