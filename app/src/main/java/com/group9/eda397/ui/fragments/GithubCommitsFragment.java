@@ -90,6 +90,19 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SettingsActivity.SHARED_PREF_NAME_DEFAULT, Context.MODE_PRIVATE);
+        String owner = sharedPreferences.getString(SettingsActivity.SHARED_PREF_KEY_USERNAME, SettingsActivity.DEFAULT_USERNAME);
+        String repository = sharedPreferences.getString(SettingsActivity.SHARED_PREF_KEY_REPOSITORY, SettingsActivity.DEFAULT_REPOSITORY);
+        if(this.owner != owner || this.repository != repository){
+            this.owner = owner;
+            this.repository = repository;
+            load(false);
+        }
+    }
+
     // TODO change to GithubCommitDetailsActivity when it exists
     @Override
     public void onClickItem(final View view, final int position, final GitHubCommitItem item) {
