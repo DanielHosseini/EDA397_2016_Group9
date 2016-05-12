@@ -43,6 +43,11 @@
             android:theme="@style/AppTheme.NoActionBar"/>
 
 
+        <activity
+            android:name="com.group9.eda397.ui.activities.WebActivity"
+            android:launchMode="standard"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity android:name=".ui.activities.CardPresenter"
                   android:label="@string/app_name"
                   android:screenOrientation="portrait">

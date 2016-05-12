@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <include layout="@layout/merge_empty_view"/>
@@ -10,5 +11,18 @@
 
     <!-- TODO add app bar with edit texts for setting owner and repository -->
     <include layout="@layout/merge_list_pull_to_refresh"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/set_travis_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:src="@android:drawable/ic_menu_edit"
+        app:layout_behavior="com.group9.eda397.ui.animations.ScrollAwareFabBehavior"
+        app:elevation="4dp"/>
+
 
 </RelativeLayout>

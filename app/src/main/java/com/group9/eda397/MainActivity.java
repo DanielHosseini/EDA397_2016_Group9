@@ -20,7 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.group9.eda397.ui.ChooseTimeFragment;
+import com.group9.eda397.ui.fragments.ChooseTimeFragment;
 import com.group9.eda397.ui.activities.BaseActivity;
 import com.group9.eda397.ui.fragments.GithubCommitsFragment;
 import com.group9.eda397.ui.fragments.PlanningGameFragment;
