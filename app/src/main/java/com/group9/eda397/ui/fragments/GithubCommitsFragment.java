@@ -69,7 +69,7 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
 
     @Override
     protected int getLayout() {
-        return R.layout.fragment_travis_builds;
+        return R.layout.fragment_github_commits;
     }
 
     @Override

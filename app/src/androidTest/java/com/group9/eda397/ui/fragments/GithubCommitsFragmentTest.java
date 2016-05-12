@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentTransaction;
 import com.group9.eda397.MainActivity;
 import com.group9.eda397.R;
 import com.group9.eda397.data.GitHubServiceFactory;
-import com.group9.eda397.data.TravisServiceFactory;
 import com.group9.eda397.ui.UIAssertions;
 
 import org.junit.After;
@@ -130,7 +129,6 @@ public class GithubCommitsFragmentTest {
         onView(withId(R.id.tv_no_results)).check(UIAssertions.isVisible());
         onView(withId(R.id.recycler_view)).check(UIAssertions.isVisible());
         onView(withId(R.id.rl_error)).check(UIAssertions.isGone());
-        onView(withId(R.id.fab)).check(UIAssertions.isGone());
     }
 
     @Test
@@ -142,7 +140,6 @@ public class GithubCommitsFragmentTest {
         onView(withId(R.id.recycler_view)).check(UIAssertions.isVisible());
         onView(withId(R.id.swipe_refresh_layout)).check(UIAssertions.isVisible());
         onView(withId(R.id.rl_error)).check(UIAssertions.isVisible());
-        onView(withId(R.id.fab)).check(UIAssertions.isGone());
     }
 
     //EXAMPLE_RESPONSE does not seem to be correct
