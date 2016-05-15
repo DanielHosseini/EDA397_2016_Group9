@@ -1,7 +1,9 @@
 package com.group9.eda397.ui.fragments;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -24,6 +26,7 @@ import com.group9.eda397.data.TravisServiceFactory;
 import com.group9.eda397.data.github.GitHubService;
 import com.group9.eda397.data.travis.TravisService;
 import com.group9.eda397.model.TravisBuild;
+import com.group9.eda397.ui.activities.SettingsActivity;
 import com.group9.eda397.ui.activities.TravisBuildDetailsActivity;
 import com.group9.eda397.ui.adapters.TravisBuildsAdapter;
 import com.squareup.picasso.Picasso;
@@ -47,8 +50,6 @@ import timber.log.Timber;
  */
 public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
-    public static final String DEFAULT_OWNER = "DanielHosseini";
-    public static final String DEFAULT_REPOSITORY = "EDA397_2016_Group9";
     @State protected String owner;
     @State protected String repository;
     @Bind(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
@@ -56,7 +57,6 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
     @Bind(R.id.fl_loading) FrameLayout loadingFrameLayout;
     @Bind(R.id.tv_no_results) TextView noResultsTextView;
     @Bind(R.id.rl_error) RelativeLayout errorView;
-    @Bind(R.id.set_travis_fab) FloatingActionButton travisFab;
     private TravisBuildsAdapter adapter;
     private LinearLayoutManager layoutManager;
     private TravisService travisService;
@@ -70,8 +70,11 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
-            this.owner = DEFAULT_OWNER;
-            this.repository = DEFAULT_REPOSITORY;
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SettingsActivity.SHARED_PREF_NAME_DEFAULT, Context.MODE_PRIVATE);
+            String owner = sharedPreferences.getString(SettingsActivity.SHARED_PREF_KEY_USERNAME, SettingsActivity.DEFAULT_USERNAME);
+            String repository = sharedPreferences.getString(SettingsActivity.SHARED_PREF_KEY_REPOSITORY, SettingsActivity.DEFAULT_REPOSITORY);
+            this.owner = owner;
+            this.repository = repository;
         }
         travisService = TravisServiceFactory.getService(getActivity().getApplication());
         gitHubServcie = GitHubServiceFactory.getService(getActivity().getApplication());
@@ -84,8 +87,20 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
         setupAdapter();
         setupRecyclerView();
         setupRefreshLayout();
-        setupTravisFab();
         if (adapter.getList().isEmpty()) {
+            load(false);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SettingsActivity.SHARED_PREF_NAME_DEFAULT, Context.MODE_PRIVATE);
+        String owner = sharedPreferences.getString(SettingsActivity.SHARED_PREF_KEY_USERNAME, SettingsActivity.DEFAULT_USERNAME);
+        String repository = sharedPreferences.getString(SettingsActivity.SHARED_PREF_KEY_REPOSITORY, SettingsActivity.DEFAULT_REPOSITORY);
+        if(this.owner != owner || this.repository != repository){
+            this.owner = owner;
+            this.repository = repository;
             load(false);
         }
     }
@@ -207,15 +222,6 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
         this.owner = owner;
         this.repository = repository;
         load(false);
-    }
-
-    private void setupTravisFab() {
-        travisFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showTravisRepoConfiguration();
-            }
-        });
     }
 
     private void showTravisRepoConfiguration() {

@@ -2,6 +2,7 @@ package com.group9.eda397;
 
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,8 +19,9 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.group9.eda397.ui.activities.BaseActivity;
-import com.group9.eda397.ui.fragments.GithubCommitsFragment;
+import com.group9.eda397.ui.activities.SettingsActivity;
 import com.group9.eda397.ui.fragments.ChooseTimeFragment;
+import com.group9.eda397.ui.fragments.GithubCommitsFragment;
 import com.group9.eda397.ui.fragments.PlanningGameFragment;
 import com.group9.eda397.ui.fragments.TravisBuildsFragment;
 import com.group9.eda397.ui.fragments.WelcomeFragment;
@@ -37,8 +39,6 @@ public class MainActivity extends BaseActivity
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.drawer_layout) DrawerLayout drawer;
     @Bind(R.id.nav_view) NavigationView navigationView;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +60,21 @@ public class MainActivity extends BaseActivity
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.fragment_container, WelcomeFragment.newInstance());
             ft.commit();
+        }
+
+        SharedPreferences sharedPreferences = this.getSharedPreferences(SettingsActivity.SHARED_PREF_NAME_DEFAULT, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        boolean pendingChanges = false;
+        if (!sharedPreferences.contains(SettingsActivity.SHARED_PREF_KEY_REPOSITORY)) {
+            pendingChanges = true;
+            editor.putString(SettingsActivity.SHARED_PREF_KEY_REPOSITORY, SettingsActivity.DEFAULT_REPOSITORY);
+        }
+        if (!sharedPreferences.contains(SettingsActivity.SHARED_PREF_KEY_USERNAME)) {
+            pendingChanges = true;
+            editor.putString(SettingsActivity.SHARED_PREF_KEY_USERNAME, SettingsActivity.DEFAULT_USERNAME);
+        }
+        if (pendingChanges) {
+            editor.commit();
         }
     }
 
@@ -109,6 +124,7 @@ public class MainActivity extends BaseActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(SettingsActivity.getStartingIntent(this));
             return true;
         }
 
