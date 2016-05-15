@@ -57,7 +57,6 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
     @Bind(R.id.fl_loading) FrameLayout loadingFrameLayout;
     @Bind(R.id.tv_no_results) TextView noResultsTextView;
     @Bind(R.id.rl_error) RelativeLayout errorView;
-    @Bind(R.id.set_travis_fab) FloatingActionButton travisFab;
     private TravisBuildsAdapter adapter;
     private LinearLayoutManager layoutManager;
     private TravisService travisService;
@@ -88,7 +87,6 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
         setupAdapter();
         setupRecyclerView();
         setupRefreshLayout();
-        setupTravisFab();
         if (adapter.getList().isEmpty()) {
             load(false);
         }
@@ -224,15 +222,6 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
         this.owner = owner;
         this.repository = repository;
         load(false);
-    }
-
-    private void setupTravisFab() {
-        travisFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showTravisRepoConfiguration();
-            }
-        });
     }
 
     private void showTravisRepoConfiguration() {
