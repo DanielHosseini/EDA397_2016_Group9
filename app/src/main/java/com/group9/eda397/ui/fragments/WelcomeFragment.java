@@ -7,9 +7,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.group9.eda397.R;
+
+import butterknife.Bind;
 
 /**
  * Fragment to display on app start.
@@ -20,8 +23,12 @@ import com.group9.eda397.R;
  * @since 28/04/16.
  */
 public class WelcomeFragment extends BaseFragment {
-    private RelativeLayout PlanningButton, TimerButton, TravisButton, GitHubButton;
     private Fragment fragment = null;
+    @Bind(R.id.PokerButton) RelativeLayout PlanningButton;
+    @Bind(R.id.TimerButton) RelativeLayout TimerButton;
+    @Bind(R.id.travisButton) RelativeLayout TravisButton;
+    @Bind(R.id.githubButton) RelativeLayout GitHubButton;
+
 
 
     public static Fragment newInstance() {
@@ -34,7 +41,6 @@ public class WelcomeFragment extends BaseFragment {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
         getAppCompatActivity().getSupportActionBar().setTitle(R.string.title_welcome);
-                PlanningButton = (RelativeLayout) view.findViewById(R.id.PokerButton);
         PlanningButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,7 +52,6 @@ public class WelcomeFragment extends BaseFragment {
             }
         });
 
-        TimerButton = (RelativeLayout) view.findViewById(R.id.TimerButton);
         TimerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,7 +63,6 @@ public class WelcomeFragment extends BaseFragment {
             }
         });
 
-        TravisButton = (RelativeLayout) view.findViewById(R.id.travisButton);
         TravisButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
