@@ -42,7 +42,7 @@
     <string name="title_set_time">Set Time</string>
     <string name="title_start">Start</string>
     <string name="title_timer">Timer</string>
-    <string name="repositoryLink">https://github.com/DanielHosseini/EDA397_2016_Group9</string>
+    <string name="link_github_repository">https://github.com/DanielHosseini/EDA397_2016_Group9</string>
 
     <!-- Welcome Screen Labels-->
     <string name="title_poker_game">Planning Game</string>

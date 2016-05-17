@@ -16,7 +16,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.group9.eda397.ui.activities.BaseActivity;
 import com.group9.eda397.ui.activities.SettingsActivity;
@@ -76,6 +78,8 @@ public class MainActivity extends BaseActivity
         if (pendingChanges) {
             editor.commit();
         }
+
+        updateRepositoryLinkInNavigationDrawer();
     }
 
     @Override
@@ -162,4 +166,23 @@ public class MainActivity extends BaseActivity
         return true;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        updateRepositoryLinkInNavigationDrawer();
+    }
+
+    public void updateRepositoryLinkInNavigationDrawer() {
+        SharedPreferences sharedPreferences = this.getSharedPreferences(SettingsActivity.SHARED_PREF_NAME_DEFAULT, MODE_PRIVATE);
+
+        if (sharedPreferences.contains(SettingsActivity.SHARED_PREF_KEY_USERNAME) && sharedPreferences.contains(SettingsActivity.SHARED_PREF_KEY_USERNAME)) {
+            String repository = sharedPreferences.getString(SettingsActivity.SHARED_PREF_KEY_REPOSITORY, SettingsActivity.DEFAULT_REPOSITORY);
+            String username = sharedPreferences.getString(SettingsActivity.SHARED_PREF_KEY_USERNAME, SettingsActivity.DEFAULT_USERNAME);
+
+            View headerView = navigationView.getHeaderView(0);
+            TextView textView = ButterKnife.findById(headerView, R.id.text_github_url);
+            textView.setText("http://github.com/"+username+"/"+repository);
+        }
+    }
 }
