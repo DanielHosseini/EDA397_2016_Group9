@@ -2,11 +2,9 @@ package com.group9.eda397.ui.fragments;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -50,6 +48,7 @@ import timber.log.Timber;
  */
 public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
+    private final TravisFragmentView travisFragmentView = new TravisFragmentView(this);
     @State protected String owner;
     @State protected String repository;
     @Bind(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
@@ -122,7 +121,7 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
 
     private void load(final boolean pullToRefresh) {
         if (!pullToRefresh) {
-            showLoading();
+            travisFragmentView.showLoading();
         }
         Call<List<TravisBuild>> call = travisService.getBuilds(owner, repository);
         call.enqueue(new Callback<List<TravisBuild>>() {
@@ -133,9 +132,9 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
                         adapter.clear();
                         List<TravisBuild> travisBuilds = response.body();
                         if (travisBuilds.isEmpty()) {
-                            showEmptyView();
+                            travisFragmentView.showEmptyView();
                         } else {
-                            showList();
+                            travisFragmentView.showList();
                             adapter.addAll(travisBuilds, false);
                         }
                     } else {
@@ -167,29 +166,15 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
     }
 
     private void showList() {
-        swipeRefreshLayout.setRefreshing(false);
-        loadingFrameLayout.setVisibility(View.GONE);
-        noResultsTextView.setVisibility(View.GONE);
-        errorView.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
-        swipeRefreshLayout.setVisibility(View.VISIBLE);
+        travisFragmentView.showList();
     }
 
     private void showEmptyView() {
-        swipeRefreshLayout.setRefreshing(false);
-        noResultsTextView.setVisibility(View.VISIBLE);
-        loadingFrameLayout.setVisibility(View.GONE);
-        errorView.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
-        swipeRefreshLayout.setVisibility(View.VISIBLE);
+        travisFragmentView.showEmptyView();
     }
 
     private void showLoading() {
-        loadingFrameLayout.setVisibility(View.VISIBLE);
-        noResultsTextView.setVisibility(View.GONE);
-        errorView.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.GONE);
-        swipeRefreshLayout.setVisibility(View.GONE);
+        travisFragmentView.showLoading();
     }
 
     private void setupRefreshLayout() {
@@ -253,5 +238,25 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
                 dialog.cancel();
             }
         });
+    }
+
+    public RelativeLayout getErrorView() {
+        return errorView;
+    }
+
+    public SwipeRefreshLayout getSwipeRefreshLayout() {
+        return swipeRefreshLayout;
+    }
+
+    public TextView getNoResultsTextView() {
+        return noResultsTextView;
+    }
+
+    public RecyclerView getRecyclerView() {
+        return recyclerView;
+    }
+
+    public FrameLayout getLoadingFrameLayout() {
+        return loadingFrameLayout;
     }
 }

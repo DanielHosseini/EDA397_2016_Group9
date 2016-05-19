@@ -38,6 +38,7 @@ import timber.log.Timber;
 public class GithubCommitsFragment extends BaseFragment implements GithubCommitAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener {
     // Variables used for pagination
     private static final int visibleThreshold = 2;
+    private final GithubFragmentView githubFragmentView = new GithubFragmentView(this);
     @State protected String owner;
     @State protected String repository;
     @Bind(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
@@ -118,7 +119,7 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
 
     private void load(final boolean pullToRefresh) {
         if (!pullToRefresh) {
-            showLoading();
+            githubFragmentView.showLoading();
         } else {
             pagination = null;
         }
@@ -146,9 +147,9 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
                         pagination = PaginationHeaderParser.parse(response);
                         List<GitHubCommitItem> gitHubCommits = response.body();
                         if (gitHubCommits.isEmpty()) {
-                            showEmptyView();
+                            githubFragmentView.showEmptyView();
                         } else {
-                            showList();
+                            githubFragmentView.showList();
                             adapter.addAll(gitHubCommits, false);
 
                         }
@@ -213,29 +214,15 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
     }
 
     private void showList() {
-        swipeRefreshLayout.setRefreshing(false);
-        loadingFrameLayout.setVisibility(View.GONE);
-        noResultsTextView.setVisibility(View.GONE);
-        errorView.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
-        swipeRefreshLayout.setVisibility(View.VISIBLE);
+        githubFragmentView.showList();
     }
 
     private void showEmptyView() {
-        swipeRefreshLayout.setRefreshing(false);
-        noResultsTextView.setVisibility(View.VISIBLE);
-        loadingFrameLayout.setVisibility(View.GONE);
-        errorView.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
-        swipeRefreshLayout.setVisibility(View.VISIBLE);
+        githubFragmentView.showEmptyView();
     }
 
     private void showLoading() {
-        loadingFrameLayout.setVisibility(View.VISIBLE);
-        noResultsTextView.setVisibility(View.GONE);
-        errorView.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.GONE);
-        swipeRefreshLayout.setVisibility(View.GONE);
+        githubFragmentView.showLoading();
     }
 
     private void showErrorView() {
@@ -246,4 +233,25 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
         recyclerView.setVisibility(View.VISIBLE);
         swipeRefreshLayout.setVisibility(View.VISIBLE);
     }
+
+    public RecyclerView getRecyclerView() {
+        return recyclerView;
+    }
+
+    public TextView getNoResultsTextView() {
+        return noResultsTextView;
+    }
+
+    public RelativeLayout getErrorView() {
+        return errorView;
+    }
+
+    public SwipeRefreshLayout getSwipeRefreshLayout() {
+        return swipeRefreshLayout;
+    }
+
+    public FrameLayout getLoadingFrameLayout() {
+        return loadingFrameLayout;
+    }
+
 }
