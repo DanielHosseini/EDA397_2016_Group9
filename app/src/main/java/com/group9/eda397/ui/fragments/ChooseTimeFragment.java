@@ -179,6 +179,20 @@ public class ChooseTimeFragment extends BaseFragment {
             pauseButton.setText(PAUSE_BUTTON_TEXT);
             startTimer((int) timerTotalTime);
         }
+        pauseButton.setEnabled(false);
+        Timer t = new Timer();
+        t.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        pauseButton.setEnabled(true);
+                    }
+                });
+            }
+        }, 800);
+
     }
 
     @Subscribe

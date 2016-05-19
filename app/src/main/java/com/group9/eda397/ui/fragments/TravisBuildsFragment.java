@@ -1,10 +1,10 @@
 package com.group9.eda397.ui.fragments;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -19,11 +19,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.group9.eda397.R;
-import com.group9.eda397.data.GitHubServiceFactory;
 import com.group9.eda397.data.TravisServiceFactory;
-import com.group9.eda397.data.github.GitHubService;
 import com.group9.eda397.data.travis.TravisService;
 import com.group9.eda397.model.TravisBuild;
+import com.group9.eda397.ui.activities.SettingsActivity;
 import com.group9.eda397.ui.activities.TravisBuildDetailsActivity;
 import com.group9.eda397.ui.adapters.TravisBuildsAdapter;
 import com.squareup.picasso.Picasso;
@@ -45,10 +44,8 @@ import timber.log.Timber;
  * @author palmithor
  * @since 16/04/16.
  */
-public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class TravisBuildsFragment extends ViewFragment implements TravisBuildsAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
-    public static final String DEFAULT_OWNER = "DanielHosseini";
-    public static final String DEFAULT_REPOSITORY = "EDA397_2016_Group9";
     @State protected String owner;
     @State protected String repository;
     @Bind(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
@@ -56,11 +53,9 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
     @Bind(R.id.fl_loading) FrameLayout loadingFrameLayout;
     @Bind(R.id.tv_no_results) TextView noResultsTextView;
     @Bind(R.id.rl_error) RelativeLayout errorView;
-    @Bind(R.id.set_travis_fab) FloatingActionButton travisFab;
     private TravisBuildsAdapter adapter;
     private LinearLayoutManager layoutManager;
     private TravisService travisService;
-    private GitHubService gitHubServcie;
 
     public static Fragment newInstance() {
         return new TravisBuildsFragment();
@@ -70,11 +65,13 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
-            this.owner = DEFAULT_OWNER;
-            this.repository = DEFAULT_REPOSITORY;
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SettingsActivity.SHARED_PREF_NAME_DEFAULT, Context.MODE_PRIVATE);
+            String owner = sharedPreferences.getString(SettingsActivity.SHARED_PREF_KEY_USERNAME, SettingsActivity.DEFAULT_USERNAME);
+            String repository = sharedPreferences.getString(SettingsActivity.SHARED_PREF_KEY_REPOSITORY, SettingsActivity.DEFAULT_REPOSITORY);
+            this.owner = owner;
+            this.repository = repository;
         }
         travisService = TravisServiceFactory.getService(getActivity().getApplication());
-        gitHubServcie = GitHubServiceFactory.getService(getActivity().getApplication());
     }
 
     @Override
@@ -84,8 +81,17 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
         setupAdapter();
         setupRecyclerView();
         setupRefreshLayout();
-        setupTravisFab();
-        if (adapter.getList().isEmpty()) {
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SettingsActivity.SHARED_PREF_NAME_DEFAULT, Context.MODE_PRIVATE);
+        String owner = sharedPreferences.getString(SettingsActivity.SHARED_PREF_KEY_USERNAME, SettingsActivity.DEFAULT_USERNAME);
+        String repository = sharedPreferences.getString(SettingsActivity.SHARED_PREF_KEY_REPOSITORY, SettingsActivity.DEFAULT_REPOSITORY);
+        if (!this.owner.equals(owner) || !this.repository.equals(repository) || adapter.getList().isEmpty()) {
+            this.owner = owner;
+            this.repository = repository;
             load(false);
         }
     }
@@ -151,31 +157,7 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
         swipeRefreshLayout.setVisibility(View.VISIBLE);
     }
 
-    private void showList() {
-        swipeRefreshLayout.setRefreshing(false);
-        loadingFrameLayout.setVisibility(View.GONE);
-        noResultsTextView.setVisibility(View.GONE);
-        errorView.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
-        swipeRefreshLayout.setVisibility(View.VISIBLE);
-    }
 
-    private void showEmptyView() {
-        swipeRefreshLayout.setRefreshing(false);
-        noResultsTextView.setVisibility(View.VISIBLE);
-        loadingFrameLayout.setVisibility(View.GONE);
-        errorView.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
-        swipeRefreshLayout.setVisibility(View.VISIBLE);
-    }
-
-    private void showLoading() {
-        loadingFrameLayout.setVisibility(View.VISIBLE);
-        noResultsTextView.setVisibility(View.GONE);
-        errorView.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.GONE);
-        swipeRefreshLayout.setVisibility(View.GONE);
-    }
 
     private void setupRefreshLayout() {
         if (swipeRefreshLayout != null) {
@@ -209,15 +191,6 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
         load(false);
     }
 
-    private void setupTravisFab() {
-        travisFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showTravisRepoConfiguration();
-            }
-        });
-    }
-
     private void showTravisRepoConfiguration() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -247,5 +220,22 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
                 dialog.cancel();
             }
         });
+    }
+
+
+    public SwipeRefreshLayout getSwipeRefreshLayout() {
+        return swipeRefreshLayout;
+    }
+
+    public TextView getNoResultsTextView() {
+        return noResultsTextView;
+    }
+
+    public RecyclerView getRecyclerView() {
+        return recyclerView;
+    }
+
+    public FrameLayout getLoadingFrameLayout() {
+        return loadingFrameLayout;
     }
 }

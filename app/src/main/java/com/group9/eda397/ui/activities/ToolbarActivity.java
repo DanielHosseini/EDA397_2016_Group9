@@ -2,6 +2,7 @@ package com.group9.eda397.ui.activities;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.group9.eda397.R;
@@ -18,10 +19,26 @@ public abstract class ToolbarActivity extends BaseActivity {
 
     @Bind(R.id.toolbar) Toolbar toolbar;
 
+    private Menu menu;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupToolbar();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (getMenuResourceId() != null) {
+            getMenuInflater().inflate(getMenuResourceId(), menu);
+        }
+        this.menu = menu;
+        return true;
+    }
+
+    protected Integer getMenuResourceId() {
+        return null;
     }
 
     @Override

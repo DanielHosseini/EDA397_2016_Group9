@@ -12,10 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 
 import com.group9.eda397.R;
 import com.group9.eda397.ui.activities.CardPresenter;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
@@ -23,6 +25,11 @@ import butterknife.ButterKnife;
  * Created by ivar on 2016-04-21.
  */
 public class PlanningGameFragment extends BaseFragment {
+
+    @Bind(R.id.button_fibonacci) Button btn_fib;
+    @Bind(R.id.button_power_of_two) Button btn_power_two;
+    @Bind(R.id.button_standard) Button btn_standard;
+
 
     public static Fragment newInstance() {
         return new PlanningGameFragment();
@@ -34,9 +41,6 @@ public class PlanningGameFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_planning_game, container, false);
         ButterKnife.bind(this, view);
         getAppCompatActivity().getSupportActionBar().setTitle(R.string.title_planning_game);
-        Button btn_fib = (Button) view.findViewById(R.id.button_fibonacci);
-        Button btn_powertwo = (Button) view.findViewById(R.id.button_power_of_two);
-        Button btn_standard = (Button) view.findViewById(R.id.button_standard);
 
         btn_fib.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -47,7 +51,7 @@ public class PlanningGameFragment extends BaseFragment {
             }
         });
 
-        btn_powertwo.setOnClickListener(new View.OnClickListener() {
+        btn_power_two.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Resources res = getResources();
                 final String [] deck = res.getStringArray(R.array.string_array_power_of_two_deck);

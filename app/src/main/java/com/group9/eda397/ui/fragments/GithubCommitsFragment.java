@@ -1,6 +1,8 @@
 package com.group9.eda397.ui.fragments;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,6 +22,7 @@ import com.group9.eda397.data.github.pagination.Pagination;
 import com.group9.eda397.data.github.pagination.PaginationHeaderParser;
 import com.group9.eda397.model.GitHubCommitItem;
 import com.group9.eda397.ui.activities.GithubCommitDetailsActivity;
+import com.group9.eda397.ui.activities.SettingsActivity;
 import com.group9.eda397.ui.adapters.GithubCommitAdapter;
 import com.squareup.picasso.Picasso;
 
@@ -32,7 +35,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-public class GithubCommitsFragment extends BaseFragment implements GithubCommitAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class GithubCommitsFragment extends ViewFragment implements GithubCommitAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener {
     // Variables used for pagination
     private static final int visibleThreshold = 2;
     @State protected String owner;
@@ -60,8 +63,11 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
     public void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
-            this.owner = TravisBuildsFragment.DEFAULT_OWNER;
-            this.repository = TravisBuildsFragment.DEFAULT_REPOSITORY;
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SettingsActivity.SHARED_PREF_NAME_DEFAULT, Context.MODE_PRIVATE);
+            String owner = sharedPreferences.getString(SettingsActivity.SHARED_PREF_KEY_USERNAME, SettingsActivity.DEFAULT_USERNAME);
+            String repository = sharedPreferences.getString(SettingsActivity.SHARED_PREF_KEY_REPOSITORY, SettingsActivity.DEFAULT_REPOSITORY);
+            this.owner = owner;
+            this.repository = repository;
         }
         gitHubServcie = GitHubServiceFactory.getService(getActivity().getApplication());
     }
@@ -79,7 +85,18 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
         setupAdapter();
         setupRecyclerView();
         setupRefreshLayout();
-        if (adapter.getList().isEmpty()) {
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SettingsActivity.SHARED_PREF_NAME_DEFAULT, Context.MODE_PRIVATE);
+        String owner = sharedPreferences.getString(SettingsActivity.SHARED_PREF_KEY_USERNAME, SettingsActivity.DEFAULT_USERNAME);
+        String repository = sharedPreferences.getString(SettingsActivity.SHARED_PREF_KEY_REPOSITORY, SettingsActivity.DEFAULT_REPOSITORY);
+        if (!this.owner.equals(owner) || !this.repository.equals(repository) || adapter.getList().isEmpty()) {
+            this.owner = owner;
+            this.repository = repository;
+            this.pagination = null;
             load(false);
         }
     }
@@ -87,9 +104,8 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
     // TODO change to GithubCommitDetailsActivity when it exists
     @Override
     public void onClickItem(final View view, final int position, final GitHubCommitItem item) {
-        //startActivity(TravisBuildDetailsActivity.getStartingIntent(getActivity(), owner, repository, item.getId(), item.getBuildNumber()));
-        startActivity(GithubCommitDetailsActivity.getStartingIntent(getActivity(),item.getAuthor().getUsername(),
-                item.getCommit().getAuthor().getEmail(),item.getCommit().getMessage(),item.getSha()));
+        startActivity(GithubCommitDetailsActivity.getStartingIntent(getActivity(), item.getAuthor().getUsername(),
+                item.getCommit().getAuthor().getEmail(), item.getCommit().getMessage(), item.getSha()));
     }
 
     @Override
@@ -131,7 +147,6 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
                         } else {
                             showList();
                             adapter.addAll(gitHubCommits, false);
-
                         }
                     } else {
                         if (getView() != null) {
@@ -167,10 +182,10 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
 
     private void setupRecyclerView() {
         this.layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        getRecyclerView().setLayoutManager(layoutManager);
+        getRecyclerView().setAdapter(adapter);
+        getRecyclerView().setItemAnimator(new DefaultItemAnimator());
+        getRecyclerView().addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
             public void onScrolled(final RecyclerView recyclerView, final int dx, final int dy) {
@@ -193,31 +208,6 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
         });
     }
 
-    private void showList() {
-        swipeRefreshLayout.setRefreshing(false);
-        loadingFrameLayout.setVisibility(View.GONE);
-        noResultsTextView.setVisibility(View.GONE);
-        errorView.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
-        swipeRefreshLayout.setVisibility(View.VISIBLE);
-    }
-
-    private void showEmptyView() {
-        swipeRefreshLayout.setRefreshing(false);
-        noResultsTextView.setVisibility(View.VISIBLE);
-        loadingFrameLayout.setVisibility(View.GONE);
-        errorView.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
-        swipeRefreshLayout.setVisibility(View.VISIBLE);
-    }
-
-    private void showLoading() {
-        loadingFrameLayout.setVisibility(View.VISIBLE);
-        noResultsTextView.setVisibility(View.GONE);
-        errorView.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.GONE);
-        swipeRefreshLayout.setVisibility(View.GONE);
-    }
 
     private void showErrorView() {
         swipeRefreshLayout.setRefreshing(false);
@@ -227,4 +217,22 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
         recyclerView.setVisibility(View.VISIBLE);
         swipeRefreshLayout.setVisibility(View.VISIBLE);
     }
+
+    public RecyclerView getRecyclerView() {
+        return recyclerView;
+    }
+
+    public TextView getNoResultsTextView() {
+        return noResultsTextView;
+    }
+
+
+    public SwipeRefreshLayout getSwipeRefreshLayout() {
+        return swipeRefreshLayout;
+    }
+
+    public FrameLayout getLoadingFrameLayout() {
+        return loadingFrameLayout;
+    }
+
 }

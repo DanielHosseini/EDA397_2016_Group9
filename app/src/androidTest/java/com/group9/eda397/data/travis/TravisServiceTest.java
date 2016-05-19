@@ -110,6 +110,7 @@ public class TravisServiceTest extends InstrumentationTestCase {
         assertThat(ISO8601Utils.format(travisBuild.getCommittedAt()), is("2016-04-17T19:55:11Z"));
         assertThat(travisBuild.getCommitterEmail(), is("palmithor@gmail.com"));
         assertThat(travisBuild.getCommitterName(), is("palmithor"));
+        assertThat(travisBuild.getCompareUrl(), is("https://github.com/DanielHosseini/EDA397_2016_Group9/compare/ab4f9955192c...ef793efa625e"));
     }
 
     /**

@@ -17,4 +17,31 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <style name="font_label">
+        <item name="android:textColor">@color/label</item>
+    </style>
+
+    <style name="font_label.normal">
+        <item name="android:textSize">@dimen/font_normal</item>
+    </style>
+
+    <style name="font_black">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+
+    <style name="font_black.normal">
+        <item name="android:textSize">@dimen/font_normal</item>
+    </style>
+
+    <style name="font_black.large">
+        <item name="android:textSize">@dimen/font_large</item>
+    </style>
+
+    <style name="font_black.larger">
+        <item name="android:textSize">@dimen/font_larger</item>
+    </style>
+
+
+    <color name="label">#858585</color>
 </resources>
