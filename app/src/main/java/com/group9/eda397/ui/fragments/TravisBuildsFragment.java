@@ -19,9 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.group9.eda397.R;
-import com.group9.eda397.data.GitHubServiceFactory;
 import com.group9.eda397.data.TravisServiceFactory;
-import com.group9.eda397.data.github.GitHubService;
 import com.group9.eda397.data.travis.TravisService;
 import com.group9.eda397.model.TravisBuild;
 import com.group9.eda397.ui.activities.SettingsActivity;
@@ -58,7 +56,6 @@ public class TravisBuildsFragment extends ViewFragment implements TravisBuildsAd
     private TravisBuildsAdapter adapter;
     private LinearLayoutManager layoutManager;
     private TravisService travisService;
-    private GitHubService gitHubServcie;
 
     public static Fragment newInstance() {
         return new TravisBuildsFragment();
@@ -75,7 +72,6 @@ public class TravisBuildsFragment extends ViewFragment implements TravisBuildsAd
             this.repository = repository;
         }
         travisService = TravisServiceFactory.getService(getActivity().getApplication());
-        gitHubServcie = GitHubServiceFactory.getService(getActivity().getApplication());
     }
 
     @Override
@@ -85,9 +81,6 @@ public class TravisBuildsFragment extends ViewFragment implements TravisBuildsAd
         setupAdapter();
         setupRecyclerView();
         setupRefreshLayout();
-        if (adapter.getList().isEmpty()) {
-            load(false);
-        }
     }
 
     @Override
@@ -96,7 +89,7 @@ public class TravisBuildsFragment extends ViewFragment implements TravisBuildsAd
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SettingsActivity.SHARED_PREF_NAME_DEFAULT, Context.MODE_PRIVATE);
         String owner = sharedPreferences.getString(SettingsActivity.SHARED_PREF_KEY_USERNAME, SettingsActivity.DEFAULT_USERNAME);
         String repository = sharedPreferences.getString(SettingsActivity.SHARED_PREF_KEY_REPOSITORY, SettingsActivity.DEFAULT_REPOSITORY);
-        if(this.owner != owner || this.repository != repository){
+        if (!this.owner.equals(owner) || !this.repository.equals(repository) || adapter.getList().isEmpty()) {
             this.owner = owner;
             this.repository = repository;
             load(false);
