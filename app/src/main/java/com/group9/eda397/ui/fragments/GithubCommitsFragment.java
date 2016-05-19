@@ -85,9 +85,6 @@ public class GithubCommitsFragment extends ViewFragment implements GithubCommitA
         setupAdapter();
         setupRecyclerView();
         setupRefreshLayout();
-        if (adapter.getList().isEmpty()) {
-            load(false);
-        }
     }
 
     @Override
@@ -96,9 +93,10 @@ public class GithubCommitsFragment extends ViewFragment implements GithubCommitA
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SettingsActivity.SHARED_PREF_NAME_DEFAULT, Context.MODE_PRIVATE);
         String owner = sharedPreferences.getString(SettingsActivity.SHARED_PREF_KEY_USERNAME, SettingsActivity.DEFAULT_USERNAME);
         String repository = sharedPreferences.getString(SettingsActivity.SHARED_PREF_KEY_REPOSITORY, SettingsActivity.DEFAULT_REPOSITORY);
-        if(this.owner != owner || this.repository != repository){
+        if (!this.owner.equals(owner) || !this.repository.equals(repository) || adapter.getList().isEmpty()) {
             this.owner = owner;
             this.repository = repository;
+            this.pagination = null;
             load(false);
         }
     }
@@ -106,8 +104,8 @@ public class GithubCommitsFragment extends ViewFragment implements GithubCommitA
     // TODO change to GithubCommitDetailsActivity when it exists
     @Override
     public void onClickItem(final View view, final int position, final GitHubCommitItem item) {
-        startActivity(GithubCommitDetailsActivity.getStartingIntent(getActivity(),item.getAuthor().getUsername(),
-                item.getCommit().getAuthor().getEmail(),item.getCommit().getMessage(),item.getSha()));
+        startActivity(GithubCommitDetailsActivity.getStartingIntent(getActivity(), item.getAuthor().getUsername(),
+                item.getCommit().getAuthor().getEmail(), item.getCommit().getMessage(), item.getSha()));
     }
 
     @Override
@@ -211,7 +209,6 @@ public class GithubCommitsFragment extends ViewFragment implements GithubCommitA
     }
 
 
-
     private void showErrorView() {
         swipeRefreshLayout.setRefreshing(false);
         loadingFrameLayout.setVisibility(View.GONE);
@@ -228,7 +225,6 @@ public class GithubCommitsFragment extends ViewFragment implements GithubCommitA
     public TextView getNoResultsTextView() {
         return noResultsTextView;
     }
-
 
 
     public SwipeRefreshLayout getSwipeRefreshLayout() {
