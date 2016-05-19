@@ -2,11 +2,9 @@ package com.group9.eda397.ui.fragments;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -48,7 +46,7 @@ import timber.log.Timber;
  * @author palmithor
  * @since 16/04/16.
  */
-public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class TravisBuildsFragment extends ViewFragment implements TravisBuildsAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     @State protected String owner;
     @State protected String repository;
@@ -166,31 +164,7 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
         swipeRefreshLayout.setVisibility(View.VISIBLE);
     }
 
-    private void showList() {
-        swipeRefreshLayout.setRefreshing(false);
-        loadingFrameLayout.setVisibility(View.GONE);
-        noResultsTextView.setVisibility(View.GONE);
-        errorView.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
-        swipeRefreshLayout.setVisibility(View.VISIBLE);
-    }
 
-    private void showEmptyView() {
-        swipeRefreshLayout.setRefreshing(false);
-        noResultsTextView.setVisibility(View.VISIBLE);
-        loadingFrameLayout.setVisibility(View.GONE);
-        errorView.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
-        swipeRefreshLayout.setVisibility(View.VISIBLE);
-    }
-
-    private void showLoading() {
-        loadingFrameLayout.setVisibility(View.VISIBLE);
-        noResultsTextView.setVisibility(View.GONE);
-        errorView.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.GONE);
-        swipeRefreshLayout.setVisibility(View.GONE);
-    }
 
     private void setupRefreshLayout() {
         if (swipeRefreshLayout != null) {
@@ -253,5 +227,22 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
                 dialog.cancel();
             }
         });
+    }
+
+
+    public SwipeRefreshLayout getSwipeRefreshLayout() {
+        return swipeRefreshLayout;
+    }
+
+    public TextView getNoResultsTextView() {
+        return noResultsTextView;
+    }
+
+    public RecyclerView getRecyclerView() {
+        return recyclerView;
+    }
+
+    public FrameLayout getLoadingFrameLayout() {
+        return loadingFrameLayout;
     }
 }

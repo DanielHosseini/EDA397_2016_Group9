@@ -35,7 +35,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-public class GithubCommitsFragment extends BaseFragment implements GithubCommitAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class GithubCommitsFragment extends ViewFragment implements GithubCommitAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener {
     // Variables used for pagination
     private static final int visibleThreshold = 2;
     @State protected String owner;
@@ -106,7 +106,6 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
     // TODO change to GithubCommitDetailsActivity when it exists
     @Override
     public void onClickItem(final View view, final int position, final GitHubCommitItem item) {
-        //startActivity(TravisBuildDetailsActivity.getStartingIntent(getActivity(), owner, repository, item.getId(), item.getBuildNumber()));
         startActivity(GithubCommitDetailsActivity.getStartingIntent(getActivity(),item.getAuthor().getUsername(),
                 item.getCommit().getAuthor().getEmail(),item.getCommit().getMessage(),item.getSha()));
     }
@@ -150,7 +149,6 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
                         } else {
                             showList();
                             adapter.addAll(gitHubCommits, false);
-
                         }
                     } else {
                         if (getView() != null) {
@@ -186,10 +184,10 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
 
     private void setupRecyclerView() {
         this.layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        getRecyclerView().setLayoutManager(layoutManager);
+        getRecyclerView().setAdapter(adapter);
+        getRecyclerView().setItemAnimator(new DefaultItemAnimator());
+        getRecyclerView().addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
             public void onScrolled(final RecyclerView recyclerView, final int dx, final int dy) {
@@ -212,31 +210,7 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
         });
     }
 
-    private void showList() {
-        swipeRefreshLayout.setRefreshing(false);
-        loadingFrameLayout.setVisibility(View.GONE);
-        noResultsTextView.setVisibility(View.GONE);
-        errorView.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
-        swipeRefreshLayout.setVisibility(View.VISIBLE);
-    }
 
-    private void showEmptyView() {
-        swipeRefreshLayout.setRefreshing(false);
-        noResultsTextView.setVisibility(View.VISIBLE);
-        loadingFrameLayout.setVisibility(View.GONE);
-        errorView.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
-        swipeRefreshLayout.setVisibility(View.VISIBLE);
-    }
-
-    private void showLoading() {
-        loadingFrameLayout.setVisibility(View.VISIBLE);
-        noResultsTextView.setVisibility(View.GONE);
-        errorView.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.GONE);
-        swipeRefreshLayout.setVisibility(View.GONE);
-    }
 
     private void showErrorView() {
         swipeRefreshLayout.setRefreshing(false);
@@ -246,4 +220,23 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
         recyclerView.setVisibility(View.VISIBLE);
         swipeRefreshLayout.setVisibility(View.VISIBLE);
     }
+
+    public RecyclerView getRecyclerView() {
+        return recyclerView;
+    }
+
+    public TextView getNoResultsTextView() {
+        return noResultsTextView;
+    }
+
+
+
+    public SwipeRefreshLayout getSwipeRefreshLayout() {
+        return swipeRefreshLayout;
+    }
+
+    public FrameLayout getLoadingFrameLayout() {
+        return loadingFrameLayout;
+    }
+
 }
