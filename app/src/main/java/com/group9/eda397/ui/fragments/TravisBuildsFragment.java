@@ -46,9 +46,8 @@ import timber.log.Timber;
  * @author palmithor
  * @since 16/04/16.
  */
-public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class TravisBuildsFragment extends ViewFragment implements TravisBuildsAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
-    private final TravisFragmentView travisFragmentView = new TravisFragmentView(this);
     @State protected String owner;
     @State protected String repository;
     @Bind(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
@@ -121,7 +120,7 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
 
     private void load(final boolean pullToRefresh) {
         if (!pullToRefresh) {
-            travisFragmentView.showLoading();
+            showLoading();
         }
         Call<List<TravisBuild>> call = travisService.getBuilds(owner, repository);
         call.enqueue(new Callback<List<TravisBuild>>() {
@@ -132,9 +131,9 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
                         adapter.clear();
                         List<TravisBuild> travisBuilds = response.body();
                         if (travisBuilds.isEmpty()) {
-                            travisFragmentView.showEmptyView();
+                            showEmptyView();
                         } else {
-                            travisFragmentView.showList();
+                            showList();
                             adapter.addAll(travisBuilds, false);
                         }
                     } else {
@@ -165,17 +164,7 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
         swipeRefreshLayout.setVisibility(View.VISIBLE);
     }
 
-    private void showList() {
-        travisFragmentView.showList();
-    }
 
-    private void showEmptyView() {
-        travisFragmentView.showEmptyView();
-    }
-
-    private void showLoading() {
-        travisFragmentView.showLoading();
-    }
 
     private void setupRefreshLayout() {
         if (swipeRefreshLayout != null) {
@@ -240,9 +229,6 @@ public class TravisBuildsFragment extends BaseFragment implements TravisBuildsAd
         });
     }
 
-    public RelativeLayout getErrorView() {
-        return errorView;
-    }
 
     public SwipeRefreshLayout getSwipeRefreshLayout() {
         return swipeRefreshLayout;

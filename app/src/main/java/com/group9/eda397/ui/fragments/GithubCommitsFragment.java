@@ -35,10 +35,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-public class GithubCommitsFragment extends BaseFragment implements GithubCommitAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class GithubCommitsFragment extends ViewFragment implements GithubCommitAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener {
     // Variables used for pagination
     private static final int visibleThreshold = 2;
-    private final GithubFragmentView githubFragmentView = new GithubFragmentView(this);
     @State protected String owner;
     @State protected String repository;
     @Bind(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
@@ -107,7 +106,6 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
     // TODO change to GithubCommitDetailsActivity when it exists
     @Override
     public void onClickItem(final View view, final int position, final GitHubCommitItem item) {
-        //startActivity(TravisBuildDetailsActivity.getStartingIntent(getActivity(), owner, repository, item.getId(), item.getBuildNumber()));
         startActivity(GithubCommitDetailsActivity.getStartingIntent(getActivity(),item.getAuthor().getUsername(),
                 item.getCommit().getAuthor().getEmail(),item.getCommit().getMessage(),item.getSha()));
     }
@@ -119,7 +117,7 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
 
     private void load(final boolean pullToRefresh) {
         if (!pullToRefresh) {
-            githubFragmentView.showLoading();
+            showLoading();
         } else {
             pagination = null;
         }
@@ -147,11 +145,10 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
                         pagination = PaginationHeaderParser.parse(response);
                         List<GitHubCommitItem> gitHubCommits = response.body();
                         if (gitHubCommits.isEmpty()) {
-                            githubFragmentView.showEmptyView();
+                            showEmptyView();
                         } else {
-                            githubFragmentView.showList();
+                            showList();
                             adapter.addAll(gitHubCommits, false);
-
                         }
                     } else {
                         if (getView() != null) {
@@ -187,10 +184,10 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
 
     private void setupRecyclerView() {
         this.layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        getRecyclerView().setLayoutManager(layoutManager);
+        getRecyclerView().setAdapter(adapter);
+        getRecyclerView().setItemAnimator(new DefaultItemAnimator());
+        getRecyclerView().addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
             public void onScrolled(final RecyclerView recyclerView, final int dx, final int dy) {
@@ -213,17 +210,7 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
         });
     }
 
-    private void showList() {
-        githubFragmentView.showList();
-    }
 
-    private void showEmptyView() {
-        githubFragmentView.showEmptyView();
-    }
-
-    private void showLoading() {
-        githubFragmentView.showLoading();
-    }
 
     private void showErrorView() {
         swipeRefreshLayout.setRefreshing(false);
@@ -242,9 +229,7 @@ public class GithubCommitsFragment extends BaseFragment implements GithubCommitA
         return noResultsTextView;
     }
 
-    public RelativeLayout getErrorView() {
-        return errorView;
-    }
+
 
     public SwipeRefreshLayout getSwipeRefreshLayout() {
         return swipeRefreshLayout;
