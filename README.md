@@ -6,7 +6,7 @@ Travis CI status: ![alt tag](https://travis-ci.org/DanielHosseini/EDA397_2016_Gr
 ## Git Model
 The team follows the Git Flow Model which is widely known and used a lot in practice. It allows the team to work on multiple features at the same using feature branches and when it comes to releasing it has support for hot fixes. See more information on the Git Flow Model at the [Atlassian Website](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
 
-## Continious Integration
+## Continuous Integration
 The project will be setup Travis Continous Integration Server which is a CI as a service. It is free for open sourced projects and has a support for GitHub webhooks so it can trigger builds when the project is committed.
 
 ## Coding Standards
