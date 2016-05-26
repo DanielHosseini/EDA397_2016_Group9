@@ -11,5 +11,5 @@ The project will be setup Travis Continous Integration Server which is a CI as a
 
 ## Coding Standards
 The project follows the Android coding standards from Ribot which can be found on the link below.
-[Ribot - Android Guidelines](https://github.com/ribot/android-guidelines/blob/master/project_and_code_guidelines.md
+[Ribot - Android Guidelines](https://github.com/ribot/android-guidelines/blob/master/project_and_code_guidelines.md)
 
